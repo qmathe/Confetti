@@ -1,5 +1,4 @@
 //
-//  Item.swift
 //  Confetti
 //
 //  Created by Quentin Mathé on 02/06/2016.
@@ -9,16 +8,32 @@
 import Foundation
 
 
-class Item {
+class Item: Geometry {
+
+	// MARK: Geometry
+
+	var transform = Matrix4()
+	var position: Position
+	var origin: Point
+	var mesh: Mesh
+
+	// MARK: Item Identification
 
 	var identifier: String?
+	
+	// MARK: Aspects
+
 	var representedObject: Any
-	var geometry: Any
 	// For 2D, there is style.backgroundStyles and style.foregroundStyles
 	var style: Any
 	var layout: Any
+	
+	// MARK: Item Tree
+
 	var items: [Item]?
 	var isGroup: Bool { return items != nil }
-	var hidden = false
+	
+	// MARK: Options
 
+	var hidden = false
 }

@@ -1,5 +1,4 @@
 //
-//  Item.swift
 //  Confetti
 //
 //  Created by Quentin Mathé on 02/06/2016.
@@ -8,21 +7,15 @@
 
 import Foundation
 
-
-struct Matrix4 {
-
-}
-
-struct Matrix3 {
-
-}
+typealias VectorFloat = CGFloat
+typealias Matrix4 = CATransform3D
 
 struct Vector3 {
-
+	var x: VectorFloat, y: VectorFloat, z: VectorFloat
 }
 
 struct Vector2 {
-
+	var x: VectorFloat, y: VectorFloat
 }
 
 typealias Position = Vector3

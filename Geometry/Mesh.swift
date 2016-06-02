@@ -1,5 +1,4 @@
 //
-//  GeometryModel.swift
 //  Confetti
 //
 //  Created by Quentin Mathé on 02/06/2016.
@@ -10,10 +9,16 @@ import Foundation
 
 /// A collection of vertices defining a surface with associated materials or 
 /// textures.
-protocol GeometryModel {
+protocol Mesh {
 	var size: Size { get }
 }
 
-struct PlaneModel: GeometryModel {
+
+class Plane: Mesh {
+
 	var size: Size
+	
+	init(size: Size) {
+		self.size = size
+	}
 }

@@ -1,5 +1,4 @@
 //
-//  Item.swift
 //  Confetti
 //
 //  Created by Quentin Mathé on 02/06/2016.
@@ -19,12 +18,12 @@ protocol Geometry {
 	/// space to the object coordinate space. For converting geometry values 
 	/// in the reverse direction, the invert matrix can be used.
 	var transform: Matrix4 { get set }
-	/// The center (x, y, z) of the object expressed in the world coordinate 
+	/// The center (x, y, z) of the object expressed in the parent coordinate
 	/// space.
 	///
 	/// The position is derived from transform.
 	var position: Position { get set }
-	/// The top-left origin (x, y) of the object in the world coordinate space,
+	/// The top-left origin (x, y) of the object in the parent coordinate space,
 	/// but constrained to a Z plane passing through the center of the object
 	/// and tracking the rotation of the object.
 	///
@@ -46,17 +45,21 @@ protocol Geometry {
 	///
 	/// The size is derived from the model.
 	var size: Size { get set }
-	var model: GeometryModel { get set }
+	var mesh: Mesh { get set }
 }
 
 
 extension Geometry {
 
+	var position: Position {
+		get { return Position(x: transform.m14, y: transform.m24, z: transform.m34) }
+		set { transform.m14 = newValue.x; transform.m24 = newValue.y }
+	}
 	var size: Size {
-		get { return model.size }
+		get { return mesh.size }
 	}
 	var anchorPoint: Position {
-		get { return Position() }
+		get { return position }
 		set { position = newValue }
 	}
 }

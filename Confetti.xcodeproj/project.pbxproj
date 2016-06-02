@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		601292A11D00618200B8E9EA /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 601292A01D00618200B8E9EA /* SceneKit.framework */; };
 		60484F9A1D003DEB003972DA /* Confetti.h in Headers */ = {isa = PBXBuildFile; fileRef = 60484F991D003DEB003972DA /* Confetti.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60484FA11D003DEB003972DA /* Confetti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60484F961D003DEB003972DA /* Confetti.framework */; };
 		60484FA61D003DEB003972DA /* ConfettiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FA51D003DEB003972DA /* ConfettiTests.swift */; };
 		60484FB11D003E32003972DA /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FB01D003E32003972DA /* Item.swift */; };
-		60484FB71D00401D003972DA /* 3DGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FB51D00401D003972DA /* 3DGeometry.swift */; };
 		60484FB91D004071003972DA /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FB81D004071003972DA /* Geometry.swift */; };
-		60484FBC1D004E76003972DA /* GeometryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FBA1D004E76003972DA /* GeometryModel.swift */; };
+		60484FBC1D004E76003972DA /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FBA1D004E76003972DA /* Mesh.swift */; };
 		60484FBD1D004E76003972DA /* GeometryUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FBB1D004E76003972DA /* GeometryUtilities.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		601292A01D00618200B8E9EA /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		60484F961D003DEB003972DA /* Confetti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Confetti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60484F991D003DEB003972DA /* Confetti.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Confetti.h; sourceTree = "<group>"; };
 		60484F9B1D003DEB003972DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,9 +36,8 @@
 		60484FA51D003DEB003972DA /* ConfettiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiTests.swift; sourceTree = "<group>"; };
 		60484FA71D003DEB003972DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60484FB01D003E32003972DA /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Item.swift; path = Item/Item.swift; sourceTree = "<group>"; };
-		60484FB51D00401D003972DA /* 3DGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = 3DGeometry.swift; path = Geometry/3DGeometry.swift; sourceTree = "<group>"; };
 		60484FB81D004071003972DA /* Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Geometry.swift; path = Geometry/Geometry.swift; sourceTree = "<group>"; };
-		60484FBA1D004E76003972DA /* GeometryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeometryModel.swift; path = Geometry/GeometryModel.swift; sourceTree = "<group>"; };
+		60484FBA1D004E76003972DA /* Mesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Mesh.swift; path = Geometry/Mesh.swift; sourceTree = "<group>"; };
 		60484FBB1D004E76003972DA /* GeometryUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeometryUtilities.swift; path = Geometry/GeometryUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				601292A11D00618200B8E9EA /* SceneKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +61,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		601292A21D00619700B8E9EA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				601292A01D00618200B8E9EA /* SceneKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		60484F8C1D003DEB003972DA = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +76,7 @@
 				60484FB21D003E38003972DA /* Item */,
 				60484F981D003DEB003972DA /* Confetti */,
 				60484FA41D003DEB003972DA /* ConfettiTests */,
+				601292A21D00619700B8E9EA /* Frameworks */,
 				60484F971D003DEB003972DA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,9 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				60484FB81D004071003972DA /* Geometry.swift */,
-				60484FBA1D004E76003972DA /* GeometryModel.swift */,
 				60484FBB1D004E76003972DA /* GeometryUtilities.swift */,
-				60484FB51D00401D003972DA /* 3DGeometry.swift */,
+				60484FBA1D004E76003972DA /* Mesh.swift */,
 			);
 			name = Geometry;
 			sourceTree = "<group>";
@@ -226,9 +235,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				60484FB11D003E32003972DA /* Item.swift in Sources */,
-				60484FBC1D004E76003972DA /* GeometryModel.swift in Sources */,
+				60484FBC1D004E76003972DA /* Mesh.swift in Sources */,
 				60484FB91D004071003972DA /* Geometry.swift in Sources */,
-				60484FB71D00401D003972DA /* 3DGeometry.swift in Sources */,
 				60484FBD1D004E76003972DA /* GeometryUtilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -418,6 +426,7 @@
 				60484FAC1D003DEB003972DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		60484FAD1D003DEB003972DA /* Build configuration list for PBXNativeTarget "ConfettiTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +435,7 @@
 				60484FAF1D003DEB003972DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
