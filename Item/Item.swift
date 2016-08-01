@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class Item: Geometry {
 
 	// MARK: Geometry
@@ -15,7 +14,7 @@ class Item: Geometry {
 	var transform = Matrix4()
 	var position: Position
 	var origin: Point
-	var mesh: Mesh
+	var pivot = Matrix4()
 
 	// MARK: Item Identification
 
@@ -23,10 +22,21 @@ class Item: Geometry {
 	
 	// MARK: Aspects
 
-	var representedObject: Any
-	// For 2D, there is style.backgroundStyles and style.foregroundStyles
-	var style: Any
-	var layout: Any
+	var controller: Any?
+	var representedObject: Any?
+	var mesh = Plane(size: Size(x: 0, y: 0, z: 0)) as Mesh
+	/// Shorcut for mesh.materials.first.
+	var material: Material? { return mesh.materials.first }
+	/// A style drawn on top of the background style and any 2D descendant items.
+	///
+	/// A 2D item is an item whose mesh is a plane.
+	var foregroundStyle: Style?
+	/// A style drawn behind the foreground style and any 2D descendant items.
+	///
+	/// Shorcut for mesh.materials.first.style when the first mesh materials 
+	/// is a StyleMaterial, otherwise returns nil.
+	var backgroundStyle: Style? { return (mesh.materials.first as? StyleMaterial)?.style }
+	var layout: Any?
 	
 	// MARK: Item Tree
 
@@ -36,4 +46,12 @@ class Item: Geometry {
 	// MARK: Options
 
 	var hidden = false
+	
+	// MARK: Initialization
+	
+	init(frame: Rect) {
+		self.origin = frame.origin
+		self.mesh.size = Size(x: frame.extent.width, y: frame.extent.height, z: 0)
+		self.position = Position(x: frame.extent.width / 2, y: frame.extent.height / 2, z: 0)
+	}
 }

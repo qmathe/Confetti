@@ -7,17 +7,43 @@
 
 import Foundation
 
-typealias VectorFloat = CGFloat
-typealias Matrix4 = CATransform3D
+public typealias VectorFloat = CGFloat
 
-struct Vector3 {
+/// Identical to CATransform3D
+public struct Matrix4 {
+    public var m11: CGFloat = 0, m12: CGFloat = 0, m13: CGFloat = 0, m14: CGFloat = 0
+    public var m21: CGFloat = 0, m22: CGFloat = 0, m23: CGFloat = 0, m24: CGFloat = 0
+    public var m31: CGFloat = 0, m32: CGFloat = 0, m33: CGFloat = 0, m34: CGFloat = 0
+    public var m41: CGFloat = 0, m42: CGFloat = 0, m43: CGFloat = 0, m44: CGFloat = 0
+	
+	static func identity() -> Matrix4 {
+		var matrix = Matrix4()
+
+		matrix.m11 = 1
+		matrix.m22 = 1
+		matrix.m33 = 1
+		matrix.m44 = 1
+
+		return matrix
+	}
+}
+
+public struct Vector3 {
 	var x: VectorFloat, y: VectorFloat, z: VectorFloat
 }
 
-struct Vector2 {
+public struct Vector2 {
 	var x: VectorFloat, y: VectorFloat
 }
 
-typealias Position = Vector3
-typealias Point = Vector2
-typealias Size = Vector3
+public struct Extent {
+	var width: VectorFloat, height: VectorFloat
+}
+
+public struct Rect {
+	var origin: Point, extent: Extent
+}
+
+public typealias Position = Vector3
+public typealias Point = Vector2
+public typealias Size = Vector3

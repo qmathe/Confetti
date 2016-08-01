@@ -43,8 +43,16 @@ protocol Geometry {
 	/// The dimensions (x, y, z) of the object expressed in the world coordinate 
 	/// space.
 	///
-	/// The size is derived from the model.
+	/// The size is derived from the mesh.
 	var size: Size { get set }
+	/// The dimensions (x, y) of the object in the parent coordinate space,
+	/// but constrained to a Z plane passing through the center of the object
+	/// and tracking the rotation of the object.
+	///
+	/// This is usually useless when working with 3D objects which aren't planes.
+	///
+	/// The extent is derived from origin and size.
+	var extent: Extent { get set }
 	var mesh: Mesh { get set }
 }
 
@@ -57,8 +65,15 @@ extension Geometry {
 	}
 	var size: Size {
 		get { return mesh.size }
+		set { mesh.size = newValue }
 	}
-	var anchorPoint: Position {
+	// TODO: Implement converting between world and parent coordinate spaces as 
+	// documented in Geometry.extent.
+	var extent: Extent {
+		get { return Extent(width: mesh.size.x, height: mesh.size.y) }
+		set { size = Size(x: newValue.width, y: newValue.height, z: size.z) }
+	}
+	var anchor: Position {
 		get { return position }
 		set { position = newValue }
 	}

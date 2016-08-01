@@ -15,6 +15,10 @@
 		60484FB91D004071003972DA /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FB81D004071003972DA /* Geometry.swift */; };
 		60484FBC1D004E76003972DA /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FBA1D004E76003972DA /* Mesh.swift */; };
 		60484FBD1D004E76003972DA /* GeometryUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FBB1D004E76003972DA /* GeometryUtilities.swift */; };
+		609183D51D1C1DBF00AE4262 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609183D41D1C1DBF00AE4262 /* QuartzCore.framework */; };
+		609183D71D1C1DCB00AE4262 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609183D61D1C1DCB00AE4262 /* Foundation.framework */; };
+		60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DA1D1C1488007B7A7B /* Style.swift */; };
+		60A5D4DE1D1C14F8007B7A7B /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DD1D1C14F8007B7A7B /* Material.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +43,10 @@
 		60484FB81D004071003972DA /* Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Geometry.swift; path = Geometry/Geometry.swift; sourceTree = "<group>"; };
 		60484FBA1D004E76003972DA /* Mesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Mesh.swift; path = Geometry/Mesh.swift; sourceTree = "<group>"; };
 		60484FBB1D004E76003972DA /* GeometryUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeometryUtilities.swift; path = Geometry/GeometryUtilities.swift; sourceTree = "<group>"; };
+		609183D41D1C1DBF00AE4262 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		609183D61D1C1DCB00AE4262 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		60A5D4DA1D1C1488007B7A7B /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = Style/Style.swift; sourceTree = "<group>"; };
+		60A5D4DD1D1C14F8007B7A7B /* Material.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Material.swift; path = Material/Material.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +54,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				609183D71D1C1DCB00AE4262 /* Foundation.framework in Frameworks */,
+				609183D51D1C1DBF00AE4262 /* QuartzCore.framework in Frameworks */,
 				601292A11D00618200B8E9EA /* SceneKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,6 +74,8 @@
 		601292A21D00619700B8E9EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				609183D61D1C1DCB00AE4262 /* Foundation.framework */,
+				609183D41D1C1DBF00AE4262 /* QuartzCore.framework */,
 				601292A01D00618200B8E9EA /* SceneKit.framework */,
 			);
 			name = Frameworks;
@@ -74,6 +86,8 @@
 			children = (
 				60484FB31D00400C003972DA /* Geometry */,
 				60484FB21D003E38003972DA /* Item */,
+				60A5D4D91D1C147D007B7A7B /* Style */,
+				60A5D4DC1D1C14E1007B7A7B /* Material */,
 				60484F981D003DEB003972DA /* Confetti */,
 				60484FA41D003DEB003972DA /* ConfettiTests */,
 				601292A21D00619700B8E9EA /* Frameworks */,
@@ -124,6 +138,22 @@
 				60484FBA1D004E76003972DA /* Mesh.swift */,
 			);
 			name = Geometry;
+			sourceTree = "<group>";
+		};
+		60A5D4D91D1C147D007B7A7B /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				60A5D4DA1D1C1488007B7A7B /* Style.swift */,
+			);
+			name = Style;
+			sourceTree = "<group>";
+		};
+		60A5D4DC1D1C14E1007B7A7B /* Material */ = {
+			isa = PBXGroup;
+			children = (
+				60A5D4DD1D1C14F8007B7A7B /* Material.swift */,
+			);
+			name = Material;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,6 +268,8 @@
 				60484FBC1D004E76003972DA /* Mesh.swift in Sources */,
 				60484FB91D004071003972DA /* Geometry.swift in Sources */,
 				60484FBD1D004E76003972DA /* GeometryUtilities.swift in Sources */,
+				60A5D4DE1D1C14F8007B7A7B /* Material.swift in Sources */,
+				60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
