@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6003FD091D4F584D00EEF814 /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6003FD081D4F584D00EEF814 /* MetalRenderer.swift */; };
+		6003FD0B1D4F587D00EEF814 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003FD0A1D4F587D00EEF814 /* MetalKit.framework */; };
+		6003FD0D1D4F5A5000EEF814 /* MetalNSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6003FD0C1D4F5A5000EEF814 /* MetalNSView.swift */; };
+		6003FD0F1D4F5F8D00EEF814 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6003FD0E1D4F5F8D00EEF814 /* Shaders.metal */; };
+		6003FD171D4F6CB200EEF814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6003FD161D4F6CB200EEF814 /* AppDelegate.swift */; };
+		6003FD191D4F6CB200EEF814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6003FD181D4F6CB200EEF814 /* ViewController.swift */; };
+		6003FD1B1D4F6CB200EEF814 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003FD1A1D4F6CB200EEF814 /* Assets.xcassets */; };
+		6003FD1E1D4F6CB200EEF814 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6003FD1C1D4F6CB200EEF814 /* Main.storyboard */; };
+		6003FD231D4F6CC200EEF814 /* Confetti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60484F961D003DEB003972DA /* Confetti.framework */; };
 		601292A11D00618200B8E9EA /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 601292A01D00618200B8E9EA /* SceneKit.framework */; };
 		60484F9A1D003DEB003972DA /* Confetti.h in Headers */ = {isa = PBXBuildFile; fileRef = 60484F991D003DEB003972DA /* Confetti.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60484FA11D003DEB003972DA /* Confetti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60484F961D003DEB003972DA /* Confetti.framework */; };
@@ -32,6 +41,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6003FD081D4F584D00EEF814 /* MetalRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetalRenderer.swift; path = Renderer/MetalRenderer.swift; sourceTree = SOURCE_ROOT; };
+		6003FD0A1D4F587D00EEF814 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		6003FD0C1D4F5A5000EEF814 /* MetalNSView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetalNSView.swift; path = Renderer/MetalNSView.swift; sourceTree = SOURCE_ROOT; };
+		6003FD0E1D4F5F8D00EEF814 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Shaders.metal; path = Renderer/Shaders.metal; sourceTree = SOURCE_ROOT; };
+		6003FD141D4F6CB200EEF814 /* UI Builder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UI Builder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6003FD161D4F6CB200EEF814 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6003FD181D4F6CB200EEF814 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6003FD1A1D4F6CB200EEF814 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6003FD1D1D4F6CB200EEF814 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6003FD1F1D4F6CB200EEF814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		601292A01D00618200B8E9EA /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		60484F961D003DEB003972DA /* Confetti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Confetti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60484F991D003DEB003972DA /* Confetti.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Confetti.h; sourceTree = "<group>"; };
@@ -50,10 +69,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6003FD111D4F6CB200EEF814 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6003FD231D4F6CC200EEF814 /* Confetti.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		60484F921D003DEB003972DA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6003FD0B1D4F587D00EEF814 /* MetalKit.framework in Frameworks */,
 				609183D71D1C1DCB00AE4262 /* Foundation.framework in Frameworks */,
 				609183D51D1C1DBF00AE4262 /* QuartzCore.framework in Frameworks */,
 				601292A11D00618200B8E9EA /* SceneKit.framework in Frameworks */,
@@ -71,9 +99,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6003FD071D4F582600EEF814 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				6003FD081D4F584D00EEF814 /* MetalRenderer.swift */,
+				6003FD0C1D4F5A5000EEF814 /* MetalNSView.swift */,
+				6003FD0E1D4F5F8D00EEF814 /* Shaders.metal */,
+			);
+			name = Renderer;
+			path = Confetti;
+			sourceTree = "<group>";
+		};
+		6003FD151D4F6CB200EEF814 /* UI Builder */ = {
+			isa = PBXGroup;
+			children = (
+				6003FD161D4F6CB200EEF814 /* AppDelegate.swift */,
+				6003FD181D4F6CB200EEF814 /* ViewController.swift */,
+				6003FD1A1D4F6CB200EEF814 /* Assets.xcassets */,
+				6003FD1C1D4F6CB200EEF814 /* Main.storyboard */,
+				6003FD1F1D4F6CB200EEF814 /* Info.plist */,
+			);
+			path = "UI Builder";
+			sourceTree = "<group>";
+		};
 		601292A21D00619700B8E9EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6003FD0A1D4F587D00EEF814 /* MetalKit.framework */,
 				609183D61D1C1DCB00AE4262 /* Foundation.framework */,
 				609183D41D1C1DBF00AE4262 /* QuartzCore.framework */,
 				601292A01D00618200B8E9EA /* SceneKit.framework */,
@@ -88,8 +140,10 @@
 				60484FB21D003E38003972DA /* Item */,
 				60A5D4D91D1C147D007B7A7B /* Style */,
 				60A5D4DC1D1C14E1007B7A7B /* Material */,
+				6003FD071D4F582600EEF814 /* Renderer */,
 				60484F981D003DEB003972DA /* Confetti */,
 				60484FA41D003DEB003972DA /* ConfettiTests */,
+				6003FD151D4F6CB200EEF814 /* UI Builder */,
 				601292A21D00619700B8E9EA /* Frameworks */,
 				60484F971D003DEB003972DA /* Products */,
 			);
@@ -100,6 +154,7 @@
 			children = (
 				60484F961D003DEB003972DA /* Confetti.framework */,
 				60484FA01D003DEB003972DA /* ConfettiTests.xctest */,
+				6003FD141D4F6CB200EEF814 /* UI Builder.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,6 +225,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		6003FD131D4F6CB200EEF814 /* UI Builder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6003FD201D4F6CB200EEF814 /* Build configuration list for PBXNativeTarget "UI Builder" */;
+			buildPhases = (
+				6003FD101D4F6CB200EEF814 /* Sources */,
+				6003FD111D4F6CB200EEF814 /* Frameworks */,
+				6003FD121D4F6CB200EEF814 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "UI Builder";
+			productName = "UI Builder";
+			productReference = 6003FD141D4F6CB200EEF814 /* UI Builder.app */;
+			productType = "com.apple.product-type.application";
+		};
 		60484F951D003DEB003972DA /* Confetti */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 60484FAA1D003DEB003972DA /* Build configuration list for PBXNativeTarget "Confetti" */;
@@ -212,10 +284,13 @@
 		60484F8D1D003DEB003972DA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Quentin Mathé";
 				TargetAttributes = {
+					6003FD131D4F6CB200EEF814 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 					60484F951D003DEB003972DA = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
@@ -230,6 +305,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 60484F8C1D003DEB003972DA;
 			productRefGroup = 60484F971D003DEB003972DA /* Products */;
@@ -238,11 +314,21 @@
 			targets = (
 				60484F951D003DEB003972DA /* Confetti */,
 				60484F9F1D003DEB003972DA /* ConfettiTests */,
+				6003FD131D4F6CB200EEF814 /* UI Builder */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6003FD121D4F6CB200EEF814 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6003FD1B1D4F6CB200EEF814 /* Assets.xcassets in Resources */,
+				6003FD1E1D4F6CB200EEF814 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		60484F941D003DEB003972DA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -260,14 +346,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6003FD101D4F6CB200EEF814 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6003FD191D4F6CB200EEF814 /* ViewController.swift in Sources */,
+				6003FD171D4F6CB200EEF814 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		60484F911D003DEB003972DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				60484FB11D003E32003972DA /* Item.swift in Sources */,
 				60484FBC1D004E76003972DA /* Mesh.swift in Sources */,
+				6003FD091D4F584D00EEF814 /* MetalRenderer.swift in Sources */,
+				6003FD0D1D4F5A5000EEF814 /* MetalNSView.swift in Sources */,
 				60484FB91D004071003972DA /* Geometry.swift in Sources */,
 				60484FBD1D004E76003972DA /* GeometryUtilities.swift in Sources */,
+				6003FD0F1D4F5F8D00EEF814 /* Shaders.metal in Sources */,
 				60A5D4DE1D1C14F8007B7A7B /* Material.swift in Sources */,
 				60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */,
 			);
@@ -291,7 +389,44 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		6003FD1C1D4F6CB200EEF814 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6003FD1D1D4F6CB200EEF814 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		6003FD211D4F6CB200EEF814 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "UI Builder/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.confetti.UIBuilder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6003FD221D4F6CB200EEF814 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "UI Builder/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.confetti.UIBuilder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		60484FA81D003DEB003972DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -329,7 +464,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -370,7 +505,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -442,6 +577,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6003FD201D4F6CB200EEF814 /* Build configuration list for PBXNativeTarget "UI Builder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6003FD211D4F6CB200EEF814 /* Debug */,
+				6003FD221D4F6CB200EEF814 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		60484F901D003DEB003972DA /* Build configuration list for PBXProject "Confetti" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
