@@ -5,12 +5,19 @@
 	License:  MIT
  */
 
-
 import Foundation
 
-class Button: Item {
+public class Button: Item {
 
-	internal override func render(renderer: Renderer) {
+	public var text = ""
+	
+	// TODO: Make frame optional once we support sizeToFit()
+	public init(frame: Rect, text: String = "") {
+		super.init(frame: frame)
+		self.text = text
+	}
+
+	public override func render(renderer: Renderer) {
 		renderer.renderButton(self)
 	}
 }

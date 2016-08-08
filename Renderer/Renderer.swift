@@ -8,19 +8,19 @@
 
 import Foundation
 
-protocol Rendered {
+internal protocol Rendered {
 	func render(renderer: Renderer)
 }
 
-protocol RenderedNode {
+public protocol RenderedNode {
 
 }
 
-protocol RendererDestination {
+public protocol RendererDestination {
 
 }
 
-protocol Renderer {
+public protocol Renderer {
 	init(destination: RendererDestination?)
 	func renderItem(item: Item) -> RenderedNode
 	func renderButton(item: Button) -> RenderedNode

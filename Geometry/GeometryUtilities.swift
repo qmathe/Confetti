@@ -29,19 +29,29 @@ public struct Matrix4 {
 }
 
 public struct Vector3 {
-	var x: VectorFloat, y: VectorFloat, z: VectorFloat
+	public var x: VectorFloat, y: VectorFloat, z: VectorFloat
 }
 
 public struct Vector2 {
-	var x: VectorFloat, y: VectorFloat
+	public var x: VectorFloat, y: VectorFloat
 }
 
 public struct Extent {
-	var width: VectorFloat, height: VectorFloat
+	public var width: VectorFloat, height: VectorFloat
 }
 
 public struct Rect {
-	var origin: Point, extent: Extent
+	public var origin: Point, extent: Extent
+	
+	public init(origin: Point, extent: Extent) {
+		self.origin = origin
+		self.extent = extent
+	}
+
+	public init(x: VectorFloat, y: VectorFloat, width: VectorFloat, height: VectorFloat) {
+		origin = Point(x: y, y: y)
+		extent = Extent(width: width, height: height)
+	}
 }
 
 public typealias Position = Vector3

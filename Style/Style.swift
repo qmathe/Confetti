@@ -7,6 +7,6 @@
 
 import Foundation
 
-class Style {
+public class Style {
 
 }

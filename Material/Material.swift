@@ -7,14 +7,14 @@
 
 import Foundation
 
-class Material {
+public class Material {
 
 }
 
-class StyleMaterial: Material {
-	var style: Style
+public class StyleMaterial: Material {
+	public var style: Style
 	
-	init(style: Style) {
+	public init(style: Style) {
 		self.style = style
 	}
 }

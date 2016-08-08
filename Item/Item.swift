@@ -7,55 +7,55 @@
 
 import Foundation
 
-class Item: Hashable, Geometry, Rendered {
+public class Item: Hashable, Geometry, Rendered {
 
 	// MARK: Geometry
 
-	var transform = Matrix4()
-	var position: Position
-	var origin: Point
-	var pivot = Matrix4()
+	public var transform = Matrix4()
+	public var position: Position
+	public var origin: Point
+	public var pivot = Matrix4()
 
 	// MARK: Item Identification
 
-	var identifier: String?
+	public var identifier: String?
 	
 	// MARK: Aspects
 
-	var controller: Any?
-	var representedObject: Any?
-	var mesh = Plane(size: Size(x: 0, y: 0, z: 0)) as Mesh
+	public var controller: Any?
+	public var representedObject: Any?
+	public var mesh = Plane(size: Size(x: 0, y: 0, z: 0)) as Mesh
 	/// Shorcut for mesh.materials.first.
-	var material: Material? { return mesh.materials.first }
+	public var material: Material? { return mesh.materials.first }
 	/// A style drawn on top of the background style and any 2D descendant items.
 	///
 	/// A 2D item is an item whose mesh is a plane.
-	var foregroundStyle: Style?
+	public var foregroundStyle: Style?
 	/// A style drawn behind the foreground style and any 2D descendant items.
 	///
 	/// Shorcut for mesh.materials.first.style when the first mesh materials 
 	/// is a StyleMaterial, otherwise returns nil.
-	var backgroundStyle: Style? { return (mesh.materials.first as? StyleMaterial)?.style }
-	var layout: Any?
+	public var backgroundStyle: Style? { return (mesh.materials.first as? StyleMaterial)?.style }
+	public var layout: Any?
 	
 	// MARK: Item Tree
 
-	var parent: Item?
-	var items: [Item]?
-	var isGroup: Bool { return items != nil }
-	var isRoot: Bool { return parent == nil }
-	var isFrontmost: Bool { return parent?.items?.first == self }
+	public var parent: Item?
+	public var items: [Item]?
+	public var isGroup: Bool { return items != nil }
+	public var isRoot: Bool { return parent == nil }
+	public var isFrontmost: Bool { return parent?.items?.first == self }
 	
 	// MARK: Options
 
-	var hidden = false
-	var hashValue: Int {
+	public var hidden = false
+	public var hashValue: Int {
 		return Int()
 	}
 	
 	// MARK: Initialization
 	
-	init(frame: Rect) {
+	public init(frame: Rect) {
 		self.origin = frame.origin
 		self.mesh.size = Size(x: frame.extent.width, y: frame.extent.height, z: 0)
 		self.position = Position(x: frame.extent.width / 2, y: frame.extent.height / 2, z: 0)
@@ -63,11 +63,11 @@ class Item: Hashable, Geometry, Rendered {
 	
 	// MARK: Renderer Integration
 
-	func render(renderer: Renderer) {
+	public func render(renderer: Renderer) {
 		renderer.renderItem(self)
 	}
 }
 
-func == (lhs: Item, rhs: Item) -> Bool {
+public func == (lhs: Item, rhs: Item) -> Bool {
     return lhs === rhs
 }

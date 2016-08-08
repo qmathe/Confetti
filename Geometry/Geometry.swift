@@ -8,7 +8,7 @@
 import Foundation
 
 
-protocol Geometry {
+public protocol Geometry {
 
 	/// The coordinate space transformation to obtain position, 
 	/// orientation/rotation, and scale of an object from its parent coordinate
@@ -58,26 +58,26 @@ protocol Geometry {
 }
 
 
-extension Geometry {
+public extension Geometry {
 
-	var position: Position {
+	public var position: Position {
 		get { return Position(x: transform.m14, y: transform.m24, z: transform.m34) }
 		set { transform.m14 = newValue.x; transform.m24 = newValue.y }
 	}
-	var size: Size {
+	public var size: Size {
 		get { return mesh.size }
 		set { mesh.size = newValue }
 	}
 	// TODO: Implement converting between world and parent coordinate spaces as 
 	// documented in Geometry.extent.
-	var extent: Extent {
+	public var extent: Extent {
 		get { return Extent(width: mesh.size.x, height: mesh.size.y) }
 		set { size = Size(x: newValue.width, y: newValue.height, z: size.z) }
 	}
-	var frame: Rect {
+	public var frame: Rect {
 		get { return Rect(origin: origin, extent: extent) }
 	}
-	var anchor: Position {
+	public var anchor: Position {
 		get { return position }
 		set { position = newValue }
 	}

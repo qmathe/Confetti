@@ -11,24 +11,24 @@ import Foundation
 /**
  * To generate a AppKit UI, do item.render(AppKitRenderer()).
  */
-class AppKitRenderer: Renderer {
+public class AppKitRenderer: Renderer {
 
-	var destination: NSView?
-	var windows = [Item: NSWindow]()
-	var views = [Item: NSView]()
+	public let destination: NSView?
+	private var windows = [Item: NSWindow]()
+	private var views = [Item: NSView]()
 	
-	required init(destination: RendererDestination?) {
+	public required init(destination: RendererDestination?) {
 		guard let destination = destination as? NSView else {
 			fatalError("Unsupported destination type")
 		}
 		self.destination = destination
 	}
 	
-	func viewForItem(item: Item, create: (() -> NSView)) -> NSView {
+	private func viewForItem(item: Item, create: (() -> NSView)) -> NSView {
 		return nodeForItem(item, in: &views, create: create)
 	}
 	
-	func nodeForItem<K, V>(item: K, inout in nodes: [K: V], create: (() -> V)) -> V {
+	private func nodeForItem<K, V>(item: K, inout in nodes: [K: V], create: (() -> V)) -> V {
 		if let node = nodes[item] {
 			return node
 		}
@@ -39,7 +39,7 @@ class AppKitRenderer: Renderer {
 		}
 	}
 	
-	func discardUnusedNodesFor(startItem: Item) {
+	private func discardUnusedNodesFor(startItem: Item) {
 		let viewSet = Set(views.values)
 		
 		for (item, view) in views {
@@ -61,7 +61,7 @@ class AppKitRenderer: Renderer {
 	}
 
 	/// This method is called to initiate the rendering, but never recursively.
-	func renderItem(item: Item) -> RenderedNode {
+	public func renderItem(item: Item) -> RenderedNode {
 
 		if destination == nil && item.isRoot {
 			return renderRoot(item)
@@ -110,15 +110,18 @@ class AppKitRenderer: Renderer {
 		return window
 	}
 
-	func renderButton(item: Button) -> RenderedNode {
-		let button = viewForItem(item) { NSButton(frame: NSRectFromFrame(item.frame)) }
+	public func renderButton(item: Button) -> RenderedNode {
+		let button = viewForItem(item) { NSButton(frame: NSRectFromFrame(item.frame)) } as! NSButton
 		
+		button.title = item.text
+
 		return button
 	}
 	
-	func renderLabel(item: Label) -> RenderedNode {
+	public func renderLabel(item: Label) -> RenderedNode {
 		let label = viewForItem(item) { NSTextField(frame: NSRectFromFrame(item.frame)) } as! NSTextField
 		
+		label.stringValue = item.text
 		label.bezeled = false
 		label.drawsBackground = false
 		label.editable = false

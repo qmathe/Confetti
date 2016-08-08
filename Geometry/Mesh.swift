@@ -9,18 +9,18 @@ import Foundation
 
 /// A collection of vertices defining a surface with associated materials or 
 /// textures.
-protocol Mesh {
+public protocol Mesh {
 	var size: Size { get set }
 	var materials: [Material] { get set }
 }
 
 
-class Plane: Mesh {
+public class Plane: Mesh {
 
-	var size: Size
-	var materials = [Material]()
+	public var size: Size
+	public var materials = [Material]()
 
-	init(size: Size) {
+	public init(size: Size) {
 		self.size = size
 	}
 }

@@ -7,9 +7,17 @@
 
 import Foundation
 
-class Label: Item {
+public class Label: Item {
 
-	internal override func render(renderer: Renderer) {
+	public var text = ""
+	
+	// TODO: Make frame optional once we support sizeToFit()
+	public init(frame: Rect, text: String = "") {
+		super.init(frame: frame)
+		self.text = text
+	}
+
+	public override func render(renderer: Renderer) {
 		renderer.renderLabel(self)
 	}
 }
