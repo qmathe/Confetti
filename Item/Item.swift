@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Item: Geometry {
+class Item: Hashable, Geometry, Rendered {
 
 	// MARK: Geometry
 
@@ -40,12 +40,18 @@ class Item: Geometry {
 	
 	// MARK: Item Tree
 
+	var parent: Item?
 	var items: [Item]?
 	var isGroup: Bool { return items != nil }
+	var isRoot: Bool { return parent == nil }
+	var isFrontmost: Bool { return parent?.items?.first == self }
 	
 	// MARK: Options
 
 	var hidden = false
+	var hashValue: Int {
+		return Int()
+	}
 	
 	// MARK: Initialization
 	
@@ -54,4 +60,14 @@ class Item: Geometry {
 		self.mesh.size = Size(x: frame.extent.width, y: frame.extent.height, z: 0)
 		self.position = Position(x: frame.extent.width / 2, y: frame.extent.height / 2, z: 0)
 	}
+	
+	// MARK: Renderer Integration
+
+	func render(renderer: Renderer) {
+		renderer.renderItem(self)
+	}
+}
+
+func == (lhs: Item, rhs: Item) -> Bool {
+    return lhs === rhs
 }

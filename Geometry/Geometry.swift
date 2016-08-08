@@ -53,6 +53,7 @@ protocol Geometry {
 	///
 	/// The extent is derived from origin and size.
 	var extent: Extent { get set }
+	var frame: Rect { get }
 	var mesh: Mesh { get set }
 }
 
@@ -72,6 +73,9 @@ extension Geometry {
 	var extent: Extent {
 		get { return Extent(width: mesh.size.x, height: mesh.size.y) }
 		set { size = Size(x: newValue.width, y: newValue.height, z: size.z) }
+	}
+	var frame: Rect {
+		get { return Rect(origin: origin, extent: extent) }
 	}
 	var anchor: Position {
 		get { return position }

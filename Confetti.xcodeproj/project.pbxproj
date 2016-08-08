@@ -16,6 +16,8 @@
 		6003FD1B1D4F6CB200EEF814 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003FD1A1D4F6CB200EEF814 /* Assets.xcassets */; };
 		6003FD1E1D4F6CB200EEF814 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6003FD1C1D4F6CB200EEF814 /* Main.storyboard */; };
 		6003FD231D4F6CC200EEF814 /* Confetti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60484F961D003DEB003972DA /* Confetti.framework */; };
+		600E8C521D58BD1400AFD10E /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600E8C501D58BD1400AFD10E /* Button.swift */; };
+		600E8C531D58BD1400AFD10E /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600E8C511D58BD1400AFD10E /* Label.swift */; };
 		601292A11D00618200B8E9EA /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 601292A01D00618200B8E9EA /* SceneKit.framework */; };
 		60484F9A1D003DEB003972DA /* Confetti.h in Headers */ = {isa = PBXBuildFile; fileRef = 60484F991D003DEB003972DA /* Confetti.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60484FA11D003DEB003972DA /* Confetti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60484F961D003DEB003972DA /* Confetti.framework */; };
@@ -24,6 +26,8 @@
 		60484FB91D004071003972DA /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FB81D004071003972DA /* Geometry.swift */; };
 		60484FBC1D004E76003972DA /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FBA1D004E76003972DA /* Mesh.swift */; };
 		60484FBD1D004E76003972DA /* GeometryUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FBB1D004E76003972DA /* GeometryUtilities.swift */; };
+		6065F4AA1D56A9A60063187A /* AppKitRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6065F4A91D56A9A60063187A /* AppKitRenderer.swift */; };
+		6065F4AC1D56B4260063187A /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6065F4AB1D56B4260063187A /* Renderer.swift */; };
 		609183D51D1C1DBF00AE4262 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609183D41D1C1DBF00AE4262 /* QuartzCore.framework */; };
 		609183D71D1C1DCB00AE4262 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609183D61D1C1DCB00AE4262 /* Foundation.framework */; };
 		60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DA1D1C1488007B7A7B /* Style.swift */; };
@@ -51,6 +55,8 @@
 		6003FD1A1D4F6CB200EEF814 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6003FD1D1D4F6CB200EEF814 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6003FD1F1D4F6CB200EEF814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		600E8C501D58BD1400AFD10E /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Button.swift; path = Item/Button.swift; sourceTree = "<group>"; };
+		600E8C511D58BD1400AFD10E /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Label.swift; path = Item/Label.swift; sourceTree = "<group>"; };
 		601292A01D00618200B8E9EA /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		60484F961D003DEB003972DA /* Confetti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Confetti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60484F991D003DEB003972DA /* Confetti.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Confetti.h; sourceTree = "<group>"; };
@@ -62,6 +68,8 @@
 		60484FB81D004071003972DA /* Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Geometry.swift; path = Geometry/Geometry.swift; sourceTree = "<group>"; };
 		60484FBA1D004E76003972DA /* Mesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Mesh.swift; path = Geometry/Mesh.swift; sourceTree = "<group>"; };
 		60484FBB1D004E76003972DA /* GeometryUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeometryUtilities.swift; path = Geometry/GeometryUtilities.swift; sourceTree = "<group>"; };
+		6065F4A91D56A9A60063187A /* AppKitRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppKitRenderer.swift; path = Renderer/AppKitRenderer.swift; sourceTree = SOURCE_ROOT; };
+		6065F4AB1D56B4260063187A /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Renderer.swift; path = Renderer/Renderer.swift; sourceTree = SOURCE_ROOT; };
 		609183D41D1C1DBF00AE4262 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		609183D61D1C1DCB00AE4262 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		60A5D4DA1D1C1488007B7A7B /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = Style/Style.swift; sourceTree = "<group>"; };
@@ -102,6 +110,8 @@
 		6003FD071D4F582600EEF814 /* Renderer */ = {
 			isa = PBXGroup;
 			children = (
+				6065F4AB1D56B4260063187A /* Renderer.swift */,
+				6065F4A91D56A9A60063187A /* AppKitRenderer.swift */,
 				6003FD081D4F584D00EEF814 /* MetalRenderer.swift */,
 				6003FD0C1D4F5A5000EEF814 /* MetalNSView.swift */,
 				6003FD0E1D4F5F8D00EEF814 /* Shaders.metal */,
@@ -181,6 +191,8 @@
 			isa = PBXGroup;
 			children = (
 				60484FB01D003E32003972DA /* Item.swift */,
+				600E8C501D58BD1400AFD10E /* Button.swift */,
+				600E8C511D58BD1400AFD10E /* Label.swift */,
 			);
 			name = Item;
 			sourceTree = "<group>";
@@ -363,11 +375,15 @@
 				60484FBC1D004E76003972DA /* Mesh.swift in Sources */,
 				6003FD091D4F584D00EEF814 /* MetalRenderer.swift in Sources */,
 				6003FD0D1D4F5A5000EEF814 /* MetalNSView.swift in Sources */,
+				6065F4AC1D56B4260063187A /* Renderer.swift in Sources */,
+				600E8C531D58BD1400AFD10E /* Label.swift in Sources */,
 				60484FB91D004071003972DA /* Geometry.swift in Sources */,
 				60484FBD1D004E76003972DA /* GeometryUtilities.swift in Sources */,
+				600E8C521D58BD1400AFD10E /* Button.swift in Sources */,
 				6003FD0F1D4F5F8D00EEF814 /* Shaders.metal in Sources */,
 				60A5D4DE1D1C14F8007B7A7B /* Material.swift in Sources */,
 				60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */,
+				6065F4AA1D56A9A60063187A /* AppKitRenderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,6 +600,7 @@
 				6003FD221D4F6CB200EEF814 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		60484F901D003DEB003972DA /* Build configuration list for PBXProject "Confetti" */ = {
 			isa = XCConfigurationList;
