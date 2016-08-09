@@ -15,7 +15,7 @@ public class AppKitRenderer: Renderer {
 
 	public let destination: NSView?
 	private var windows = [Item: NSWindow]()
-	private var views = [Item: NSView]()
+	internal var views = [Item: NSView]()
 	
 	public required init(destination: RendererDestination?) {
 		guard let destination = destination as? NSView else {
@@ -50,7 +50,9 @@ public class AppKitRenderer: Renderer {
 			}
 
 			if views[parent] == nil {
-				view.removeFromSuperview()
+				if view != destination {
+					view.removeFromSuperview()
+				}
 				views.removeValueForKey(item)
 			}
 			else {
@@ -62,8 +64,11 @@ public class AppKitRenderer: Renderer {
 
 	/// This method is called to initiate the rendering, but never recursively.
 	public func renderItem(item: Item) -> RenderedNode {
+		defer {
+			discardUnusedNodesFor(item)
+		}
 
-		if destination == nil && item.isRoot {
+		if item.isRoot {
 			return renderRoot(item)
 		}
 		else if item.parent?.isRoot == true {
@@ -72,24 +77,24 @@ public class AppKitRenderer: Renderer {
 		else {
 			return renderView(item)
 		}
-		
-		discardUnusedNodesFor(item)
 	}
 	
 	private func renderRoot(item: Item) -> RenderedNode {
 		if let destination = destination {
+		
+			views[item] = destination
 			// Don't resize or move the destination
 			destination.subviews = item.items?.map { $0.render(self) as! NSView } ?? []
+
 			return destination
 		}
 		else {
-			item.items?.map { renderWindow($0) }
-			return AppKitRootNode()
+			return AppKitRootNode(windows: item.items?.map { renderWindow($0) as! NSWindow } ?? [])
 		}
 	}
 
 	private func renderView(item: Item) -> RenderedNode {
-		let view = viewForItem(item) { NSView(frame: NSRectFromFrame(item.frame)) }
+		let view = viewForItem(item) { NSView(frame: CGRectFromRect(item.frame)) }
 
 		view.subviews = item.items?.map { $0.render(self) as! NSView } ?? []
 
@@ -99,8 +104,8 @@ public class AppKitRenderer: Renderer {
 	private func renderWindow(item: Item) -> RenderedNode {
 		let window = nodeForItem(item, in: &windows) { NSWindow() }
 		
-		window.setFrame(window.frameRectForContentRect(NSRectFromFrame(item.frame)), display: false)
-		window.contentView = renderView(item) as! NSView
+		window.setFrame(window.frameRectForContentRect(CGRectFromRect(item.frame)), display: false)
+		window.contentView = (renderView(item) as! NSView)
 		
 		if item.isFrontmost {
 			window.makeKeyWindow()
@@ -111,7 +116,7 @@ public class AppKitRenderer: Renderer {
 	}
 
 	public func renderButton(item: Button) -> RenderedNode {
-		let button = viewForItem(item) { NSButton(frame: NSRectFromFrame(item.frame)) } as! NSButton
+		let button = viewForItem(item) { NSButton(frame: CGRectFromRect(item.frame)) } as! NSButton
 		
 		button.title = item.text
 
@@ -119,7 +124,7 @@ public class AppKitRenderer: Renderer {
 	}
 	
 	public func renderLabel(item: Label) -> RenderedNode {
-		let label = viewForItem(item) { NSTextField(frame: NSRectFromFrame(item.frame)) } as! NSTextField
+		let label = viewForItem(item) { NSTextField(frame: CGRectFromRect(item.frame)) } as! NSTextField
 		
 		label.stringValue = item.text
 		label.bezeled = false
@@ -134,13 +139,24 @@ public class AppKitRenderer: Renderer {
 
 // MARK: - Utilities
 
-private func NSRectFromFrame(frame: Rect) -> CGRect {
-	return NSRect(x: frame.origin.x, y: frame.origin.y, width: frame.extent.width, height: frame.extent.height)
+internal func RectFromCGRect(rect: CGRect) -> Rect {
+	return Rect(x: rect.origin.x, y: rect.origin.y, width: rect.size.width, height: rect.size.height)
+}
+
+internal func CGRectFromRect(rect: Rect) -> CGRect {
+	return CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.extent.width, height: rect.extent.height)
 }
 
 // MARK: - Rendered Nodes
 
 extension NSView: RendererDestination, RenderedNode { }
 extension NSWindow: RenderedNode { }
+
 /// A dummy node returned when the rendered item is the root item.
-class AppKitRootNode: RenderedNode { }
+class AppKitRootNode: RenderedNode {
+	let windows: [NSWindow]
+	
+	init(windows: [NSWindow]) {
+		self.windows = windows
+	}
+}

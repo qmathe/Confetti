@@ -17,7 +17,7 @@ public class Button: Item {
 		self.text = text
 	}
 
-	public override func render(renderer: Renderer) {
-		renderer.renderButton(self)
+	public override func render(renderer: Renderer) -> RenderedNode {
+		return renderer.renderButton(self)
 	}
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 internal protocol Rendered {
-	func render(renderer: Renderer)
+	func render(renderer: Renderer) -> RenderedNode
 }
 
 public protocol RenderedNode {

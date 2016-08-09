@@ -17,7 +17,7 @@ public class Label: Item {
 		self.text = text
 	}
 
-	public override func render(renderer: Renderer) {
-		renderer.renderLabel(self)
+	public override func render(renderer: Renderer) -> RenderedNode  {
+		return renderer.renderLabel(self)
 	}
 }

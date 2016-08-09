@@ -41,7 +41,14 @@ public class Item: Hashable, Geometry, Rendered {
 	// MARK: Item Tree
 
 	public var parent: Item?
-	public var items: [Item]?
+	public var items: [Item]? {
+		willSet {
+			for item in items ?? [] { item.parent = nil }
+		}
+		didSet {
+			for item in items ?? [] { item.parent = self }
+		}
+	}
 	public var isGroup: Bool { return items != nil }
 	public var isRoot: Bool { return parent == nil }
 	public var isFrontmost: Bool { return parent?.items?.first == self }
@@ -63,8 +70,8 @@ public class Item: Hashable, Geometry, Rendered {
 	
 	// MARK: Renderer Integration
 
-	public func render(renderer: Renderer) {
-		renderer.renderItem(self)
+	public func render(renderer: Renderer) -> RenderedNode {
+		return renderer.renderItem(self)
 	}
 }
 
