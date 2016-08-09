@@ -19,7 +19,8 @@
 		600E8C521D58BD1400AFD10E /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600E8C501D58BD1400AFD10E /* Button.swift */; };
 		600E8C531D58BD1400AFD10E /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600E8C511D58BD1400AFD10E /* Label.swift */; };
 		600E8C651D593F0A00AFD10E /* Confetti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60484F961D003DEB003972DA /* Confetti.framework */; };
-		600E8C6C1D5948E000AFD10E /* TestConfetti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FA51D003DEB003972DA /* TestConfetti.swift */; };
+		600E8C741D5A280800AFD10E /* TestAppKitRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600E8C701D5A280300AFD10E /* TestAppKitRenderer.swift */; };
+		600E8C751D5A280800AFD10E /* TestRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600E8C711D5A280300AFD10E /* TestRenderer.swift */; };
 		601292A11D00618200B8E9EA /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 601292A01D00618200B8E9EA /* SceneKit.framework */; };
 		60484F9A1D003DEB003972DA /* Confetti.h in Headers */ = {isa = PBXBuildFile; fileRef = 60484F991D003DEB003972DA /* Confetti.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60484FB11D003E32003972DA /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FB01D003E32003972DA /* Item.swift */; };
@@ -58,11 +59,12 @@
 		600E8C501D58BD1400AFD10E /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Button.swift; path = Item/Button.swift; sourceTree = "<group>"; };
 		600E8C511D58BD1400AFD10E /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Label.swift; path = Item/Label.swift; sourceTree = "<group>"; };
 		600E8C601D593F0A00AFD10E /* TestConfetti.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestConfetti.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		600E8C701D5A280300AFD10E /* TestAppKitRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestAppKitRenderer.swift; path = Renderer/TestAppKitRenderer.swift; sourceTree = "<group>"; };
+		600E8C711D5A280300AFD10E /* TestRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestRenderer.swift; path = Renderer/TestRenderer.swift; sourceTree = "<group>"; };
 		601292A01D00618200B8E9EA /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		60484F961D003DEB003972DA /* Confetti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Confetti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60484F991D003DEB003972DA /* Confetti.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Confetti.h; sourceTree = "<group>"; };
 		60484F9B1D003DEB003972DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		60484FA51D003DEB003972DA /* TestConfetti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConfetti.swift; sourceTree = "<group>"; };
 		60484FA71D003DEB003972DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60484FB01D003E32003972DA /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Item.swift; path = Item/Item.swift; sourceTree = "<group>"; };
 		60484FB81D004071003972DA /* Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Geometry.swift; path = Geometry/Geometry.swift; sourceTree = "<group>"; };
@@ -132,6 +134,15 @@
 			path = "UI Builder";
 			sourceTree = "<group>";
 		};
+		600E8C6F1D5A27F500AFD10E /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				600E8C701D5A280300AFD10E /* TestAppKitRenderer.swift */,
+				600E8C711D5A280300AFD10E /* TestRenderer.swift */,
+			);
+			name = Renderer;
+			sourceTree = "<group>";
+		};
 		601292A21D00619700B8E9EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,7 +192,7 @@
 		60484FA41D003DEB003972DA /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				60484FA51D003DEB003972DA /* TestConfetti.swift */,
+				600E8C6F1D5A27F500AFD10E /* Renderer */,
 				60484FA71D003DEB003972DA /* Info.plist */,
 			);
 			path = Test;
@@ -371,7 +382,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				600E8C6C1D5948E000AFD10E /* TestConfetti.swift in Sources */,
+				600E8C751D5A280800AFD10E /* TestRenderer.swift in Sources */,
+				600E8C741D5A280800AFD10E /* TestAppKitRenderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

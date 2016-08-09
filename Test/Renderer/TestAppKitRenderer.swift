@@ -9,22 +9,16 @@
 import XCTest
 @testable import Confetti
 
-class TestAppKitRenderer: XCTestCase {
+class TestAppKitToViewDestinationRenderer: TestRenderer {
 	
-	let destination = NSView(frame: CGRectFromRect(Rect(x: 0, y: 0, width: 500, height: 400)))
-	var renderer: AppKitRenderer!
-	var item: Item!
-	var buttonItem: Button!
-
 	override func setUp() {
+		rendererType = AppKitRenderer.self as Renderer.Type!
+		destination = NSView(frame: CGRectFromRect(sceneFrame))
 		super.setUp()
-		
-		renderer = AppKitRenderer(destination: destination)
-
-		item = Item(frame: RectFromCGRect(destination.frame))
-		buttonItem = Button(frame: Rect(x: 10, y: 10, width: 100, height: 20), text: "OK")
-
-		item.items = [buttonItem]
+	}
+	
+	var views: [Item: NSView] {
+		return (renderer as! AppKitRenderer).views
 	}
 
 	func testViewInsertion() {
@@ -32,9 +26,9 @@ class TestAppKitRenderer: XCTestCase {
 		
 		XCTAssertEqual(destination, view)
 		XCTAssertEqual(item.frame, RectFromCGRect(view.frame))
-		XCTAssertEqual(view, renderer.viewForItem(item))
+		XCTAssertEqual(view, views[item])
 		
-		let buttonView = renderer.viewForItem(buttonItem)
+		let buttonView = views[buttonItem]
 		
 		XCTAssertNotNil(buttonView)
 		XCTAssertEqual(destination, buttonView?.superview)
@@ -50,19 +44,12 @@ class TestAppKitRenderer: XCTestCase {
 		
 		XCTAssertEqual(destination, view)
 		XCTAssertEqual(item.frame, RectFromCGRect(view.frame))
-		XCTAssertEqual(view, renderer.viewForItem(item))
+		XCTAssertEqual(view, views[item])
 		
-		let buttonView = renderer.viewForItem(buttonItem)
+		let buttonView = views[buttonItem]
 		
 		XCTAssertNil(buttonView)
 		XCTAssertTrue(destination.subviews.isEmpty)
 	}
-}
 
-
-extension AppKitRenderer {
-
-	func viewForItem(item: Item) -> NSView? {
-		return views[item]
-	}
 }
