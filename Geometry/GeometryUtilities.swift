@@ -32,15 +32,15 @@ public struct Vector3 {
 	public var x: VectorFloat, y: VectorFloat, z: VectorFloat
 }
 
-public struct Vector2 {
+public struct Vector2: Equatable {
 	public var x: VectorFloat, y: VectorFloat
 }
 
-public struct Extent {
+public struct Extent: Equatable {
 	public var width: VectorFloat, height: VectorFloat
 }
 
-public struct Rect {
+public struct Rect: Equatable {
 	public var origin: Point, extent: Extent
 	
 	public init(origin: Point, extent: Extent) {
@@ -52,6 +52,18 @@ public struct Rect {
 		origin = Point(x: y, y: y)
 		extent = Extent(width: width, height: height)
 	}
+}
+
+public func == (lhs: Vector2, rhs: Vector2) -> Bool {
+    return lhs.x == rhs.x && lhs.y == rhs.y
+}
+
+public func == (lhs: Extent, rhs: Extent) -> Bool {
+    return lhs.width == rhs.width && lhs.height == rhs.height
+}
+
+public func == (lhs: Rect, rhs: Rect) -> Bool {
+    return lhs.origin == rhs.origin && lhs.extent == rhs.extent
 }
 
 public typealias Position = Vector3
