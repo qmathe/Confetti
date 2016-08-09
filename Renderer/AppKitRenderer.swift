@@ -8,6 +8,16 @@
 
 import Foundation
 
+extension SequenceType where Generator.Element : Equatable {
+
+	func contains(element: Self.Generator.Element?) -> Bool {
+		guard let e = element else {
+			return false
+		}
+		return contains(e)
+	}
+}
+
 /**
  * To generate a AppKit UI, do item.render(AppKitRenderer()).
  */
@@ -41,23 +51,24 @@ public class AppKitRenderer: Renderer {
 	
 	private func discardUnusedNodesFor(startItem: Item) {
 		let viewSet = Set(views.values)
+		let itemSet = Set(views.keys)
 		
 		for (item, view) in views {
-		
-			guard let parent = item.parent else {
-				precondition(item == startItem)
+			
+			if itemSet.contains(item) && (item == startItem || itemSet.contains(item.parent))  {
+
+				if let superview = view.superview {
+					precondition(viewSet.contains(superview))
+				}
+				else {
+					precondition(view == destination)
+				}
 				continue
 			}
 
-			if views[parent] == nil {
-				if view != destination {
-					view.removeFromSuperview()
-				}
-				views.removeValueForKey(item)
-			}
-			else {
-				precondition(view.superview != nil)
-				precondition(viewSet.contains(view.superview!))
+			views.removeValueForKey(item)
+			if view != destination {
+				view.removeFromSuperview()
 			}
 		}
 	}

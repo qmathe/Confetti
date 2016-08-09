@@ -12,24 +12,50 @@ import XCTest
 class TestAppKitRenderer: XCTestCase {
 	
 	let destination = NSView(frame: CGRectFromRect(Rect(x: 0, y: 0, width: 500, height: 400)))
-	lazy var renderer: AppKitRenderer = { return AppKitRenderer(destination: self.destination) }()
+	var renderer: AppKitRenderer!
+	var item: Item!
+	var buttonItem: Button!
+
+	override func setUp() {
+		super.setUp()
+		
+		renderer = AppKitRenderer(destination: destination)
+
+		item = Item(frame: RectFromCGRect(destination.frame))
+		buttonItem = Button(frame: Rect(x: 10, y: 10, width: 100, height: 20), text: "OK")
+
+		item.items = [buttonItem]
+	}
 
 	func testViewInsertion() {
-		let item = Item(frame: RectFromCGRect(destination.frame))
-		let buttonItem = Button(frame: Rect(x: 10, y: 10, width: 100, height: 20), text: "OK")
-	
-		item.items = [buttonItem]
-
 		let view = renderer.renderItem(item) as! NSView
 		
 		XCTAssertEqual(destination, view)
 		XCTAssertEqual(item.frame, RectFromCGRect(view.frame))
 		XCTAssertEqual(view, renderer.viewForItem(item))
 		
-		let buttonView = renderer.viewForItem(buttonItem)!
+		let buttonView = renderer.viewForItem(buttonItem)
 		
-		XCTAssertEqual(destination, buttonView.superview)
-		XCTAssertEqual(buttonItem.frame, RectFromCGRect(buttonView.frame))
+		XCTAssertNotNil(buttonView)
+		XCTAssertEqual(destination, buttonView?.superview)
+		XCTAssertEqual(buttonItem.frame, RectFromCGRect(buttonView?.frame ?? CGRect.null))
+	}
+	
+	func testViewRemoval() {
+		renderer.renderItem(item) as! NSView
+
+		item.items = []
+		
+		let view = renderer.renderItem(item) as! NSView
+		
+		XCTAssertEqual(destination, view)
+		XCTAssertEqual(item.frame, RectFromCGRect(view.frame))
+		XCTAssertEqual(view, renderer.viewForItem(item))
+		
+		let buttonView = renderer.viewForItem(buttonItem)
+		
+		XCTAssertNil(buttonView)
+		XCTAssertTrue(destination.subviews.isEmpty)
 	}
 }
 
