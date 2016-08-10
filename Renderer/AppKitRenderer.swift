@@ -24,11 +24,12 @@ extension SequenceType where Generator.Element : Equatable {
 public class AppKitRenderer: Renderer {
 
 	public let destination: NSView?
-	private var windows = [Item: NSWindow]()
+	internal var windows = [Item: NSWindow]()
 	internal var views = [Item: NSView]()
+	internal var startItem: Item?
 	
 	public required init(destination: RendererDestination?) {
-		guard let destination = destination as? NSView else {
+		guard let destination = destination as? NSView? else {
 			fatalError("Unsupported destination type")
 		}
 		self.destination = destination
@@ -49,16 +50,31 @@ public class AppKitRenderer: Renderer {
 		}
 	}
 	
-	private func discardUnusedNodesFor(startItem: Item) {
-		let viewSet = Set(views.values)
-		let itemSet = Set(views.keys)
+	private func discardUnusedNodesFor(newStartItem: Item, oldStartItem: Item?) {
+		let existingViews = Set(views.values)
+		let existingWindowBackedItems = Set(windows.keys)
+		let keptItems = Set(ItemTreeGenerator(item: newStartItem).descendantItems)
+		
+		for (item, window) in windows {
+			
+			if keptItems.contains(item) {
+				precondition(existingViews.contains(window.contentView))
+				continue
+			}
+
+			windows.removeValueForKey(item)
+			window.orderOut(nil)
+			// FIXME: window.close()
+		}
 		
 		for (item, view) in views {
-			
-			if itemSet.contains(item) && (item == startItem || itemSet.contains(item.parent))  {
+		
+			if keptItems.contains(item) {
 
-				if let superview = view.superview {
-					precondition(viewSet.contains(superview))
+				if let superview = view.superview
+				 where item != oldStartItem && item != newStartItem {
+
+					precondition(existingViews.contains(superview) || existingWindowBackedItems.contains(item))
 				}
 				else {
 					precondition(view == destination)
@@ -67,23 +83,26 @@ public class AppKitRenderer: Renderer {
 			}
 
 			views.removeValueForKey(item)
-			if view != destination {
+			if item == oldStartItem {
 				view.removeFromSuperview()
 			}
 		}
 	}
 
-	/// This method is called to initiate the rendering, but never recursively.
+	/// Initiates a recursive rendering starting at the given item.
+	///
+	/// The start item can be a root item or not, but will always correspond to 
+	/// the root rendered node.
+	///
+	/// This method is never called recursively.
 	public func renderItem(item: Item) -> RenderedNode {
 		defer {
-			discardUnusedNodesFor(item)
+			discardUnusedNodesFor(item, oldStartItem: startItem)
+			startItem = item
 		}
 
 		if item.isRoot {
 			return renderRoot(item)
-		}
-		else if item.parent?.isRoot == true {
-			return renderWindow(item)
 		}
 		else {
 			return renderView(item)
@@ -113,11 +132,11 @@ public class AppKitRenderer: Renderer {
 	}
 
 	private func renderWindow(item: Item) -> RenderedNode {
-		let window = nodeForItem(item, in: &windows) { NSWindow() }
+		let styleMask: Int = NSBorderlessWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask | NSUnifiedTitleAndToolbarWindowMask
+		let window = nodeForItem(item, in: &windows) { NSWindow(contentRect: CGRectFromRect(item.frame), styleMask: styleMask, backing: .Buffered, defer: false) }
 		
-		window.setFrame(window.frameRectForContentRect(CGRectFromRect(item.frame)), display: false)
-		window.contentView = (renderView(item) as! NSView)
-		
+		window.contentView = (item.render(self) as! NSView)
+
 		if item.isFrontmost {
 			window.makeKeyWindow()
 		}

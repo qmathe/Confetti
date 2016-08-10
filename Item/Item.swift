@@ -78,3 +78,36 @@ public class Item: Hashable, Geometry, Rendered {
 public func == (lhs: Item, rhs: Item) -> Bool {
     return lhs === rhs
 }
+
+
+public struct ItemTreeGenerator: GeneratorType {
+
+	public typealias Element = Item
+	public var startItem: Item
+	/// The items in tree enumerated from the start item with a preorder traversal.
+	///
+	/// The start item is included as the first item.
+	public var descendantItems: [Item]
+	private var generator: IndexingGenerator<[Item]>
+
+	public init(item: Item) {
+		startItem = item
+		descendantItems = ItemTreeGenerator.descendantItemsFrom(item)
+		generator = descendantItems.generate()
+	}
+	
+	private static func descendantItemsFrom(item: Item) -> [Item] {
+		var descendantItems = [item]
+		
+		for item in item.items ?? [] {
+			descendantItems.append(item)
+			descendantItems += descendantItemsFrom(item)
+		}
+		
+		return descendantItems
+	}
+
+	public mutating func next() -> ItemTreeGenerator.Element? {
+		return generator.next()
+	}
+}
