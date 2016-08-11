@@ -54,6 +54,13 @@ public protocol Geometry {
 	/// The extent is derived from origin and size.
 	var extent: Extent { get set }
 	var frame: Rect { get }
+	/// The orientation of the object according to its width and height, 
+	/// without considering its rotation and parent coordinate space.
+	///
+	/// This is usually useless when working with 3D objects which aren't planes.
+	///
+	/// Changing the orientation, swaps the width and height values.
+	var orientation: Orientation { get set }
 	var mesh: Mesh { get set }
 }
 
@@ -80,5 +87,27 @@ public extension Geometry {
 	public var anchor: Position {
 		get { return position }
 		set { position = newValue }
+	}
+	var orientation: Orientation {
+		get {
+			if size.x == size.y {
+				return .None
+			}
+			else if size.x > size.y {
+				return .Horizontal
+			}
+			else if size.x < size.y {
+				return .Vertical
+			}
+			else {
+				fatalError("Unexpected size comparison")
+			}
+		}
+		set {
+			if orientation == newValue {
+				return
+			}
+			size = Size(x: size.y, y: size.x, z: size.z)
+		}
 	}
 }

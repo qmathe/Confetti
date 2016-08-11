@@ -69,3 +69,9 @@ public func == (lhs: Rect, rhs: Rect) -> Bool {
 public typealias Position = Vector3
 public typealias Point = Vector2
 public typealias Size = Vector3
+
+public enum Orientation {
+	case Vertical
+	case Horizontal
+	case None
+}
