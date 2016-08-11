@@ -180,6 +180,42 @@ public class AppKitRenderer: Renderer {
 
 		return label
 	}
+	
+	public func renderSlider(item: Slider) -> RenderedNode {
+		let slider = viewForItem(item) { NSSlider(frame: CGRectFromRect(item.frame)) } as! NSSlider
+	
+		slider.minValue = Double(item.minValue)
+		slider.maxValue = Double(item.maxValue)
+		slider.objectValue = item.initialValue
+
+		if item.orientation == .Horizontal {
+			slider.frame.size.height = defaultSliderThickness
+		}
+		else {
+			slider.frame.size.width = defaultSliderThickness
+		}
+		
+		// TODO: Add target/action
+
+		return slider
+	}
+	
+	public func renderSwitch(item: Switch) -> RenderedNode {
+		let button = viewForItem(item) { NSButton(frame: CGRectFromRect(item.frame)) } as! NSButton
+		
+		button.frame.size.height = defaultSwitchHeight
+		button.title = item.text
+		button.setButtonType(.SwitchButton)
+		
+		// TODO: Add target/action
+
+		return button
+	}
+	
+	// MARK: - Position and Size Constants
+	
+	var defaultSwitchHeight: CGFloat = 18
+	var defaultSliderThickness: CGFloat = 21
 }
 
 

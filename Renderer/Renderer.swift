@@ -25,5 +25,7 @@ public protocol Renderer {
 	func renderItem(item: Item) -> RenderedNode
 	func renderButton(item: Button) -> RenderedNode
 	func renderLabel(item: Label) -> RenderedNode
+	func renderSlider(item: Slider) -> RenderedNode
+	func renderSwitch(item: Switch) -> RenderedNode
 }
 
