@@ -42,7 +42,7 @@ class TestAppKitToDefaultDestinationRenderer: TestAppKitRenderer {
 
 		XCTAssertEqual(window.contentView, views[buttonItem])
 		XCTAssertEqual(window, windows[buttonItem])
-		XCTAssertEqual(buttonItem.frame, RectFromCGRect(window.contentRectForFrameRect(window.frame)))
+		XCTAssertEqual(buttonItem.frame, window.confettiFrame)
 	}
 	
 	func testWindowRemoval() {
@@ -74,14 +74,14 @@ class TestAppKitToViewDestinationRenderer: TestAppKitRenderer {
 		let view = renderer.renderItem(item) as! NSView
 		
 		XCTAssertEqual(destination, view)
-		XCTAssertEqual(item.frame, RectFromCGRect(view.frame))
+		XCTAssertEqual(item.frame, view.confettiFrame)
 		XCTAssertEqual(view, views[item])
 		
 		let buttonView = views[buttonItem]
 		
 		XCTAssertNotNil(buttonView)
 		XCTAssertEqual(destination, buttonView?.superview)
-		XCTAssertEqual(buttonItem.frame, RectFromCGRect(buttonView?.frame ?? CGRect.null))
+		XCTAssertEqual(buttonItem.frame, buttonView?.confettiFrame ?? RectFromCGRect(CGRect.null))
 	}
 	
 	func testViewRemoval() {
@@ -92,7 +92,7 @@ class TestAppKitToViewDestinationRenderer: TestAppKitRenderer {
 		let view = renderer.renderItem(item) as! NSView
 		
 		XCTAssertEqual(destination, view)
-		XCTAssertEqual(item.frame, RectFromCGRect(view.frame))
+		XCTAssertEqual(item.frame, view.confettiFrame)
 		XCTAssertEqual(view, views[item])
 		
 		let buttonView = views[buttonItem]

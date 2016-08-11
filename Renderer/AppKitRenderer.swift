@@ -28,7 +28,7 @@ public class AppKitRenderer: Renderer {
 	internal var views = [Item: NSView]()
 	internal var startItem: Item?
 	
-	public required init(destination: RendererDestination?) {
+	public required init(destination: RendererDestination? = nil) {
 		guard let destination = destination as? NSView? else {
 			fatalError("Unsupported destination type")
 		}
@@ -114,7 +114,7 @@ public class AppKitRenderer: Renderer {
 		
 			views[item] = destination
 			// Don't resize or move the destination
-			destination.subviews = item.items?.map { $0.render(self) as! NSView } ?? []
+			renderViews(item.items ?? [], intoView: destination)
 
 			return destination
 		}
@@ -122,17 +122,30 @@ public class AppKitRenderer: Renderer {
 			return AppKitRootNode(windows: item.items?.map { renderWindow($0) as! NSWindow } ?? [])
 		}
 	}
+	
+	private func renderViews(items: [Item], intoView view: NSView) {
+		view.subviews = items.map { $0.render(self) as! NSView }
 
+		// Adjust the origin to compensate the coordinate system differences
+		//
+		// When the view was instantiated, the superview wasn't available
+		// to determine the correct origin.
+		view.subviews.forEach { $0.confettiFrame = RectFromCGRect($0.frame) }
+	}
+
+	/// Geometry changes requires the parent item to be rendered in the same pass,
+	/// otherwise the rendered view won't match the latest size and position.
 	private func renderView(item: Item) -> RenderedNode {
 		let view = viewForItem(item) { NSView(frame: CGRectFromRect(item.frame)) }
 
-		view.subviews = item.items?.map { $0.render(self) as! NSView } ?? []
-
+		renderViews(item.items ?? [], intoView: view)
 		return view
 	}
 
+	/// For a window unlike a view, we can determine the correct origin 
+	/// immediately, since we can know the screen where it will appear.
 	private func renderWindow(item: Item) -> RenderedNode {
-		let styleMask: Int = NSBorderlessWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask | NSUnifiedTitleAndToolbarWindowMask
+		let styleMask: Int = NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask | NSUnifiedTitleAndToolbarWindowMask
 		let window = nodeForItem(item, in: &windows) { NSWindow(contentRect: CGRectFromRect(item.frame), styleMask: styleMask, backing: .Buffered, defer: false) }
 		
 		window.contentView = (item.render(self) as! NSView)
@@ -141,6 +154,9 @@ public class AppKitRenderer: Renderer {
 			window.makeKeyWindow()
 		}
 		window.orderFront(nil)
+
+		// Adjust the origin to compensate coordinate system differences
+		window.confettiFrame = item.frame
 
 		return window
 	}
@@ -179,8 +195,57 @@ internal func CGRectFromRect(rect: Rect) -> CGRect {
 
 // MARK: - Rendered Nodes
 
-extension NSView: RendererDestination, RenderedNode { }
-extension NSWindow: RenderedNode { }
+extension NSView: RendererDestination, RenderedNode {
+
+	internal var confettiFrame: Rect {
+		get {
+			if let superview = superview where superview.flipped == false {
+				var rect = frame
+				rect.origin.y = superview.frame.size.height - frame.maxY
+				return RectFromCGRect(rect)
+			}
+			else {
+				return RectFromCGRect(frame)
+			}
+		}
+		set {
+			if let superview = superview where superview.flipped == false {
+				var rect = CGRectFromRect(newValue)
+				rect.origin.y = superview.frame.size.height - rect.maxY
+				frame = rect
+			}
+			else {
+				frame = CGRectFromRect(newValue)
+			}
+		}
+	}
+}
+
+extension NSWindow: RenderedNode {
+
+	internal var confettiFrame: Rect {
+		get {
+			if let screen = screen {
+				var rect = frame
+				rect.origin.y = screen.visibleFrame.size.height - frame.maxY
+				return RectFromCGRect(contentRectForFrameRect(rect))
+			}
+			else {
+				return RectFromCGRect(contentRectForFrameRect(frame))
+			}
+		}
+		set {
+			if let screen = screen {
+				var rect = frameRectForContentRect(CGRectFromRect(newValue))
+				rect.origin.y = screen.visibleFrame.size.height - rect.maxY
+				setFrame(rect, display: false)
+			}
+			else {
+				setFrame(frameRectForContentRect(CGRectFromRect(newValue)), display: false)
+			}
+		}
+	}
+}
 
 /// A dummy node returned when the rendered item is the root item.
 class AppKitRootNode: RenderedNode {
