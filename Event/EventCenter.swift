@@ -14,14 +14,8 @@ class EventCenter {
 	
 	func send<T: AnyObject>(data: T, to: AnyObject, from: AnyObject) -> [EventHandler<T>] {
 		
-		return handlers.filter { $0.receiver === to && ($0.sender === nil || $0.sender === from) && $0.accepts(data) }
-		               .map { $0.send(data, from: from) as! EventHandler<T> }
+		return handlers.flatMap { $0 as? EventHandler<T> }
+					   .filter { $0.receiver === to && ($0.sender === nil || $0.sender === from) }
+		               .map { $0.send(data, from: from) }
 	}
-}
-
-func sameType<T, U>(lhs: T, rhs: U) -> Bool {
-    if let lhs = lhs as? U {
-        return true
-    }
-	return false
 }

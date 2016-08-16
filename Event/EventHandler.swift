@@ -8,12 +8,7 @@
 
 import Foundation
 
-protocol AnyEventHandler {
-	weak var receiver: AnyObject? { get }
-	weak var sender: AnyObject? { get }
-	func send(data: AnyObject, from: AnyObject) -> AnyEventHandler
-	func accepts(data: AnyObject) -> Bool
-}
+protocol AnyEventHandler { }
 
 struct EventHandler<T: AnyObject> : AnyEventHandler {
 	weak var receiver: AnyObject?
@@ -36,13 +31,5 @@ struct EventHandler<T: AnyObject> : AnyEventHandler {
 		}
 		receiver.performSelector(selector, withObject: event as! AnyObject)
 		return self
-	}
-
-	func send(data: AnyObject, from: AnyObject) -> AnyEventHandler {
-		return send(data as! T, from: from)
-	}
-	
-	func accepts(data: AnyObject) -> Bool {
-		return data is T
 	}
 }
