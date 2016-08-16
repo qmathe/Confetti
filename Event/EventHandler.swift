@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct EventHandler<T: AnyObject> : EventHandlerType, Hashable {
-	weak var receiver: AnyObject?
-	weak var sender: AnyObject?
-	let selector: Selector
-	var hashValue: Int {
+public struct EventHandler<T: AnyObject> : EventHandlerType, Hashable {
+	public private(set) weak var receiver: AnyObject?
+	public private(set) weak var sender: AnyObject?
+	public let selector: Selector
+	public var hashValue: Int {
 		var hash = 17
 		if let receiver = receiver {
 			hash = 37 * hash + ObjectIdentifier(receiver).hashValue
@@ -24,13 +24,13 @@ struct EventHandler<T: AnyObject> : EventHandlerType, Hashable {
 		return hash
 	}
 
-	init(selector: Selector, receiver: AnyObject, sender: AnyObject?) {
+	public init(selector: Selector, receiver: AnyObject, sender: AnyObject?) {
 		self.selector = selector
 		self.receiver = receiver
 		self.sender = sender
 	}
 
-	func send(data: T, from: AnyObject) -> EventHandler<T> {
+	public func send(data: T, from: AnyObject) -> EventHandler<T> {
 		precondition(sender === nil || sender === from)
 
 		let event = Event<T>(data: data, sender: from)
@@ -43,6 +43,6 @@ struct EventHandler<T: AnyObject> : EventHandlerType, Hashable {
 	}
 }
 
-func == <T, U>(lhs: EventHandler<T>, rhs: EventHandler<U>) -> Bool {
+public func == <T, U>(lhs: EventHandler<T>, rhs: EventHandler<U>) -> Bool {
     return lhs.receiver === rhs.receiver && lhs.sender === rhs.sender && lhs.selector == rhs.selector
 }

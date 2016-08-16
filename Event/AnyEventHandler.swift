@@ -9,7 +9,7 @@
 import Foundation
 
 /// Abstract type for AnyEventHandler and EventHandler
-protocol EventHandlerType {
+public protocol EventHandlerType {
 	weak var receiver: AnyObject? { get }
 	weak var sender: AnyObject? { get }
 	var selector: Selector { get }
@@ -20,22 +20,22 @@ protocol EventHandlerType {
 ///
 /// This wrapper is required to store heterogenous EventHandler types in a set
 /// as EventCenter.handlers does.
-struct AnyEventHandler: EventHandlerType, Hashable {
-	weak var receiver: AnyObject? { return handler.receiver }
-	weak var sender: AnyObject? { return handler.sender }
-	var selector: Selector { return handler.selector }
-	var hashValue: Int { return handler.hashValue }
+public struct AnyEventHandler: EventHandlerType, Hashable {
+	public weak var receiver: AnyObject? { return handler.receiver }
+	public weak var sender: AnyObject? { return handler.sender }
+	public var selector: Selector { return handler.selector }
+	public var hashValue: Int { return handler.hashValue }
 	let handler: EventHandlerType
 	
 	init(handler: EventHandlerType) {
 		self.handler = handler
 	}
 	
-	func send<T: AnyObject>(data: T, from: AnyObject) -> EventHandler<T> {
+	public func send<T: AnyObject>(data: T, from: AnyObject) -> EventHandler<T> {
 		return (handler as! EventHandler<T>).send(data, from: from)
 	}
 }
 
-func == (lhs: AnyEventHandler, rhs: AnyEventHandler) -> Bool {
+public func == (lhs: AnyEventHandler, rhs: AnyEventHandler) -> Bool {
     return lhs.receiver === rhs.receiver && lhs.sender === rhs.sender && lhs.selector == rhs.selector
 }

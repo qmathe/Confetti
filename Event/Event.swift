@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct Event<T> {
-	weak var sender: AnyObject?
-	var data: T
+public struct Event<T> {
+	public private(set) weak var sender: AnyObject?
+	public let data: T
 	
-	init(data: T, sender: AnyObject) {
+	public init(data: T, sender: AnyObject) {
 		self.data = data
 		self.sender = sender
 	}
