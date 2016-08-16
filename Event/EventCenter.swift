@@ -14,10 +14,10 @@ public class EventCenter {
 	
 	/// Fires all the event handlers matching the arguments and returns them 
 	/// in their invocation order.
-	public func send<T: AnyObject>(data: T, to: AnyObject, from: AnyObject) -> [EventHandler<T>] {
-		
-		return handlers.flatMap { $0 as? EventHandler<T> }
-					   .filter { $0.receiver === to && ($0.sender === nil || $0.sender === from) }
+	public func send<T>(data: T, to: AnyObject? = nil, from: AnyObject) -> [EventHandler<T>] {
+
+		return handlers.flatMap { $0.handler as? EventHandler<T> }
+					   .filter { ($0.receiver === to || to === nil) && ($0.sender === nil || $0.sender === from) }
 		               .map { $0.send(data, from: from) }
 	}
 	
