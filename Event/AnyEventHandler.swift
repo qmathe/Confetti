@@ -31,7 +31,7 @@ public struct AnyEventHandler: EventHandlerType, Hashable {
 		self.handler = handler
 	}
 	
-	public func send<T: AnyObject>(data: T, from: AnyObject) -> EventHandler<T> {
+	public func send<T>(data: T, from: AnyObject) -> EventHandler<T> {
 		return (handler as! EventHandler<T>).send(data, from: from)
 	}
 }

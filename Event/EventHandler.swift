@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct EventHandler<T: AnyObject> : EventHandlerType, Hashable {
+public struct EventHandler<T> : EventHandlerType, Hashable {
 	public private(set) weak var receiver: AnyObject?
 	public private(set) weak var sender: AnyObject?
 	public let selector: Selector
