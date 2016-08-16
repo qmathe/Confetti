@@ -8,12 +8,21 @@
 
 import Foundation
 
-protocol AnyEventHandler { }
-
-struct EventHandler<T: AnyObject> : AnyEventHandler {
+struct EventHandler<T: AnyObject> : EventHandlerType, Hashable {
 	weak var receiver: AnyObject?
 	weak var sender: AnyObject?
 	let selector: Selector
+	var hashValue: Int {
+		var hash = 17
+		if let receiver = receiver {
+			hash = 37 * hash + ObjectIdentifier(receiver).hashValue
+		}
+		if let sender = sender {
+			hash = 37 * hash + ObjectIdentifier(sender).hashValue
+		}
+		hash = 37 * hash + selector.hashValue
+		return hash
+	}
 
 	init(selector: Selector, receiver: AnyObject, sender: AnyObject?) {
 		self.selector = selector
@@ -32,4 +41,8 @@ struct EventHandler<T: AnyObject> : AnyEventHandler {
 		receiver.performSelector(selector, withObject: event as! AnyObject)
 		return self
 	}
+}
+
+func == <T, U>(lhs: EventHandler<T>, rhs: EventHandler<U>) -> Bool {
+    return lhs.receiver === rhs.receiver && lhs.sender === rhs.sender && lhs.selector == rhs.selector
 }
