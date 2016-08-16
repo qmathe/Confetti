@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum SwitchState {
+public enum SwitchState: Int {
 	case On
 	case Off
 	case None
@@ -46,5 +46,15 @@ public class Switch: Item {
 
 	public override func render(renderer: Renderer) -> RenderedNode {
 		return renderer.renderSwitch(self)
+	}
+	
+	// MARK: - Actions
+
+	/// Updates the current state and emits a SwitchState event.
+	///
+	/// Will be called when the switch is clicked or swiped.
+	dynamic func toggle(toState: Int) {
+		state = SwitchState(rawValue: toState)!
+		eventCenter.send(state, from: self)
 	}
 }

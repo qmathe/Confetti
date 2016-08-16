@@ -20,4 +20,13 @@ public class Button: Item {
 	public override func render(renderer: Renderer) -> RenderedNode {
 		return renderer.renderButton(self)
 	}
+	
+	// MARK: - Actions
+	
+	/// Emits a tap event.
+	///
+	/// Will be called when the button is touched or clicked.
+	dynamic func tap() {
+		eventCenter.send(Tap(count: 1), from: self)
+	}
 }

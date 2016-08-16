@@ -19,6 +19,7 @@ public class Slider: Item {
 	public var minValue: VectorFloat = 0
 	public var maxValue: VectorFloat = 0
 	public var initialValue: VectorFloat = 0
+	public var currentValue: VectorFloat = 0
 	/// The default height when rendering the slider as a Confetti control.
 	///
 	/// When rendering with other UI toolkits, the final height will vary.
@@ -43,5 +44,14 @@ public class Slider: Item {
 
 	public override func render(renderer: Renderer) -> RenderedNode {
 		return renderer.renderSlider(self)
+	}
+	
+	/// Updates the current value and emits a VectorFloat event representing the 
+	/// new value.
+	///
+	/// Will be called when the slider is clicked, dragged or panned.
+	dynamic func pan(toValue: VectorFloat) {
+		currentValue = toValue
+		eventCenter.send(currentValue, from: self)
 	}
 }

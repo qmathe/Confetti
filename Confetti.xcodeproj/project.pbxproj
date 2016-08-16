@@ -29,6 +29,10 @@
 		602B07651D62FE430035CD86 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B07641D62FE430035CD86 /* Event.swift */; };
 		602B07671D6311B20035CD86 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B07661D6311B20035CD86 /* EventHandler.swift */; };
 		602B07691D6344FF0035CD86 /* AnyEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B07681D6344FF0035CD86 /* AnyEventHandler.swift */; };
+		602B076C1D63545F0035CD86 /* NSButtonIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B076B1D63545F0035CD86 /* NSButtonIntegration.swift */; };
+		602B076E1D6355510035CD86 /* Tap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B076D1D6355510035CD86 /* Tap.swift */; };
+		602B07701D6363D00035CD86 /* NSSliderIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B076F1D6363D00035CD86 /* NSSliderIntegration.swift */; };
+		602B07721D63722A0035CD86 /* ActionTrampoline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B07711D63722A0035CD86 /* ActionTrampoline.swift */; };
 		60484F9A1D003DEB003972DA /* Confetti.h in Headers */ = {isa = PBXBuildFile; fileRef = 60484F991D003DEB003972DA /* Confetti.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60484FB11D003E32003972DA /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FB01D003E32003972DA /* Item.swift */; };
 		60484FB91D004071003972DA /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FB81D004071003972DA /* Geometry.swift */; };
@@ -76,6 +80,10 @@
 		602B07641D62FE430035CD86 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Event.swift; path = Event/Event.swift; sourceTree = "<group>"; };
 		602B07661D6311B20035CD86 /* EventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventHandler.swift; path = Event/EventHandler.swift; sourceTree = "<group>"; };
 		602B07681D6344FF0035CD86 /* AnyEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnyEventHandler.swift; path = Event/AnyEventHandler.swift; sourceTree = "<group>"; };
+		602B076B1D63545F0035CD86 /* NSButtonIntegration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSButtonIntegration.swift; path = Renderer/AppKitIntegration/NSButtonIntegration.swift; sourceTree = SOURCE_ROOT; };
+		602B076D1D6355510035CD86 /* Tap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tap.swift; path = Event/Tap.swift; sourceTree = "<group>"; };
+		602B076F1D6363D00035CD86 /* NSSliderIntegration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSSliderIntegration.swift; path = Renderer/AppKitIntegration/NSSliderIntegration.swift; sourceTree = SOURCE_ROOT; };
+		602B07711D63722A0035CD86 /* ActionTrampoline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionTrampoline.swift; path = Renderer/AppKitIntegration/ActionTrampoline.swift; sourceTree = SOURCE_ROOT; };
 		60484F961D003DEB003972DA /* Confetti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Confetti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60484F991D003DEB003972DA /* Confetti.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Confetti.h; sourceTree = "<group>"; };
 		60484F9B1D003DEB003972DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,6 +136,7 @@
 			children = (
 				6065F4AB1D56B4260063187A /* Renderer.swift */,
 				6065F4A91D56A9A60063187A /* AppKitRenderer.swift */,
+				602B076A1D6354170035CD86 /* AppKit Integration */,
 				6003FD081D4F584D00EEF814 /* MetalRenderer.swift */,
 				6003FD0C1D4F5A5000EEF814 /* MetalNSView.swift */,
 				6003FD0E1D4F5F8D00EEF814 /* Shaders.metal */,
@@ -184,8 +193,19 @@
 				602B07621D62FDA10035CD86 /* EventCenter.swift */,
 				602B07681D6344FF0035CD86 /* AnyEventHandler.swift */,
 				602B07661D6311B20035CD86 /* EventHandler.swift */,
+				602B076D1D6355510035CD86 /* Tap.swift */,
 			);
 			name = Event;
+			sourceTree = "<group>";
+		};
+		602B076A1D6354170035CD86 /* AppKit Integration */ = {
+			isa = PBXGroup;
+			children = (
+				602B07711D63722A0035CD86 /* ActionTrampoline.swift */,
+				602B076B1D63545F0035CD86 /* NSButtonIntegration.swift */,
+				602B076F1D6363D00035CD86 /* NSSliderIntegration.swift */,
+			);
+			name = "AppKit Integration";
 			sourceTree = "<group>";
 		};
 		60484F8C1D003DEB003972DA = {
@@ -437,9 +457,12 @@
 				6003FD0D1D4F5A5000EEF814 /* MetalNSView.swift in Sources */,
 				602B07631D62FDA10035CD86 /* EventCenter.swift in Sources */,
 				600E8CB91D5CCD7000AFD10E /* Slider.swift in Sources */,
+				602B076C1D63545F0035CD86 /* NSButtonIntegration.swift in Sources */,
 				6065F4AC1D56B4260063187A /* Renderer.swift in Sources */,
+				602B07721D63722A0035CD86 /* ActionTrampoline.swift in Sources */,
 				600E8C531D58BD1400AFD10E /* Label.swift in Sources */,
 				60484FB91D004071003972DA /* Geometry.swift in Sources */,
+				602B07701D6363D00035CD86 /* NSSliderIntegration.swift in Sources */,
 				60484FBD1D004E76003972DA /* GeometryUtilities.swift in Sources */,
 				602B07651D62FE430035CD86 /* Event.swift in Sources */,
 				600E8CBA1D5CCD7000AFD10E /* Switch.swift in Sources */,
@@ -449,6 +472,7 @@
 				600E8C781D5B445700AFD10E /* Dictionary.swift in Sources */,
 				60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */,
 				6065F4AA1D56A9A60063187A /* AppKitRenderer.swift in Sources */,
+				602B076E1D6355510035CD86 /* Tap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

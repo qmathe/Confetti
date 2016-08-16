@@ -7,6 +7,8 @@
 
 import Foundation
 
+private let _eventCenter = EventCenter()
+
 public class Item: Hashable, Geometry, Rendered {
 
 	// MARK: Geometry
@@ -37,6 +39,7 @@ public class Item: Hashable, Geometry, Rendered {
 	/// is a StyleMaterial, otherwise returns nil.
 	public var backgroundStyle: Style? { return (mesh.materials.first as? StyleMaterial)?.style }
 	public var layout: Any?
+	public var eventCenter: EventCenter { return _eventCenter }
 	
 	// MARK: Item Tree
 

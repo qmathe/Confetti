@@ -165,6 +165,7 @@ public class AppKitRenderer: Renderer {
 		let button = viewForItem(item) { NSButton(frame: CGRectFromRect(item.frame)) } as! NSButton
 		
 		button.title = item.text
+		button.setAction { [weak item = item] (sender: NSButton) in item?.tap() }
 
 		return button
 	}
@@ -187,6 +188,7 @@ public class AppKitRenderer: Renderer {
 		slider.minValue = Double(item.minValue)
 		slider.maxValue = Double(item.maxValue)
 		slider.objectValue = item.initialValue
+		slider.setAction { [weak item = item] (sender: NSSlider) in item?.reactTo(sender) }
 
 		if item.orientation == .Horizontal {
 			slider.frame.size.height = defaultSliderThickness
@@ -194,8 +196,6 @@ public class AppKitRenderer: Renderer {
 		else {
 			slider.frame.size.width = defaultSliderThickness
 		}
-		
-		// TODO: Add target/action
 
 		return slider
 	}
@@ -206,8 +206,7 @@ public class AppKitRenderer: Renderer {
 		button.frame.size.height = defaultSwitchHeight
 		button.title = item.text
 		button.setButtonType(.SwitchButton)
-		
-		// TODO: Add target/action
+		button.setAction { [weak item = item] (sender: NSButton) in item?.reactTo(sender) }
 
 		return button
 	}
@@ -216,6 +215,10 @@ public class AppKitRenderer: Renderer {
 	
 	var defaultSwitchHeight: CGFloat = 18
 	var defaultSliderThickness: CGFloat = 21
+	
+	func reactToActionFrom(sender: NSObject) {
+		
+	}
 }
 
 
