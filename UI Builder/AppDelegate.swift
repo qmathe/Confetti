@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventReceiver {
 		let button = Button(frame: Rect(x: 0, y: 0, width: 400, height: 200), text: "OK")
 		let item = Item(frame: Rect(x: 200, y: 200, width: 1000, height: 400))
 
-		item.eventCenter.add(EventHandler<Tap, AppDelegate>(selector: "tap", receiver: self, sender: button))
+		item.eventCenter.add(EventHandler<Tap>(selector: "tap", receiver: self, sender: button))
 		item.items = [button]
 
 		item.render(renderer)
@@ -33,9 +33,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventReceiver {
 		window.makeKeyAndOrderFront(nil)*/
 	}
 	
-	func eventHandlerFunctionFor(selector: FunctionIdentifier) -> AnyEventHandlerFunction? {
+	func eventHandlerInvocationFor(selector: FunctionIdentifier) -> AnyEventHandlerInvocation? {
 		switch selector {
-			case "tap": return unsafeBitCast(AppDelegate.tap(_:), AnyEventHandlerFunction.self)
+			case "tap": return EventHandlerInvocation<Tap, AppDelegate>(function: AppDelegate.tap(_:))
 			default: return nil
 		}
 	}

@@ -9,11 +9,10 @@
 import Foundation
 
 public typealias FunctionIdentifier = String
-public typealias AnyEventHandlerFunction = (AnyObject) -> (Any) -> ()
 
 /// Protocol to support EventHandler serialization in a UI builder.
 ///
-/// After deserializing a EventHandler, this allows to look up a function based 
+/// After deserializing a EventHandler, this lets us look up a method based
 /// on the handler function name.
 ///
 /// This protocol works around the missing reflection support to call functions.
@@ -21,12 +20,11 @@ public typealias AnyEventHandlerFunction = (AnyObject) -> (Any) -> ()
 /// For now, must be implemented by classes that wants to receive events with 
 /// methods as event handler functions.
 public protocol EventReceiver: class {
-	func eventHandlerFunctionFor(selector: FunctionIdentifier) -> AnyEventHandlerFunction?
+	/// Returns a receiver method matching the selector name wrapped into an invocation.
+	func eventHandlerInvocationFor(selector: FunctionIdentifier) -> AnyEventHandlerInvocation?
 }
 
-public struct EventHandler<T, R> : EventHandlerType, Hashable {
-
-	typealias EventHandlerFunction = @convention(swift) (R) -> (Event<T>) -> ()
+public struct EventHandler<T> : EventHandlerType, Hashable {
 
 	/// The receiver is never nil.
 	public private(set) weak  var receiver: AnyObject?
@@ -43,7 +41,6 @@ public struct EventHandler<T, R> : EventHandlerType, Hashable {
 		hash = 37 * hash + selector.hashValue
 		return hash
 	}
-	public var eventType: Any.Type = T.self
 
 	public init(selector: FunctionIdentifier, receiver: AnyObject, sender: AnyObject?) {
 		self.selector = selector
@@ -51,31 +48,21 @@ public struct EventHandler<T, R> : EventHandlerType, Hashable {
 		self.sender = sender
 	}
 
-	public func send(data: Any, from: AnyObject) -> EventHandlerType {
-		let result: EventHandler<T, R> = deliver(data as! T, from: from)
-		
-		return result as! EventHandlerType
-	}
-
-	public func deliver(data: T, from: AnyObject) -> EventHandler<T, R> {
+	public func send(data: T, from: AnyObject) -> EventHandler<T> {
 		precondition(sender === nil || sender === from)
-
-		let event = Event<T>(data: data, sender: from)
 
 		guard let receiver = receiver as? EventReceiver else {
 			fatalError("Event handlers must be unregistered when their receiver are deallocated.")
 		}
-		guard let functionPointer = receiver.eventHandlerFunctionFor(selector) else {
+		guard let invocation = receiver.eventHandlerInvocationFor(selector) else {
 			fatalError("Event handler function not declared for \(selector)")
 		}
-		let function = unsafeBitCast(functionPointer, EventHandlerFunction.self)
-		
-		function(receiver as! R)(event)
+		invocation.deliver(data, from: from, to: receiver)
 
 		return self
 	}
 }
 
-public func == <T, R, U, V>(lhs: EventHandler<T, R>, rhs: EventHandler<U, V>) -> Bool {
+public func == <T, U>(lhs: EventHandler<T>, rhs: EventHandler<U>) -> Bool {
     return lhs.receiver === rhs.receiver && lhs.sender === rhs.sender && lhs.selector == rhs.selector
 }
