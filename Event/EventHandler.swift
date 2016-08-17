@@ -9,6 +9,7 @@
 import Foundation
 
 public typealias FunctionIdentifier = String
+public typealias AnyEventHandlerFunction = (AnyObject) -> (Any) -> ()
 
 /// Protocol to support EventHandler serialization in a UI builder.
 ///
@@ -20,10 +21,13 @@ public typealias FunctionIdentifier = String
 /// For now, must be implemented by classes that wants to receive events with 
 /// methods as event handler functions.
 public protocol EventReceiver: class {
-	func eventHandlerFunctionFor(selector: FunctionIdentifier) -> ((receiver: AnyObject, event: Any) -> ())?
+	func eventHandlerFunctionFor(selector: FunctionIdentifier) -> AnyEventHandlerFunction?
 }
 
-public struct EventHandler<T> : EventHandlerType, Hashable {
+public struct EventHandler<T, R> : EventHandlerType, Hashable {
+
+	typealias EventHandlerFunction = @convention(swift) (R) -> (Event<T>) -> ()
+
 	/// The receiver is never nil.
 	public private(set) weak  var receiver: AnyObject?
 	public private(set) weak var sender: AnyObject?
@@ -39,6 +43,7 @@ public struct EventHandler<T> : EventHandlerType, Hashable {
 		hash = 37 * hash + selector.hashValue
 		return hash
 	}
+	public var eventType: Any.Type = T.self
 
 	public init(selector: FunctionIdentifier, receiver: AnyObject, sender: AnyObject?) {
 		self.selector = selector
@@ -46,7 +51,13 @@ public struct EventHandler<T> : EventHandlerType, Hashable {
 		self.sender = sender
 	}
 
-	public func send(data: T, from: AnyObject) -> EventHandler<T> {
+	public func send(data: Any, from: AnyObject) -> EventHandlerType {
+		let result: EventHandler<T, R> = deliver(data as! T, from: from)
+		
+		return result as! EventHandlerType
+	}
+
+	public func deliver(data: T, from: AnyObject) -> EventHandler<T, R> {
 		precondition(sender === nil || sender === from)
 
 		let event = Event<T>(data: data, sender: from)
@@ -54,15 +65,17 @@ public struct EventHandler<T> : EventHandlerType, Hashable {
 		guard let receiver = receiver as? EventReceiver else {
 			fatalError("Event handlers must be unregistered when their receiver are deallocated.")
 		}
-		guard let closure = receiver.eventHandlerFunctionFor(selector) else {
+		guard let functionPointer = receiver.eventHandlerFunctionFor(selector) else {
 			fatalError("Event handler function not declared for \(selector)")
 		}
-		closure(receiver: receiver, event: event as Any)
+		let function = unsafeBitCast(functionPointer, EventHandlerFunction.self)
+		
+		function(receiver as! R)(event)
 
 		return self
 	}
 }
 
-public func == <T, U>(lhs: EventHandler<T>, rhs: EventHandler<U>) -> Bool {
+public func == <T, R, U, V>(lhs: EventHandler<T, R>, rhs: EventHandler<U, V>) -> Bool {
     return lhs.receiver === rhs.receiver && lhs.sender === rhs.sender && lhs.selector == rhs.selector
 }
