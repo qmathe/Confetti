@@ -12,7 +12,7 @@ import Foundation
 public protocol EventHandlerType {
 	weak var receiver: AnyObject? { get }
 	weak var sender: AnyObject? { get }
-	var selector: Selector { get }
+	var selector: FunctionIdentifier { get }
 	var hashValue: Int { get }
 }
 
@@ -23,7 +23,7 @@ public protocol EventHandlerType {
 public struct AnyEventHandler: EventHandlerType, Hashable {
 	public weak var receiver: AnyObject? { return handler.receiver }
 	public weak var sender: AnyObject? { return handler.sender }
-	public var selector: Selector { return handler.selector }
+	public var selector: FunctionIdentifier { return handler.selector }
 	public var hashValue: Int { return handler.hashValue }
 	let handler: EventHandlerType
 	
