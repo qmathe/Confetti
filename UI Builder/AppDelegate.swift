@@ -15,10 +15,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventReceiver {
 
 	let renderer = AppKitRenderer()
 	var window: NSWindow!
+	var objectGraph = ObjectGraph()
 
 	func applicationDidFinishLaunching(aNotification: NSNotification) {
-		let button = Button(frame: Rect(x: 0, y: 0, width: 400, height: 200), text: "OK")
-		let item = Item(frame: Rect(x: 200, y: 200, width: 1000, height: 400))
+		let ui = UI(objectGraph: objectGraph)
+		let button = ui.button(frame: Rect(x: 0, y: 0, width: 400, height: 200), text: "OK")
+		let item = ui.item(frame: Rect(x: 200, y: 200, width: 1000, height: 400))
 
 		item.eventCenter.add(EventHandler<Tap>(selector: "tap", receiver: self, sender: button))
 		item.items = [button]

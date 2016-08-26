@@ -8,8 +8,12 @@
 
 import Foundation
 
-internal protocol Rendered {
+internal protocol RenderableNode {
 	func render(renderer: Renderer) -> RenderedNode
+}
+
+internal protocol RenderableAspect {
+	func render(item: Item, with renderer: Renderer) -> RenderedNode
 }
 
 public protocol RenderedNode {
@@ -23,9 +27,9 @@ public protocol RendererDestination {
 public protocol Renderer {
 	init(destination: RendererDestination?)
 	func renderItem(item: Item) -> RenderedNode
-	func renderButton(item: Button) -> RenderedNode
-	func renderLabel(item: Label) -> RenderedNode
-	func renderSlider(item: Slider) -> RenderedNode
-	func renderSwitch(item: Switch) -> RenderedNode
+	func renderButton(item: Item) -> RenderedNode
+	func renderLabel(item: Item) -> RenderedNode
+	func renderSlider(item: Item) -> RenderedNode
+	func renderSwitch(item: Item) -> RenderedNode
 }
 

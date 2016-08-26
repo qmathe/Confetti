@@ -161,19 +161,19 @@ public class AppKitRenderer: Renderer {
 		return window
 	}
 
-	public func renderButton(item: Button) -> RenderedNode {
+	public func renderButton(item: Item) -> RenderedNode {
 		let button = viewForItem(item) { NSButton(frame: CGRectFromRect(item.frame)) } as! NSButton
 		
-		button.title = item.text
-		button.setAction { [weak item = item] (sender: NSButton) in item?.tap() }
+		button.title = (item.controlState as? ButtonState)?.text ?? ""
+		button.setAction { [weak item = item] (sender: NSButton) in item?.reactTo(sender, isSwitch: false) }
 
 		return button
 	}
 	
-	public func renderLabel(item: Label) -> RenderedNode {
+	public func renderLabel(item: Item) -> RenderedNode {
 		let label = viewForItem(item) { NSTextField(frame: CGRectFromRect(item.frame)) } as! NSTextField
 		
-		label.stringValue = item.text
+		label.stringValue = (item as? ButtonState)?.text ?? ""
 		label.bezeled = false
 		label.drawsBackground = false
 		label.editable = false
@@ -182,12 +182,13 @@ public class AppKitRenderer: Renderer {
 		return label
 	}
 	
-	public func renderSlider(item: Slider) -> RenderedNode {
+	public func renderSlider(item: Item) -> RenderedNode {
 		let slider = viewForItem(item) { NSSlider(frame: CGRectFromRect(item.frame)) } as! NSSlider
+		let state = item.controlState as? SliderState
 	
-		slider.minValue = Double(item.minValue)
-		slider.maxValue = Double(item.maxValue)
-		slider.objectValue = item.initialValue
+		slider.minValue = Double(state?.minValue ?? 0)
+		slider.maxValue = Double(state?.maxValue ?? 0)
+		slider.objectValue = state?.initialValue ?? 0
 		slider.setAction { [weak item = item] (sender: NSSlider) in item?.reactTo(sender) }
 
 		if item.orientation == .Horizontal {
@@ -200,13 +201,14 @@ public class AppKitRenderer: Renderer {
 		return slider
 	}
 	
-	public func renderSwitch(item: Switch) -> RenderedNode {
+	public func renderSwitch(item: Item) -> RenderedNode {
 		let button = viewForItem(item) { NSButton(frame: CGRectFromRect(item.frame)) } as! NSButton
 		
 		button.frame.size.height = defaultSwitchHeight
-		button.title = item.text
+		button.title = (item.controlState as? SwitchState)?.text ?? ""
+		button.state = (item.controlState as? SwitchState)?.status.rawValue ?? 0
 		button.setButtonType(.SwitchButton)
-		button.setAction { [weak item = item] (sender: NSButton) in item?.reactTo(sender) }
+		button.setAction { [weak item = item] (sender: NSButton) in item?.reactTo(sender, isSwitch: true) }
 
 		return button
 	}

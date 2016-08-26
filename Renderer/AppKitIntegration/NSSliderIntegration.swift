@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension Slider {
+extension Item {
 
-	dynamic func reactTo(sender: NSSlider) {
-		pan(VectorFloat(sender.floatValue))
+	func reactTo(sender: NSSlider) {
+		(actionHandlers.first as? SliderActionHandler)?.pan(self, toValue: VectorFloat(sender.floatValue))
 	}
 }

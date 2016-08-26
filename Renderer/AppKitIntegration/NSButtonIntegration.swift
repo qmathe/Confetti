@@ -8,17 +8,23 @@
 
 import Foundation
 
-extension Switch {
+extension Item {
 
-	dynamic func reactTo(sender: NSButton) {
-		let state: SwitchState = {
-			switch sender.state {
-			case NSOnState: return SwitchState.On
-			case NSOffState: return SwitchState.Off
-			default: return SwitchState.None
-			}
-		}()
+	func reactTo(sender: NSButton, isSwitch: Bool) {
+	
+		if isSwitch {
+			let status: SwitchStatus = {
+				switch sender.state {
+				case NSOnState: return SwitchStatus.On
+				case NSOffState: return SwitchStatus.Off
+				default: return SwitchStatus.None
+				}
+			}()
 
-		toggle(state.rawValue)
+			(actionHandlers.first as? SwitchActionHandler)?.toggle(self, toStatus: status.rawValue)
+		}
+		else {
+			(actionHandlers.first as? ButtonActionHandler)?.tap(self)
+		}
 	}
 }

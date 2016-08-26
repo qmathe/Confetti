@@ -9,7 +9,7 @@ import Foundation
 
 private let _eventCenter = EventCenter()
 
-public class Item: Hashable, Geometry, Rendered {
+public class Item: UIObject, Hashable, Geometry, RenderableNode {
 
 	// MARK: Geometry
 
@@ -26,19 +26,21 @@ public class Item: Hashable, Geometry, Rendered {
 
 	public var controller: Any?
 	public var representedObject: Any?
+	public var controlState: ControlState?
+
 	public var mesh = Plane(size: Size(x: 0, y: 0, z: 0)) as Mesh
 	/// Shorcut for mesh.materials.first.
 	public var material: Material? { return mesh.materials.first }
-	/// A style drawn on top of the background style and any 2D descendant items.
+
+	/// A style drawn on top of the background styles and any 2D descendant items.
 	///
 	/// A 2D item is an item whose mesh is a plane.
 	public var foregroundStyle: Style?
 	/// A style drawn behind the foreground style and any 2D descendant items.
-	///
-	/// Shorcut for mesh.materials.first.style when the first mesh materials 
-	/// is a StyleMaterial, otherwise returns nil.
-	public var backgroundStyle: Style? { return (mesh.materials.first as? StyleMaterial)?.style }
+	public var styles = [Style]()
 	public var layout: Any?
+
+	public var actionHandlers = [ActionHandler]()
 	public var eventCenter: EventCenter { return _eventCenter }
 	
 	// MARK: Item Tree
@@ -65,16 +67,17 @@ public class Item: Hashable, Geometry, Rendered {
 	
 	// MARK: Initialization
 	
-	public init(frame: Rect) {
+	public init(frame: Rect, objectGraph: ObjectGraph) {
 		self.origin = frame.origin
 		self.mesh.size = Size(x: frame.extent.width, y: frame.extent.height, z: 0)
 		self.position = Position(x: frame.extent.width / 2, y: frame.extent.height / 2, z: 0)
+		super.init(objectGraph: objectGraph)
 	}
 	
 	// MARK: Renderer Integration
 
 	public func render(renderer: Renderer) -> RenderedNode {
-		return renderer.renderItem(self)
+		return (styles.first as? RenderableAspect)?.render(self, with: renderer) ?? renderer.renderItem(self)
 	}
 }
 

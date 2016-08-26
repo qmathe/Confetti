@@ -7,6 +7,6 @@
 
 import Foundation
 
-public class Style {
+public class Style: UIObject {
 
 }

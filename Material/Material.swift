@@ -12,9 +12,9 @@ public class Material {
 }
 
 public class StyleMaterial: Material {
-	public var style: Style
+	public var styles: [Style]
 	
-	public init(style: Style) {
-		self.style = style
+	public init(styles: [Style]) {
+		self.styles = styles
 	}
 }
