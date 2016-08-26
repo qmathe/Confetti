@@ -58,13 +58,13 @@ public extension UI {
 		return item
 	}
 	
-	public func slider(orientation orientation: Orientation, length: VectorFloat, min: VectorFloat = 0, max: VectorFloat, initial: VectorFloat,
+	public func slider(orientation orientation: Orientation, origin: Point, length: VectorFloat, min: VectorFloat = 0, max: VectorFloat, initial: VectorFloat,
 		target: AnyObject? = nil, action: Selector? = nil, forProperty property: String = "", ofRepresentedObject representedObject: AnyObject? = nil) -> Item {
 	
 		let width = orientation == .Horizontal ? length : SliderStyle.defaultHeight
 		let height = orientation == .Horizontal ? SliderStyle.defaultHeight : length
 
-		let item = Item(frame: Rect(x: 0, y: 0, width: width, height: height), objectGraph: objectGraph)
+		let item = Item(frame: Rect(x: origin.x, y: origin.y, width: width, height: height), objectGraph: objectGraph)
 
 		// TODO: Support target/action and property
 		item.styles = [SliderStyle(objectGraph: objectGraph)]

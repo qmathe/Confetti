@@ -34,6 +34,11 @@ public struct Vector3 {
 
 public struct Vector2: Equatable {
 	public var x: VectorFloat, y: VectorFloat
+
+	public init(x: VectorFloat, y: VectorFloat) {
+		self.x = x
+		self.y = y
+	}
 }
 
 public struct Extent: Equatable {
