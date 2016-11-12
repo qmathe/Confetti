@@ -145,7 +145,7 @@ public class AppKitRenderer: Renderer {
 	/// For a window unlike a view, we can determine the correct origin 
 	/// immediately, since we can know the screen where it will appear.
 	private func renderWindow(item: Item) -> RenderedNode {
-		let styleMask: Int = NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask | NSUnifiedTitleAndToolbarWindowMask
+		let styleMask: NSWindowStyleMask = [NSTitledWindowMask, NSClosableWindowMask, NSMiniaturizableWindowMask, NSResizableWindowMask, NSUnifiedTitleAndToolbarWindowMask]
 		let window = nodeForItem(item, in: &windows) { NSWindow(contentRect: CGRectFromRect(item.frame), styleMask: styleMask, backing: .Buffered, defer: false) }
 		
 		window.contentView = (item.render(self) as! NSView)
@@ -173,7 +173,7 @@ public class AppKitRenderer: Renderer {
 	public func renderLabel(item: Item) -> RenderedNode {
 		let label = viewForItem(item) { NSTextField(frame: CGRectFromRect(item.frame)) } as! NSTextField
 		
-		label.stringValue = (item as? ButtonState)?.text ?? ""
+		label.stringValue = (item.controlState as? ButtonState)?.text ?? ""
 		label.bezeled = false
 		label.drawsBackground = false
 		label.editable = false
@@ -207,7 +207,7 @@ public class AppKitRenderer: Renderer {
 		button.frame.size.height = defaultSwitchHeight
 		button.title = (item.controlState as? SwitchState)?.text ?? ""
 		button.state = (item.controlState as? SwitchState)?.status.rawValue ?? 0
-		button.setButtonType(.SwitchButton)
+		button.setButtonType(.Switch)
 		button.setAction { [weak item = item] (sender: NSButton) in item?.reactTo(sender, isSwitch: true) }
 
 		return button

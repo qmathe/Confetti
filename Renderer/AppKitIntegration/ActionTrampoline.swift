@@ -31,7 +31,7 @@ extension NSControlActionFunctionProtocol where Self: NSControl {
 	func setAction(action: Self -> Void) {
 		let trampoline = ActionTrampoline(action: action)
 		self.target = trampoline
-		self.action = "action:"
+		self.action = Selector("action:")
 		objc_setAssociatedObject(self, NSControlActionFunctionProtocolAssociatedObjectKey, trampoline, .OBJC_ASSOCIATION_RETAIN)
 	}
 }
