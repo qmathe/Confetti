@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6003FD091D4F584D00EEF814 /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6003FD081D4F584D00EEF814 /* MetalRenderer.swift */; };
 		6003FD0B1D4F587D00EEF814 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003FD0A1D4F587D00EEF814 /* MetalKit.framework */; };
-		6003FD0D1D4F5A5000EEF814 /* MetalNSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6003FD0C1D4F5A5000EEF814 /* MetalNSView.swift */; };
 		6003FD0F1D4F5F8D00EEF814 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6003FD0E1D4F5F8D00EEF814 /* Shaders.metal */; };
 		6003FD171D4F6CB200EEF814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6003FD161D4F6CB200EEF814 /* AppDelegate.swift */; };
 		6003FD191D4F6CB200EEF814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6003FD181D4F6CB200EEF814 /* ViewController.swift */; };
@@ -533,11 +531,9 @@
 				60484FBC1D004E76003972DA /* Mesh.swift in Sources */,
 				602B07671D6311B20035CD86 /* EventHandler.swift in Sources */,
 				60811ABB1D70E68300D4DEEA /* Item.swift in Sources */,
-				6003FD091D4F584D00EEF814 /* MetalRenderer.swift in Sources */,
 				60811A8B1D709E2300D4DEEA /* LabelStyle.swift in Sources */,
 				606658EA1D64ABBF00450376 /* EventHandlerInvocation.swift in Sources */,
 				602B07691D6344FF0035CD86 /* AnyEventHandler.swift in Sources */,
-				6003FD0D1D4F5A5000EEF814 /* MetalNSView.swift in Sources */,
 				602B07631D62FDA10035CD86 /* EventCenter.swift in Sources */,
 				602B076C1D63545F0035CD86 /* NSButtonIntegration.swift in Sources */,
 				60811A8A1D709E2300D4DEEA /* ButtonStyle.swift in Sources */,
