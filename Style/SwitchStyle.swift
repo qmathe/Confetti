@@ -7,9 +7,9 @@
 
 import Foundation
 
-public class SwitchStyle: Style, RenderableAspect {
+open class SwitchStyle: Style, RenderableAspect {
 
-	func render(item: Item, with renderer: Renderer) -> RenderedNode {
+	func render(_ item: Item, with renderer: Renderer) -> RenderedNode {
 		return renderer.renderSwitch(item)
 	}
 }

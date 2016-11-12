@@ -10,25 +10,25 @@ import Foundation
 
 /// This code is copied/pasted from https://www.mikeash.com/pyblog/friday-qa-2015-12-25-swifty-targetaction.html
 class ActionTrampoline<T>: NSObject {
-	var action: T -> Void
+	var action: (T) -> Void
 
-	init(action: T -> Void) {
+	init(action: @escaping (T) -> Void) {
 		self.action = action
 	}
 
-	@objc func action(sender: NSControl) {
+	@objc func action(_ sender: NSControl) {
 		action(sender as! T)
 	}
 }
 
 
-let NSControlActionFunctionProtocolAssociatedObjectKey = UnsafeMutablePointer<Int8>.alloc(1)
+let NSControlActionFunctionProtocolAssociatedObjectKey = UnsafeMutablePointer<Int8>.allocate(capacity: 1)
 
 protocol NSControlActionFunctionProtocol { }
 
 extension NSControlActionFunctionProtocol where Self: NSControl {
 
-	func setAction(action: Self -> Void) {
+	func setAction(_ action: @escaping (Self) -> Void) {
 		let trampoline = ActionTrampoline(action: action)
 		self.target = trampoline
 		self.action = Selector("action:")

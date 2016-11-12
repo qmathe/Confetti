@@ -76,7 +76,7 @@ public typealias Point = Vector2
 public typealias Size = Vector3
 
 public enum Orientation {
-	case Vertical
-	case Horizontal
-	case None
+	case vertical
+	case horizontal
+	case none
 }

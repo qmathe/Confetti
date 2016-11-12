@@ -15,10 +15,10 @@ public protocol Mesh {
 }
 
 
-public class Plane: Mesh {
+open class Plane: Mesh {
 
-	public var size: Size
-	public var materials = [Material]()
+	open var size: Size
+	open var materials = [Material]()
 
 	public init(size: Size) {
 		self.size = size

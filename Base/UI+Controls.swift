@@ -10,7 +10,7 @@ import Foundation
 // TODO: Make frame arguments optional once we support Item.sizeToFit()
 public extension UI {
 
-	public func label(frame frame: Rect, text: String = "") -> Item {
+	public func label(frame: Rect, text: String = "") -> Item {
 		let item = Item(frame: frame, objectGraph: objectGraph)
 	
 		item.styles = [LabelStyle(objectGraph: objectGraph)]
@@ -19,7 +19,7 @@ public extension UI {
 		return item
 	}
 
-	public func button(frame frame: Rect, text: String = "", target: AnyObject? = nil,
+	public func button(frame: Rect, text: String = "", target: AnyObject? = nil,
 		action: Selector? = nil) -> Item {
 		let item = Item(frame: frame, objectGraph: objectGraph)
 
@@ -44,7 +44,7 @@ public extension UI {
 	
 	Note: Reading/writing a property is not yet implemented.
 	*/
-	public func `switch`(frame frame: Rect, text: String = "", status: SwitchStatus = .Off, target: AnyObject? = nil,
+	public func `switch`(frame: Rect, text: String = "", status: SwitchStatus = .off, target: AnyObject? = nil,
 		action: Selector? = nil, forProperty property: String = "", ofRepresentedObject representedObject: AnyObject? = nil) -> Item {
 		let item = Item(frame: frame, objectGraph: objectGraph)
 
@@ -58,11 +58,11 @@ public extension UI {
 		return item
 	}
 	
-	public func slider(orientation orientation: Orientation, origin: Point, length: VectorFloat, min: VectorFloat = 0, max: VectorFloat, initial: VectorFloat,
+	public func slider(orientation: Orientation, origin: Point, length: VectorFloat, min: VectorFloat = 0, max: VectorFloat, initial: VectorFloat,
 		target: AnyObject? = nil, action: Selector? = nil, forProperty property: String = "", ofRepresentedObject representedObject: AnyObject? = nil) -> Item {
 	
-		let width = orientation == .Horizontal ? length : SliderStyle.defaultHeight
-		let height = orientation == .Horizontal ? SliderStyle.defaultHeight : length
+		let width = orientation == .horizontal ? length : SliderStyle.defaultHeight
+		let height = orientation == .horizontal ? SliderStyle.defaultHeight : length
 
 		let item = Item(frame: Rect(x: origin.x, y: origin.y, width: width, height: height), objectGraph: objectGraph)
 

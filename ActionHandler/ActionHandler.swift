@@ -7,9 +7,9 @@
 
 import Foundation
 
-public class ActionHandler: UIObject {
+open class ActionHandler: UIObject {
 
-	func reportMissingControlState(type: ControlState.Type, for item: Item) {
+	func reportMissingControlState(_ type: ControlState.Type, for item: Item) {
 		print("Missing control state \(type) for \(item)")
 	}
 }

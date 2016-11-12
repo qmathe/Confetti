@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension SequenceType where Generator.Element : Equatable {
+extension Sequence where Iterator.Element : Equatable {
 
-	func contains(element: Self.Generator.Element?) -> Bool {
+	func contains(_ element: Self.Iterator.Element?) -> Bool {
 		guard let e = element else {
 			return false
 		}
@@ -21,9 +21,9 @@ extension SequenceType where Generator.Element : Equatable {
 /**
  * To generate a AppKit UI, do item.render(AppKitRenderer()).
  */
-public class AppKitRenderer: Renderer {
+open class AppKitRenderer: Renderer {
 
-	public let destination: NSView?
+	open let destination: NSView?
 	internal var windows = [Item: NSWindow]()
 	internal var views = [Item: NSView]()
 	internal var startItem: Item?
@@ -35,11 +35,11 @@ public class AppKitRenderer: Renderer {
 		self.destination = destination
 	}
 	
-	private func viewForItem(item: Item, create: (() -> NSView)) -> NSView {
+	fileprivate func viewForItem(_ item: Item, create: (() -> NSView)) -> NSView {
 		return nodeForItem(item, in: &views, create: create)
 	}
 	
-	private func nodeForItem<K, V>(item: K, inout in nodes: [K: V], create: (() -> V)) -> V {
+	fileprivate func nodeForItem<K, V>(_ item: K, in nodes: inout [K: V], create: (() -> V)) -> V {
 		if let node = nodes[item] {
 			return node
 		}
@@ -50,10 +50,10 @@ public class AppKitRenderer: Renderer {
 		}
 	}
 	
-	private func discardUnusedNodesFor(newStartItem: Item, oldStartItem: Item?) {
+	fileprivate func discardUnusedNodesFor(_ newStartItem: Item, oldStartItem: Item?) {
 		let existingViews = Set(views.values)
 		let existingWindowBackedItems = Set(windows.keys)
-		let keptItems = Set(ItemTreeGenerator(item: newStartItem).descendantItems)
+		let keptItems = Set(ItemTreeIterator(item: newStartItem).descendantItems)
 		
 		for (item, window) in windows {
 			
@@ -62,7 +62,7 @@ public class AppKitRenderer: Renderer {
 				continue
 			}
 
-			windows.removeValueForKey(item)
+			windows.removeValue(forKey: item)
 			window.orderOut(nil)
 			// FIXME: window.close()
 		}
@@ -72,7 +72,7 @@ public class AppKitRenderer: Renderer {
 			if keptItems.contains(item) {
 
 				if let superview = view.superview
-				 where item != oldStartItem && item != newStartItem {
+				 , item != oldStartItem && item != newStartItem {
 
 					precondition(existingViews.contains(superview) || existingWindowBackedItems.contains(item))
 				}
@@ -82,7 +82,7 @@ public class AppKitRenderer: Renderer {
 				continue
 			}
 
-			views.removeValueForKey(item)
+			views.removeValue(forKey: item)
 			if item == oldStartItem {
 				view.removeFromSuperview()
 			}
@@ -95,7 +95,7 @@ public class AppKitRenderer: Renderer {
 	/// the root rendered node.
 	///
 	/// This method is never called recursively.
-	public func renderItem(item: Item) -> RenderedNode {
+	open func renderItem(_ item: Item) -> RenderedNode {
 		defer {
 			discardUnusedNodesFor(item, oldStartItem: startItem)
 			startItem = item
@@ -109,7 +109,7 @@ public class AppKitRenderer: Renderer {
 		}
 	}
 	
-	private func renderRoot(item: Item) -> RenderedNode {
+	fileprivate func renderRoot(_ item: Item) -> RenderedNode {
 		if let destination = destination {
 		
 			views[item] = destination
@@ -123,7 +123,7 @@ public class AppKitRenderer: Renderer {
 		}
 	}
 	
-	private func renderViews(items: [Item], intoView view: NSView) {
+	fileprivate func renderViews(_ items: [Item], intoView view: NSView) {
 		view.subviews = items.map { $0.render(self) as! NSView }
 
 		// Adjust the origin to compensate the coordinate system differences
@@ -135,7 +135,7 @@ public class AppKitRenderer: Renderer {
 
 	/// Geometry changes requires the parent item to be rendered in the same pass,
 	/// otherwise the rendered view won't match the latest size and position.
-	public func renderView(item: Item) -> RenderedNode {
+	open func renderView(_ item: Item) -> RenderedNode {
 		let view = viewForItem(item) { NSView(frame: CGRectFromRect(item.frame)) }
 
 		renderViews(item.items ?? [], intoView: view)
@@ -144,14 +144,14 @@ public class AppKitRenderer: Renderer {
 
 	/// For a window unlike a view, we can determine the correct origin 
 	/// immediately, since we can know the screen where it will appear.
-	private func renderWindow(item: Item) -> RenderedNode {
+	fileprivate func renderWindow(_ item: Item) -> RenderedNode {
 		let styleMask: NSWindowStyleMask = [NSTitledWindowMask, NSClosableWindowMask, NSMiniaturizableWindowMask, NSResizableWindowMask, NSUnifiedTitleAndToolbarWindowMask]
-		let window = nodeForItem(item, in: &windows) { NSWindow(contentRect: CGRectFromRect(item.frame), styleMask: styleMask, backing: .Buffered, defer: false) }
+		let window = nodeForItem(item, in: &windows) { NSWindow(contentRect: CGRectFromRect(item.frame), styleMask: styleMask, backing: .buffered, defer: false) }
 		
 		window.contentView = (item.render(self) as! NSView)
 
 		if item.isFrontmost {
-			window.makeKeyWindow()
+			window.makeKey()
 		}
 		window.orderFront(nil)
 
@@ -161,7 +161,7 @@ public class AppKitRenderer: Renderer {
 		return window
 	}
 
-	public func renderButton(item: Item) -> RenderedNode {
+	open func renderButton(_ item: Item) -> RenderedNode {
 		let button = viewForItem(item) { NSButton(frame: CGRectFromRect(item.frame)) } as! NSButton
 		
 		button.title = (item.controlState as? ButtonState)?.text ?? ""
@@ -170,19 +170,19 @@ public class AppKitRenderer: Renderer {
 		return button
 	}
 	
-	public func renderLabel(item: Item) -> RenderedNode {
+	open func renderLabel(_ item: Item) -> RenderedNode {
 		let label = viewForItem(item) { NSTextField(frame: CGRectFromRect(item.frame)) } as! NSTextField
 		
 		label.stringValue = (item.controlState as? ButtonState)?.text ?? ""
-		label.bezeled = false
+		label.isBezeled = false
 		label.drawsBackground = false
-		label.editable = false
-		label.selectable = false
+		label.isEditable = false
+		label.isSelectable = false
 
 		return label
 	}
 	
-	public func renderSlider(item: Item) -> RenderedNode {
+	open func renderSlider(_ item: Item) -> RenderedNode {
 		let slider = viewForItem(item) { NSSlider(frame: CGRectFromRect(item.frame)) } as! NSSlider
 		let state = item.controlState as? SliderState
 	
@@ -191,7 +191,7 @@ public class AppKitRenderer: Renderer {
 		slider.objectValue = state?.initialValue ?? 0
 		slider.setAction { [weak item = item] (sender: NSSlider) in item?.reactTo(sender) }
 
-		if item.orientation == .Horizontal {
+		if item.orientation == .horizontal {
 			slider.frame.size.height = defaultSliderThickness
 		}
 		else {
@@ -201,13 +201,13 @@ public class AppKitRenderer: Renderer {
 		return slider
 	}
 	
-	public func renderSwitch(item: Item) -> RenderedNode {
+	open func renderSwitch(_ item: Item) -> RenderedNode {
 		let button = viewForItem(item) { NSButton(frame: CGRectFromRect(item.frame)) } as! NSButton
 		
 		button.frame.size.height = defaultSwitchHeight
 		button.title = (item.controlState as? SwitchState)?.text ?? ""
 		button.state = (item.controlState as? SwitchState)?.status.rawValue ?? 0
-		button.setButtonType(.Switch)
+		button.setButtonType(.switch)
 		button.setAction { [weak item = item] (sender: NSButton) in item?.reactTo(sender, isSwitch: true) }
 
 		return button
@@ -218,7 +218,7 @@ public class AppKitRenderer: Renderer {
 	var defaultSwitchHeight: CGFloat = 18
 	var defaultSliderThickness: CGFloat = 21
 	
-	func reactToActionFrom(sender: NSObject) {
+	func reactToActionFrom(_ sender: NSObject) {
 		
 	}
 }
@@ -226,11 +226,11 @@ public class AppKitRenderer: Renderer {
 
 // MARK: - Utilities
 
-internal func RectFromCGRect(rect: CGRect) -> Rect {
+internal func RectFromCGRect(_ rect: CGRect) -> Rect {
 	return Rect(x: rect.origin.x, y: rect.origin.y, width: rect.size.width, height: rect.size.height)
 }
 
-internal func CGRectFromRect(rect: Rect) -> CGRect {
+internal func CGRectFromRect(_ rect: Rect) -> CGRect {
 	return CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.extent.width, height: rect.extent.height)
 }
 
@@ -240,7 +240,7 @@ extension NSView: RendererDestination, RenderedNode {
 
 	internal var confettiFrame: Rect {
 		get {
-			if let superview = superview where superview.flipped == false {
+			if let superview = superview , superview.isFlipped == false {
 				var rect = frame
 				rect.origin.y = superview.frame.size.height - frame.maxY
 				return RectFromCGRect(rect)
@@ -250,7 +250,7 @@ extension NSView: RendererDestination, RenderedNode {
 			}
 		}
 		set {
-			if let superview = superview where superview.flipped == false {
+			if let superview = superview , superview.isFlipped == false {
 				var rect = CGRectFromRect(newValue)
 				rect.origin.y = superview.frame.size.height - rect.maxY
 				frame = rect
@@ -269,20 +269,20 @@ extension NSWindow: RenderedNode {
 			if let screen = screen {
 				var rect = frame
 				rect.origin.y = screen.visibleFrame.size.height - frame.maxY
-				return RectFromCGRect(contentRectForFrameRect(rect))
+				return RectFromCGRect(contentRect(forFrameRect: rect))
 			}
 			else {
-				return RectFromCGRect(contentRectForFrameRect(frame))
+				return RectFromCGRect(contentRect(forFrameRect: frame))
 			}
 		}
 		set {
 			if let screen = screen {
-				var rect = frameRectForContentRect(CGRectFromRect(newValue))
+				var rect = frameRect(forContentRect: CGRectFromRect(newValue))
 				rect.origin.y = screen.visibleFrame.size.height - rect.maxY
 				setFrame(rect, display: false)
 			}
 			else {
-				setFrame(frameRectForContentRect(CGRectFromRect(newValue)), display: false)
+				setFrame(frameRect(forContentRect: CGRectFromRect(newValue)), display: false)
 			}
 		}
 	}

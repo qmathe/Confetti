@@ -19,24 +19,24 @@ extension Dictionary {
         }
     }
     
-    func map<U>(transform: Value -> U) -> [Key : U] {
+    func map<U>(_ transform: (Value) -> U) -> [Key : U] {
         return Dictionary<Key, U>(map { (key, value) in (key, transform(value)) })
     }
     
-    func map<T : Hashable, U>(transform: (Key, Value) -> (T, U)) -> [T : U] {
+    func map<T : Hashable, U>(_ transform: (Key, Value) -> (T, U)) -> [T : U] {
         return Dictionary<T, U>(map(transform))
     }
     
-    func filter(includeElement: Element -> Bool) -> [Key : Value] {
+    func filter(_ includeElement: (Element) -> Bool) -> [Key : Value] {
         return Dictionary(filter(includeElement))
     }
     
-    func reduce<U>(initial: U, @noescape combine: (U, Element) -> U) -> U {
+    func reduce<U>(_ initial: U, combine: (U, Element) -> U) -> U {
         return reduce(initial, combine: combine)
     }
 }
 
-func += <KeyType, ValueType> (inout left: Dictionary<KeyType, ValueType>, right: Dictionary<KeyType, ValueType>) { 
+func += <KeyType, ValueType> (left: inout Dictionary<KeyType, ValueType>, right: Dictionary<KeyType, ValueType>) { 
     for (k, v) in right { 
         left.updateValue(v, forKey: k) 
     } 

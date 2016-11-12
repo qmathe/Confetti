@@ -9,7 +9,7 @@
 import Foundation
 
 public struct Event<T> {
-	public private(set) weak var sender: AnyObject?
+	public fileprivate(set) weak var sender: AnyObject?
 	public let data: T
 	
 	public init(data: T, sender: AnyObject) {

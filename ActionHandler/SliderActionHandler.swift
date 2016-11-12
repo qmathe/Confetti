@@ -14,13 +14,13 @@ ends.
 Note: there is no continuous property, but you can observe the editing cycle 
 (begin/change/end) to get the same results.
 */
-public class SliderActionHandler: ActionHandler {
+open class SliderActionHandler: ActionHandler {
 	
 	/// Updates the current value and emits a VectorFloat event representing the 
 	/// new value.
 	///
 	/// Will be called when the slider is clicked, dragged or panned.
-	func pan(item: Item, toValue: VectorFloat) {
+	func pan(_ item: Item, toValue: VectorFloat) {
 		guard let state = item.controlState as? SliderState else {
 			reportMissingControlState(SwitchState.self, for: item)
 			return

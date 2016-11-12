@@ -91,13 +91,13 @@ public extension Geometry {
 	var orientation: Orientation {
 		get {
 			if size.x == size.y {
-				return .None
+				return .none
 			}
 			else if size.x > size.y {
-				return .Horizontal
+				return .horizontal
 			}
 			else if size.x < size.y {
-				return .Vertical
+				return .vertical
 			}
 			else {
 				fatalError("Unexpected size comparison")

@@ -21,14 +21,14 @@ public typealias FunctionIdentifier = String
 /// methods as event handler functions.
 public protocol EventReceiver: class {
 	/// Returns a receiver method matching the selector name wrapped into an invocation.
-	func eventHandlerInvocationFor(selector: FunctionIdentifier) -> AnyEventHandlerInvocation?
+	func eventHandlerInvocationFor(_ selector: FunctionIdentifier) -> AnyEventHandlerInvocation?
 }
 
 public struct EventHandler<T> : EventHandlerType, Hashable {
 
 	/// The receiver is never nil.
-	public private(set) weak  var receiver: AnyObject?
-	public private(set) weak var sender: AnyObject?
+	public fileprivate(set) weak  var receiver: AnyObject?
+	public fileprivate(set) weak var sender: AnyObject?
 	public let selector: FunctionIdentifier
 	public var hashValue: Int {
 		var hash = 17
@@ -48,7 +48,7 @@ public struct EventHandler<T> : EventHandlerType, Hashable {
 		self.sender = sender
 	}
 
-	public func send(data: T, from: AnyObject) -> EventHandler<T> {
+	public func send(_ data: T, from: AnyObject) -> EventHandler<T> {
 		precondition(sender === nil || sender === from)
 
 		guard let receiver = receiver as? EventReceiver else {

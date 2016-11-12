@@ -7,15 +7,15 @@
 
 import Foundation
 
-public class UI {
+open class UI {
 
-	public var objectGraph: ObjectGraph
+	open var objectGraph: ObjectGraph
 	
 	public init(objectGraph: ObjectGraph) {
 		self.objectGraph = objectGraph
 	}
 	
-	public func item(frame frame: Rect, items: [Item] = []) -> Item {
+	open func item(frame: Rect, items: [Item] = []) -> Item {
 		let item = Item(frame: frame, objectGraph: objectGraph)
 	
 		item.items = items

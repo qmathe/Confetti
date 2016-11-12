@@ -7,6 +7,6 @@
 
 import Foundation
 
-public class ControlState: UIObject {
+open class ControlState: UIObject {
 
 }

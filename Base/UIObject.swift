@@ -7,15 +7,15 @@
 
 import Foundation
 
-public class ObjectGraph {
+open class ObjectGraph {
 
 	public init() { }
 }
 
 
-public class UIObject {
+open class UIObject {
 
-	public let objectGraph: ObjectGraph
+	open let objectGraph: ObjectGraph
 	
 	public init(objectGraph: ObjectGraph) {
 		self.objectGraph = objectGraph

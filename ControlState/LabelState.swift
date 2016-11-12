@@ -7,9 +7,9 @@
 
 import Foundation
 
-public class LabelState: ControlState {
+open class LabelState: ControlState {
 
-	public var text = ""
+	open var text = ""
 	
 	public init(text: String = "", objectGraph: ObjectGraph) {
 		super.init(objectGraph: objectGraph)

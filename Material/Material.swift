@@ -7,12 +7,12 @@
 
 import Foundation
 
-public class Material {
+open class Material {
 
 }
 
-public class StyleMaterial: Material {
-	public var styles: [Style]
+open class StyleMaterial: Material {
+	open var styles: [Style]
 	
 	public init(styles: [Style]) {
 		self.styles = styles

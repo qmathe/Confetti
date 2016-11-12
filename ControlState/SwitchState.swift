@@ -8,17 +8,17 @@
 import Foundation
 
 public enum SwitchStatus: Int {
-	case On
-	case Off
-	case None
+	case on
+	case off
+	case none
 }
 
-public class SwitchState: ControlState {
+open class SwitchState: ControlState {
 
-	public var text = ""
-	public var status = SwitchStatus.Off
+	open var text = ""
+	open var status = SwitchStatus.off
 	
-	public init(text: String = "", status: SwitchStatus = .Off, objectGraph: ObjectGraph) {
+	public init(text: String = "", status: SwitchStatus = .off, objectGraph: ObjectGraph) {
 		super.init(objectGraph: objectGraph)
 		self.text = text
 		self.status = status

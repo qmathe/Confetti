@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol AnyEventHandlerInvocation {
-	func deliver(data: Any, from: AnyObject, to: AnyObject)
+	func deliver(_ data: Any, from: AnyObject, to: AnyObject)
 }
 
 
@@ -19,15 +19,15 @@ public struct EventHandlerInvocation<T, R>: AnyEventHandlerInvocation {
 
 	let function: EventHandlerFunction
 
-	public init(function: EventHandlerFunction) {
+	public init(function: @escaping EventHandlerFunction) {
 		self.function = function
 	}
 	
-	public func deliver(data: Any, from: AnyObject, to: AnyObject) {
+	public func deliver(_ data: Any, from: AnyObject, to: AnyObject) {
 		deliver(data as! T, from: from, to: to as! R)
 }
 
-	public func deliver(data: T, from: AnyObject, to: R) {
+	public func deliver(_ data: T, from: AnyObject, to: R) {
 		let event = Event<T>(data: data, sender: from)
 		
 		function(to)(event)

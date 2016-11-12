@@ -7,9 +7,9 @@
 
 import Foundation
 
-public class LabelStyle: Style, RenderableAspect {
+open class LabelStyle: Style, RenderableAspect {
 
-	func render(item: Item, with renderer: Renderer) -> RenderedNode {
+	func render(_ item: Item, with renderer: Renderer) -> RenderedNode {
 		return renderer.renderLabel(item)
 	}
 }

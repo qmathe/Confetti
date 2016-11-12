@@ -94,7 +94,7 @@ class TestAppKitToViewDestinationRenderer: TestAppKitRenderer {
 	}
 	
 	func testViewRemoval() {
-		renderer.renderItem(item) as! NSView
+		let _ = renderer.renderItem(item) as! NSView
 
 		item.items = []
 		

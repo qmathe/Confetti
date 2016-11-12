@@ -10,7 +10,7 @@ import Foundation
 
 extension Item {
 
-	func reactTo(sender: NSSlider) {
+	func reactTo(_ sender: NSSlider) {
 		(actionHandlers.first as? SliderActionHandler)?.pan(self, toValue: VectorFloat(sender.floatValue))
 	}
 }

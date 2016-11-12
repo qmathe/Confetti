@@ -9,44 +9,44 @@ import Foundation
 
 private let _eventCenter = EventCenter()
 
-public class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringConvertible {
+open class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringConvertible {
 
 	// MARK: Geometry
 
-	public var transform = Matrix4()
-	public var position: Position
-	public var origin: Point
-	public var pivot = Matrix4()
+	open var transform = Matrix4()
+	open var position: Position
+	open var origin: Point
+	open var pivot = Matrix4()
 
 	// MARK: Item Identification
 
-	public var identifier: String?
+	open var identifier: String?
 	
 	// MARK: Aspects
 
-	public var controller: Any?
-	public var representedObject: Any?
-	public var controlState: ControlState?
+	open var controller: Any?
+	open var representedObject: Any?
+	open var controlState: ControlState?
 
-	public var mesh = Plane(size: Size(x: 0, y: 0, z: 0)) as Mesh
+	open var mesh = Plane(size: Size(x: 0, y: 0, z: 0)) as Mesh
 	/// Shorcut for mesh.materials.first.
-	public var material: Material? { return mesh.materials.first }
+	open var material: Material? { return mesh.materials.first }
 
 	/// A style drawn on top of the background styles and any 2D descendant items.
 	///
 	/// A 2D item is an item whose mesh is a plane.
-	public var foregroundStyle: Style?
+	open var foregroundStyle: Style?
 	/// A style drawn behind the foreground style and any 2D descendant items.
-	public var styles = [Style]()
-	public var layout: Any?
+	open var styles = [Style]()
+	open var layout: Any?
 
-	public var actionHandlers = [ActionHandler]()
-	public var eventCenter: EventCenter { return _eventCenter }
+	open var actionHandlers = [ActionHandler]()
+	open var eventCenter: EventCenter { return _eventCenter }
 	
 	// MARK: Item Tree
 
-	public var parent: Item?
-	public var items: [Item]? {
+	open var parent: Item?
+	open var items: [Item]? {
 		willSet {
 			for item in items ?? [] { item.parent = nil }
 		}
@@ -54,14 +54,14 @@ public class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringCon
 			for item in items ?? [] { item.parent = self }
 		}
 	}
-	public var isGroup: Bool { return items != nil }
-	public var isRoot: Bool { return parent == nil }
-	public var isFrontmost: Bool { return parent?.items?.first == self }
+	open var isGroup: Bool { return items != nil }
+	open var isRoot: Bool { return parent == nil }
+	open var isFrontmost: Bool { return parent?.items?.first == self }
 	
 	// MARK: Options
 
-	public var hidden = false
-	public var hashValue: Int {
+	open var hidden = false
+	open var hashValue: Int {
 		return Int()
 	}
 	
@@ -74,13 +74,13 @@ public class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringCon
 		super.init(objectGraph: objectGraph)
 	}
     
-    public var description: String {
-        let description = "<\(self.dynamicType): \(unsafeAddressOf(self))>"
+    open var description: String {
+        let description = "<\(type(of: self)): \(Unmanaged.passUnretained(self).toOpaque())>"
         
         guard let renderableAspect = styles.first as? RenderableAspect else {
             return description
         }
-        return "\(description) - \(renderableAspect.dynamicType)"
+        return "\(description) - \(type(of: renderableAspect))"
     }
 	
 	// MARK: Renderer Integration
@@ -88,7 +88,7 @@ public class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringCon
     /// You can call this method when implementing a custom Renderer.
     ///
     /// In other use cases, you must use Renderer.renderItem: to render an item tree.
-	public func render(renderer: Renderer) -> RenderedNode {
+	open func render(_ renderer: Renderer) -> RenderedNode {
 		return (styles.first as? RenderableAspect)?.render(self, with: renderer) ?? renderer.renderView(self)
 	}
 }
@@ -98,7 +98,7 @@ public func == (lhs: Item, rhs: Item) -> Bool {
 }
 
 
-public struct ItemTreeGenerator: GeneratorType {
+public struct ItemTreeIterator: IteratorProtocol {
 
 	public typealias Element = Item
 	public var startItem: Item
@@ -106,15 +106,15 @@ public struct ItemTreeGenerator: GeneratorType {
 	///
 	/// The start item is included as the first item.
 	public var descendantItems: [Item]
-	private var generator: IndexingGenerator<[Item]>
+	fileprivate var generator: IndexingIterator<[Item]>
 
 	public init(item: Item) {
 		startItem = item
-		descendantItems = ItemTreeGenerator.descendantItemsFrom(item)
-		generator = descendantItems.generate()
+		descendantItems = ItemTreeIterator.descendantItemsFrom(item)
+		generator = descendantItems.makeIterator()
 	}
 	
-	private static func descendantItemsFrom(item: Item) -> [Item] {
+	fileprivate static func descendantItemsFrom(_ item: Item) -> [Item] {
 		var descendantItems = [item]
 		
 		for item in item.items ?? [] {
@@ -125,7 +125,7 @@ public struct ItemTreeGenerator: GeneratorType {
 		return descendantItems
 	}
 
-	public mutating func next() -> ItemTreeGenerator.Element? {
+	public mutating func next() -> ItemTreeIterator.Element? {
 		return generator.next()
 	}
 }

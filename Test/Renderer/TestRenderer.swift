@@ -28,7 +28,7 @@ class TestRenderer: XCTestCase {
 		renderer = rendererType.init(destination: destination)
 
 		otherButtonItem = ui.button(frame: Rect(x: 0, y: 0, width: 400, height: 200), text: "Cancel")
-		sliderItem = ui.slider(orientation: .Horizontal, origin: Point(x: 100, y: 200), length: 200, max: 100, initial: 50)
+		sliderItem = ui.slider(orientation: .horizontal, origin: Point(x: 100, y: 200), length: 200, max: 100, initial: 50)
 		subitem = ui.item(frame: Rect(x: 400, y: 0, width: 600, height: 400), items: [sliderItem, otherButtonItem])
 
 		buttonItem = ui.button(frame: Rect(x: 10, y: 10, width: 100, height: 20), text: "OK")

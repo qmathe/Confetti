@@ -7,9 +7,9 @@
 
 import Foundation
 
-public class ButtonStyle: Style, RenderableAspect {
+open class ButtonStyle: Style, RenderableAspect {
 
-	func render(item: Item, with renderer: Renderer) -> RenderedNode {
+	func render(_ item: Item, with renderer: Renderer) -> RenderedNode {
 		return renderer.renderButton(item)
 	}
 }

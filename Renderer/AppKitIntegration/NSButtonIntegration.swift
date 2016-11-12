@@ -10,14 +10,14 @@ import Foundation
 
 extension Item {
 
-	func reactTo(sender: NSButton, isSwitch: Bool) {
+	func reactTo(_ sender: NSButton, isSwitch: Bool) {
 	
 		if isSwitch {
 			let status: SwitchStatus = {
 				switch sender.state {
-				case NSOnState: return SwitchStatus.On
-				case NSOffState: return SwitchStatus.Off
-				default: return SwitchStatus.None
+				case NSOnState: return SwitchStatus.on
+				case NSOffState: return SwitchStatus.off
+				default: return SwitchStatus.none
 				}
 			}()
 

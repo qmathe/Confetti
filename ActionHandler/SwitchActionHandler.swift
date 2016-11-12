@@ -7,12 +7,12 @@
 
 import Foundation
 
-public class SwitchActionHandler: ActionHandler {
+open class SwitchActionHandler: ActionHandler {
 	
 	/// Updates the current state and emits a SwitchStatus event.
 	///
 	/// Will be called when the switch is clicked or swiped.
-	func toggle(item: Item, toStatus: Int) {
+	func toggle(_ item: Item, toStatus: Int) {
 		guard let state = item.controlState as? SwitchState else {
 			reportMissingControlState(SwitchState.self, for: item)
 			return
