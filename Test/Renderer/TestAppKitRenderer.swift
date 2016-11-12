@@ -22,6 +22,15 @@ class TestAppKitRenderer: TestRenderer {
 	var windows: [Item: NSWindow] {
 		return (renderer as! AppKitRenderer).windows
 	}
+	
+	func testItemTreeToViewHierarchy() {
+		let rootNode = renderer.renderItem(item)
+        let button = views[buttonItem]!
+        let group = views[subitem]!
+
+        // When the rendered destination is a view, this view may not be rooted in a window
+		XCTAssertNotNil(button.superview)
+	}
 }
 
 
@@ -36,7 +45,7 @@ class TestAppKitToDefaultDestinationRenderer: TestAppKitRenderer {
 		let rootNode = renderer.renderItem(item) as! AppKitRootNode
 		let window = rootNode.windows.first!
 
-		XCTAssertEqual(1, rootNode.windows.count)
+		XCTAssertEqual(2, rootNode.windows.count)
 		XCTAssertNil(views[item])
 		XCTAssertNil(windows[item])
 

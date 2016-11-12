@@ -9,7 +9,7 @@ import Foundation
 
 private let _eventCenter = EventCenter()
 
-public class Item: UIObject, Hashable, Geometry, RenderableNode {
+public class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringConvertible {
 
 	// MARK: Geometry
 
@@ -73,11 +73,23 @@ public class Item: UIObject, Hashable, Geometry, RenderableNode {
 		self.position = Position(x: frame.extent.width / 2, y: frame.extent.height / 2, z: 0)
 		super.init(objectGraph: objectGraph)
 	}
+    
+    public var description: String {
+        let description = "<\(self.dynamicType): \(unsafeAddressOf(self))>"
+        
+        guard let renderableAspect = styles.first as? RenderableAspect else {
+            return description
+        }
+        return "\(description) - \(renderableAspect.dynamicType)"
+    }
 	
 	// MARK: Renderer Integration
 
+    /// You can call this method when implementing a custom Renderer.
+    ///
+    /// In other use cases, you must use Renderer.renderItem: to render an item tree.
 	public func render(renderer: Renderer) -> RenderedNode {
-		return (styles.first as? RenderableAspect)?.render(self, with: renderer) ?? renderer.renderItem(self)
+		return (styles.first as? RenderableAspect)?.render(self, with: renderer) ?? renderer.renderView(self)
 	}
 }
 

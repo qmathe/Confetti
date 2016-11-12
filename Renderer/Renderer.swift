@@ -27,6 +27,7 @@ public protocol RendererDestination {
 public protocol Renderer {
 	init(destination: RendererDestination?)
 	func renderItem(item: Item) -> RenderedNode
+    func renderView(item: Item) -> RenderedNode
 	func renderButton(item: Item) -> RenderedNode
 	func renderLabel(item: Item) -> RenderedNode
 	func renderSlider(item: Item) -> RenderedNode

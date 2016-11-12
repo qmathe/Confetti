@@ -135,7 +135,7 @@ public class AppKitRenderer: Renderer {
 
 	/// Geometry changes requires the parent item to be rendered in the same pass,
 	/// otherwise the rendered view won't match the latest size and position.
-	private func renderView(item: Item) -> RenderedNode {
+	public func renderView(item: Item) -> RenderedNode {
 		let view = viewForItem(item) { NSView(frame: CGRectFromRect(item.frame)) }
 
 		renderViews(item.items ?? [], intoView: view)
