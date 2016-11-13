@@ -22,15 +22,6 @@ class TestAppKitRenderer: TestRenderer {
 	var windows: [Item: NSWindow] {
 		return (renderer as! AppKitRenderer).windows
 	}
-	
-	func testItemTreeToViewHierarchy() {
-		let rootNode = renderer.renderItem(item)
-        let button = views[buttonItem]!
-        let group = views[subitem]!
-
-        // When the rendered destination is a view, this view may not be rooted in a window
-		XCTAssertNotNil(button.superview)
-	}
 }
 
 
@@ -39,6 +30,20 @@ class TestAppKitToDefaultDestinationRenderer: TestAppKitRenderer {
 	override func setUp() {
 		destination = nil
 		super.setUp()
+	}
+    
+	func testItemTreeToViewHierarchy() {
+		let rootNode = renderer.renderItem(item) as! AppKitRootNode
+        let buttonView = views[buttonItem]!
+        let subview = views[subitem]!
+        let sliderView = views[sliderItem]!
+        let otherButtonView = views[otherButtonItem]!
+
+        XCTAssertEqual(2, windows.count)
+        XCTAssertEqual(4, views.count)
+        XCTAssertEqual(windows[[buttonItem, subitem]] as! [NSWindow], rootNode.windows)
+		XCTAssertEqual([buttonView, subview], windows.values.map { $0.contentView! })
+        XCTAssertEqual([sliderView, otherButtonView], subview.subviews)
 	}
 	
 	func testWindowInsertion() {
@@ -79,6 +84,18 @@ class TestAppKitToViewDestinationRenderer: TestAppKitRenderer {
 		super.setUp()
 	}
 
+	func testItemTreeToViewHierarchy() {
+		let view = renderer.renderItem(item) as! NSView
+        let buttonView = views[buttonItem]!
+        let subview = views[subitem]!
+        let sliderView = views[sliderItem]!
+        let otherButtonView = views[otherButtonItem]!
+
+        XCTAssertEqual(0, windows.count)
+        XCTAssertEqual(5, views.count)
+		XCTAssertEqual([buttonView, subview], view.subviews)
+        XCTAssertEqual([sliderView, otherButtonView], subview.subviews)
+	}
 	func testViewInsertion() {
 		let view = renderer.renderItem(item) as! NSView
 		
