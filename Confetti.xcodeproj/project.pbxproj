@@ -118,6 +118,8 @@
 		60811AB71D70E68300D4DEEA /* UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UI.swift; path = Base/UI.swift; sourceTree = "<group>"; };
 		60811AB81D70E68300D4DEEA /* UI+Controls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UI+Controls.swift"; path = "Base/UI+Controls.swift"; sourceTree = "<group>"; };
 		60811AB91D70E68300D4DEEA /* UIObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIObject.swift; path = Base/UIObject.swift; sourceTree = "<group>"; };
+		60873B351DD87DD0004FFE29 /* Playground-macOS.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "Playground-macOS.playground"; path = "Playgrounds/Playground-macOS.playground"; sourceTree = "<group>"; };
+		60873B361DD87DD0004FFE29 /* Playground-private.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "Playground-private.playground"; path = "Playgrounds/Playground-private.playground"; sourceTree = "<group>"; };
 		609183D41D1C1DBF00AE4262 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		609183D61D1C1DCB00AE4262 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		60A5D4DA1D1C1488007B7A7B /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = Style/Style.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 		60484F8C1D003DEB003972DA = {
 			isa = PBXGroup;
 			children = (
+				60873B341DD87DB5004FFE29 /* Playground */,
 				602B07611D62FD7F0035CD86 /* Event */,
 				60484FB31D00400C003972DA /* Geometry */,
 				60811AB11D70E5FE00D4DEEA /* Base */,
@@ -350,6 +353,15 @@
 				60811AB81D70E68300D4DEEA /* UI+Controls.swift */,
 			);
 			name = Controls;
+			sourceTree = "<group>";
+		};
+		60873B341DD87DB5004FFE29 /* Playground */ = {
+			isa = PBXGroup;
+			children = (
+				60873B351DD87DD0004FFE29 /* Playground-macOS.playground */,
+				60873B361DD87DD0004FFE29 /* Playground-private.playground */,
+			);
+			name = Playground;
 			sourceTree = "<group>";
 		};
 		60A5D4D91D1C147D007B7A7B /* Style */ = {
