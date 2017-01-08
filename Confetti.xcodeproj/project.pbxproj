@@ -51,8 +51,8 @@
 		60811AC01D70E68300D4DEEA /* UI+Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60811AB81D70E68300D4DEEA /* UI+Controls.swift */; };
 		60811AC11D70E68300D4DEEA /* UIObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60811AB91D70E68300D4DEEA /* UIObject.swift */; };
 		60873B481DD88175004FFE29 /* Confetti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60873B3F1DD88175004FFE29 /* Confetti.framework */; };
-		60873B671DD88353004FFE29 /* Confetti.h in Headers */ = {isa = PBXBuildFile; fileRef = 60873B661DD88353004FFE29 /* Confetti.h */; };
-		60873B681DD88353004FFE29 /* Confetti.h in Headers */ = {isa = PBXBuildFile; fileRef = 60873B661DD88353004FFE29 /* Confetti.h */; };
+		60873B671DD88353004FFE29 /* Confetti.h in Headers */ = {isa = PBXBuildFile; fileRef = 60873B661DD88353004FFE29 /* Confetti.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		60873B681DD88353004FFE29 /* Confetti.h in Headers */ = {isa = PBXBuildFile; fileRef = 60873B661DD88353004FFE29 /* Confetti.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		609183D51D1C1DBF00AE4262 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609183D41D1C1DBF00AE4262 /* QuartzCore.framework */; };
 		609183D71D1C1DCB00AE4262 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609183D61D1C1DCB00AE4262 /* Foundation.framework */; };
 		60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DA1D1C1488007B7A7B /* Style.swift */; };
@@ -887,7 +887,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = Confetti/Info.plist;
+				INFOPLIST_FILE = Support/macOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.confetti.Confetti;
@@ -908,7 +908,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = Confetti/Info.plist;
+				INFOPLIST_FILE = Support/macOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.confetti.Confetti;
@@ -929,7 +929,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Confetti (iOS)/Info.plist";
+				INFOPLIST_FILE = Support/iOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -955,7 +955,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Confetti (iOS)/Info.plist";
+				INFOPLIST_FILE = Support/iOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1051,6 +1051,7 @@
 				60873B521DD88175004FFE29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		60873B531DD88175004FFE29 /* Build configuration list for PBXNativeTarget "TestConfetti (iOS)" */ = {
 			isa = XCConfigurationList;
@@ -1059,6 +1060,7 @@
 				60873B551DD88175004FFE29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

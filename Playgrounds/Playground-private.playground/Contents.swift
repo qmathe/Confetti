@@ -4,7 +4,7 @@ import Cocoa
 
 let path = NSBezierPath()
 
-path.empty
+path.isEmpty
 
 var str = "Hello, playground"
 
@@ -16,7 +16,7 @@ NSDate()
 
 var collection = [7, 8, 9]
 
-collection.insert(10, atIndex: 3)
+collection.insert(10, at: 3)
 collection.isEmpty
 
 //NSArray(
@@ -41,13 +41,13 @@ mirror.children.count
 typealias GenericHandlerFunction = @convention(swift) (AnyObject) -> () -> (Any)
 typealias HandlerFunction = @convention(swift) (A<Int>) -> () -> (String)
 
-let cf: (A) -> () -> (String) = A.doSomething(_:)
-let functionPointer = unsafeBitCast(cf, GenericHandlerFunction.self)
-let f = unsafeBitCast(functionPointer, HandlerFunction.self)
+let cf: (A) -> () -> (String) = A.doSomething(x:)
+let functionPointer = unsafeBitCast(cf, to: GenericHandlerFunction.self)
+let f = unsafeBitCast(functionPointer, to: HandlerFunction.self)
 
 f(a)()
 
-f.dynamicType
+type(of: f)
 
 private class BaseEventHandler<T, R> {
 
@@ -59,6 +59,6 @@ class EventHandler<T> : BaseEventHandler<T, AnyObject> {
 
 let handler = EventHandler<Int>()
 
-handler.dynamicType.EventType.self
+type(of: handler).EventType.self
 
 let c =  AnySequence<String>(["a", "b"])
