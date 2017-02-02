@@ -49,7 +49,7 @@ open struct Image {
     
     init(size: Size, data: Data, bitsPerComponent: BitsPerComponent, bitsPerPixel: UIInt8, bytesPerRow: UIInt) {
         return Image(size: size,
-                 provider: provider,
+                 provider: CGDataProvider(data),
          bitsPerComponent: bitsPerComponent.rawValue,
              bitsPerPixel: bitsPerPixel,
               bytesPerRow: bytesPerRow)
@@ -57,9 +57,7 @@ open struct Image {
     
     private init(size: Size, provider: CGDataProvider, bitsPerComponent: BitsPerComponent, bitsPerPixel: UIInt8, bytesPerRow: UIInt) {
         let info = CGBitmapInfo()
-        let provider =
-        
-            CGImage(
+
         self.data = data
         self.image = CGImage(width: size.width,
                             height: size.height,
