@@ -8,7 +8,7 @@
 import Foundation
 import CoreGraphics
 
-open struct Blend: Paint {
+public struct Blend: Paint {
     
     enum Mode {
         case normal

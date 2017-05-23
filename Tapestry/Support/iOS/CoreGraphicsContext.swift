@@ -8,19 +8,19 @@
 import Foundation
 import CoreGraphics
 
-open class CoreGraphicsContext: 2DContext {
+open class CoreGraphicsContext: Context2D {
     
-    var transform: Matrix4
-    
-    func drawImage(image: Image, with blend: Blend, in rect: Rect) {
+    open var transform = Matrix4.identity()
+
+    open func drawImage(image: Image, with blend: Blend, in rect: Rect) {
     
     }
 
-    func drawPath(path: BezierPath, with paint: Paint, in rect: Rect) {
+    open func drawPath(path: BezierPath, with paint: Paint, in rect: Rect) {
     
     }
 
-    func drawText(text: AttributedString, with paint: Paint, in rect: Rect) {
+    open func drawText(text: AttributedString, with paint: Paint, in rect: Rect) {
     
     }
 }

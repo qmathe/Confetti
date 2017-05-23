@@ -8,6 +8,6 @@
 import Foundation
 import CoreGraphics
 
-open protocol Paint {
+public protocol Paint {
 
 }

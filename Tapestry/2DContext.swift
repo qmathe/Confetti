@@ -8,16 +8,19 @@
 import Foundation
 import CoreGraphics
 
+public typealias BezierPath = Any
+public typealias AttributedString = Any
+
 /// List of all supported drawing backends
 public enum Backend {
-    /// Default backend when creating a context with 2DContext().
+    /// Default backend when creating a context with Context2D().
     case coreGraphics
 }
 
-/// Protocol implemented by all drawing contexts returned by 2DContext()
-open protocol 2DContext {
+/// Protocol implemented by all drawing contexts returned by Context2D()
+public protocol Context2D {
     
-    var transform: Matrix4
+    var transform: Matrix4 { get set }
     
     //func draw(in: Rect, blendMode: BlendMode, alpha: VectorFloat = 1.0) {
     func drawImage(image: Image, with blend: Blend, in rect: Rect)
@@ -26,9 +29,9 @@ open protocol 2DContext {
 }
 
 /// Creates a 2D drawing context based on the given backend.
-public func 2DContext(with backend: Backend = .coreGraphics) -> 2DContext {
+public func CreateContext2D(with backend: Backend = .coreGraphics) -> Context2D {
     switch backend {
-    case coreGraphics:
+    case .coreGraphics:
         return CoreGraphicsContext()
     }
 }
