@@ -26,10 +26,18 @@ public struct Matrix4 {
 
 		return matrix
 	}
+    
+    public init() { }
 }
 
 public struct Vector3 {
 	public var x: VectorFloat, y: VectorFloat, z: VectorFloat
+    
+	public init(x: VectorFloat, y: VectorFloat, z: VectorFloat) {
+		self.x = x
+		self.y = y
+        self.z = z
+	}
 }
 
 public struct Vector2: Equatable {
@@ -43,6 +51,11 @@ public struct Vector2: Equatable {
 
 public struct Extent: Equatable {
 	public var width: VectorFloat, height: VectorFloat
+    
+    public init(width: VectorFloat, height: VectorFloat) {
+		self.width = width
+		self.height = height
+	}
 }
 
 public struct Rect: Equatable {

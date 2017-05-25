@@ -6,6 +6,7 @@
  */
 
 import Foundation
+import Tapestry
 
 /**
 To detect when the user stops to drag the slider thumb, observe when the editing

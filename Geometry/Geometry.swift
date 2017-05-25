@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Tapestry
 
 public protocol Geometry {
 

@@ -7,6 +7,7 @@
  */
 
 import Foundation
+import Tapestry
 
 extension Sequence where Iterator.Element : Equatable {
 

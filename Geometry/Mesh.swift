@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Tapestry
 
 /// A collection of vertices defining a surface with associated materials or 
 /// textures.

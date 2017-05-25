@@ -62,3 +62,20 @@ let handler = EventHandler<Int>()
 type(of: handler).EventType.self
 
 let c =  AnySequence<String>(["a", "b"])
+
+typealias Source = (_ data: Data) -> CGImage?
+
+func imageFrom(_ data: Data) -> CGImage? {
+    return nil
+}
+
+let funcRef = imageFrom(_:)
+
+funcRef(Data())
+
+//var formatSources: [String: Source] = ["jpeg": imageFrom(_:)]
+
+Data() as CFData
+
+CGDataProvider(data: Data() as CFData)
+

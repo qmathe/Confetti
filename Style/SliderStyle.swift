@@ -6,6 +6,7 @@
  */
 
 import Foundation
+import Tapestry
 
 open class SliderStyle: Style, RenderableAspect {
 

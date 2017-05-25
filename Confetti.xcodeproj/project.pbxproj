@@ -58,11 +58,12 @@
 		609183D71D1C1DCB00AE4262 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609183D61D1C1DCB00AE4262 /* Foundation.framework */; };
 		60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DA1D1C1488007B7A7B /* Style.swift */; };
 		60A5D4DE1D1C14F8007B7A7B /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DD1D1C14F8007B7A7B /* Material.swift */; };
+		60B8EE611ED6EA1C0060B5F2 /* Tapestry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; };
 		60CD06651E227016006FC8C2 /* Tapestry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; };
 		60CD06661E227016006FC8C2 /* Tapestry.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		60CD06711E2272D4006FC8C2 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CD06701E2272D4006FC8C2 /* Image.swift */; };
 		60CD06731E2274E1006FC8C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD06721E2274E1006FC8C2 /* CoreGraphics.framework */; };
-		60CD06751E26BAC1006FC8C2 /* 2DContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CD06741E26BAC1006FC8C2 /* 2DContext.swift */; };
+		60CD06751E26BAC1006FC8C2 /* Context2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CD06741E26BAC1006FC8C2 /* Context2D.swift */; };
 		60CD06771E26BD19006FC8C2 /* CoreGraphicsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CD06761E26BD19006FC8C2 /* CoreGraphicsContext.swift */; };
 		60CD067C1E26BF7D006FC8C2 /* Paint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CD067B1E26BF7D006FC8C2 /* Paint.swift */; };
 		60CD067E1E26BF8B006FC8C2 /* Blend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CD067D1E26BF8B006FC8C2 /* Blend.swift */; };
@@ -171,7 +172,7 @@
 		60CD065E1E227016006FC8C2 /* Tapestry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tapestry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CD06701E2272D4006FC8C2 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		60CD06721E2274E1006FC8C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		60CD06741E26BAC1006FC8C2 /* 2DContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = 2DContext.swift; sourceTree = "<group>"; };
+		60CD06741E26BAC1006FC8C2 /* Context2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context2D.swift; sourceTree = "<group>"; };
 		60CD06761E26BD19006FC8C2 /* CoreGraphicsContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreGraphicsContext.swift; path = Support/iOS/CoreGraphicsContext.swift; sourceTree = "<group>"; };
 		60CD067B1E26BF7D006FC8C2 /* Paint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Paint.swift; path = Paint/Paint.swift; sourceTree = "<group>"; };
 		60CD067D1E26BF8B006FC8C2 /* Blend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Blend.swift; path = Paint/Blend.swift; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60B8EE611ED6EA1C0060B5F2 /* Tapestry.framework in Frameworks */,
 				6003FD0B1D4F587D00EEF814 /* MetalKit.framework in Frameworks */,
 				609183D71D1C1DCB00AE4262 /* Foundation.framework in Frameworks */,
 				609183D51D1C1DBF00AE4262 /* QuartzCore.framework in Frameworks */,
@@ -481,7 +483,7 @@
 		60CD065F1E227016006FC8C2 /* Tapestry */ = {
 			isa = PBXGroup;
 			children = (
-				60CD06741E26BAC1006FC8C2 /* 2DContext.swift */,
+				60CD06741E26BAC1006FC8C2 /* Context2D.swift */,
 				60CD06701E2272D4006FC8C2 /* Image.swift */,
 				60CD067A1E26BF63006FC8C2 /* Paint */,
 				60CD066B1E227028006FC8C2 /* Support */,
@@ -852,7 +854,7 @@
 				60CD06711E2272D4006FC8C2 /* Image.swift in Sources */,
 				60CD067C1E26BF7D006FC8C2 /* Paint.swift in Sources */,
 				60838B1E1ED201F10034D892 /* GeometryUtilities.swift in Sources */,
-				60CD06751E26BAC1006FC8C2 /* 2DContext.swift in Sources */,
+				60CD06751E26BAC1006FC8C2 /* Context2D.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -979,7 +981,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -1023,7 +1025,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Tapestry
 import Confetti
 
 @NSApplicationMain
@@ -21,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventReceiver {
 		let ui = UI(objectGraph: objectGraph)
 		let button = ui.button(frame: Rect(x: 0, y: 0, width: 400, height: 200), text: "OK")
 		let otherButton = ui.button(frame: Rect(x: 0, y: 0, width: 400, height: 200), text: "Cancel")
-		let slider = ui.slider(orientation: .Horizontal, origin: Point(x: 400, y: 200), length: 400, max: 100, initial: 50)
+		let slider = ui.slider(orientation: .horizontal, origin: Point(x: 400, y: 200), length: 400, max: 100, initial: 50)
 		let subitem = ui.item(frame: Rect(x: 1000, y: 200, width: 1000, height: 400), items: [])
 		let item = ui.item(frame: Rect(x: 200, y: 200, width: 1000, height: 400), items: [button, subitem])
 
@@ -37,9 +38,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventReceiver {
 		window.makeKeyAndOrderFront(nil)*/
 	}
 	
-	func eventHandlerInvocationFor(selector: FunctionIdentifier) -> AnyEventHandlerInvocation? {
+	func eventHandlerInvocationFor(_ selector: FunctionIdentifier) -> AnyEventHandlerInvocation? {
 		switch selector {
-			case "tap": return EventHandlerInvocation<Tap, AppDelegate>(function: AppDelegate.tap(_:))
+			case "tap": return EventHandlerInvocation<Tap, AppDelegate>(function: AppDelegate.tap(event:))
 			default: return nil
 		}
 	}

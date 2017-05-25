@@ -6,6 +6,7 @@
  */
 
 import Foundation
+import Tapestry
 
 // TODO: Make frame arguments optional once we support Item.sizeToFit()
 public extension UI {

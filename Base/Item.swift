@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Tapestry
 
 private let _eventCenter = EventCenter()
 
