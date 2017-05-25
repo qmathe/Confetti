@@ -169,6 +169,8 @@
 		609183D61D1C1DCB00AE4262 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		60A5D4DA1D1C1488007B7A7B /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = Style/Style.swift; sourceTree = "<group>"; };
 		60A5D4DD1D1C14F8007B7A7B /* Material.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Material.swift; path = Material/Material.swift; sourceTree = "<group>"; };
+		60B8EE621ED717AB0060B5F2 /* DESIGN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = DESIGN.md; path = Documentation/DESIGN.md; sourceTree = "<group>"; };
+		60B8EE631ED717B90060B5F2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		60CD065E1E227016006FC8C2 /* Tapestry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tapestry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CD06701E2272D4006FC8C2 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		60CD06721E2274E1006FC8C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -316,6 +318,8 @@
 		60484F8C1D003DEB003972DA = {
 			isa = PBXGroup;
 			children = (
+				60B8EE631ED717B90060B5F2 /* README.md */,
+				60B8EE621ED717AB0060B5F2 /* DESIGN.md */,
 				60873B341DD87DB5004FFE29 /* Playground */,
 				60CD065F1E227016006FC8C2 /* Tapestry */,
 				602B07611D62FD7F0035CD86 /* Event */,
