@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Tapestry
 @testable import Confetti
 
 class TestRenderer: XCTestCase {
