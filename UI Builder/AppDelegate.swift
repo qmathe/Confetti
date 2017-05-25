@@ -18,17 +18,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventReceiver {
 	var window: NSWindow!
 	var objectGraph = ObjectGraph()
 
-	func applicationDidFinishLaunching(aNotification: NSNotification) {
+	func applicationDidFinishLaunching(_ notification: Notification) {
 		let ui = UI(objectGraph: objectGraph)
 		let button = ui.button(frame: Rect(x: 0, y: 0, width: 400, height: 200), text: "OK")
 		let otherButton = ui.button(frame: Rect(x: 0, y: 0, width: 400, height: 200), text: "Cancel")
 		let slider = ui.slider(orientation: .horizontal, origin: Point(x: 400, y: 200), length: 400, max: 100, initial: 50)
-		let subitem = ui.item(frame: Rect(x: 1000, y: 200, width: 1000, height: 400), items: [])
+		let subitem = ui.item(frame: Rect(x: 1000, y: 200, width: 1000, height: 400), items: [otherButton, slider])
 		let item = ui.item(frame: Rect(x: 200, y: 200, width: 1000, height: 400), items: [button, subitem])
 
 		item.eventCenter.add(EventHandler<Tap>(selector: "tap", receiver: self, sender: button))
 
-		item.render(renderer)
+		let window = renderer.renderItem(item) as? NSWindow
+        
+        window?.contentView.debugDescription
 		
 		/*let styleMask: Int = NSBorderlessWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask | NSUnifiedTitleAndToolbarWindowMask
 		window = NSWindow(contentRect: CGRect(x: 200, y: 200, width: 1000, height: 400), styleMask: styleMask, backing: .Buffered, defer: false)
