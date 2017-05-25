@@ -146,7 +146,7 @@ open class AppKitRenderer: Renderer {
 	/// For a window unlike a view, we can determine the correct origin 
 	/// immediately, since we can know the screen where it will appear.
 	fileprivate func renderWindow(_ item: Item) -> RenderedNode {
-		let styleMask: NSWindowStyleMask = [NSTitledWindowMask, NSClosableWindowMask, NSMiniaturizableWindowMask, NSResizableWindowMask, NSUnifiedTitleAndToolbarWindowMask]
+		let styleMask: NSWindowStyleMask = [NSWindowStyleMask.titled, NSWindowStyleMask.closable, NSWindowStyleMask.miniaturizable, NSWindowStyleMask.resizable, NSWindowStyleMask.unifiedTitleAndToolbar]
 		let window = nodeForItem(item, in: &windows) { NSWindow(contentRect: CGRectFromRect(item.frame), styleMask: styleMask, backing: .buffered, defer: false) }
 		
 		window.contentView = (item.render(self) as! NSView)
