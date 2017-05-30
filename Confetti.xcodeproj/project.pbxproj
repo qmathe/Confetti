@@ -59,6 +59,7 @@
 		60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DA1D1C1488007B7A7B /* Style.swift */; };
 		60A5D4DE1D1C14F8007B7A7B /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DD1D1C14F8007B7A7B /* Material.swift */; };
 		60B8EE611ED6EA1C0060B5F2 /* Tapestry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; };
+		60B8EE661EDE1E240060B5F2 /* Viewpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B8EE651EDE1E240060B5F2 /* Viewpoint.swift */; };
 		60CD06651E227016006FC8C2 /* Tapestry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; };
 		60CD06661E227016006FC8C2 /* Tapestry.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		60CD06711E2272D4006FC8C2 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CD06701E2272D4006FC8C2 /* Image.swift */; };
@@ -171,6 +172,8 @@
 		60A5D4DD1D1C14F8007B7A7B /* Material.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Material.swift; path = Material/Material.swift; sourceTree = "<group>"; };
 		60B8EE621ED717AB0060B5F2 /* DESIGN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = DESIGN.md; path = Documentation/DESIGN.md; sourceTree = "<group>"; };
 		60B8EE631ED717B90060B5F2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		60B8EE651EDE1E240060B5F2 /* Viewpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Viewpoint.swift; path = Viewpoint/Viewpoint.swift; sourceTree = "<group>"; };
+		60B8EE691EDE25BB0060B5F2 /* Counter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Counter.swift; path = Examples/Counter/Counter.swift; sourceTree = "<group>"; };
 		60CD065E1E227016006FC8C2 /* Tapestry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tapestry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CD06701E2272D4006FC8C2 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		60CD06721E2274E1006FC8C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -325,6 +328,7 @@
 				602B07611D62FD7F0035CD86 /* Event */,
 				60484FB31D00400C003972DA /* Geometry */,
 				60811AB11D70E5FE00D4DEEA /* Base */,
+				60B8EE641EDE1E0F0060B5F2 /* Viewpoint */,
 				60811A831D709D1C00D4DEEA /* Control State */,
 				60811A841D709D3400D4DEEA /* Action Handler */,
 				60A5D4D91D1C147D007B7A7B /* Style */,
@@ -332,6 +336,7 @@
 				6003FD071D4F582600EEF814 /* Renderer */,
 				600E8C761D5B444B00AFD10E /* Utilities */,
 				60484FA41D003DEB003972DA /* Test */,
+				60B8EE671EDE258E0060B5F2 /* Examples */,
 				6003FD151D4F6CB200EEF814 /* UI Builder */,
 				60873B5D1DD882AE004FFE29 /* Support */,
 				601292A21D00619700B8E9EA /* Frameworks */,
@@ -482,6 +487,30 @@
 				60A5D4DD1D1C14F8007B7A7B /* Material.swift */,
 			);
 			name = Material;
+			sourceTree = "<group>";
+		};
+		60B8EE641EDE1E0F0060B5F2 /* Viewpoint */ = {
+			isa = PBXGroup;
+			children = (
+				60B8EE651EDE1E240060B5F2 /* Viewpoint.swift */,
+			);
+			name = Viewpoint;
+			sourceTree = "<group>";
+		};
+		60B8EE671EDE258E0060B5F2 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				60B8EE681EDE25960060B5F2 /* Counter */,
+			);
+			name = Examples;
+			sourceTree = "<group>";
+		};
+		60B8EE681EDE25960060B5F2 /* Counter */ = {
+			isa = PBXGroup;
+			children = (
+				60B8EE691EDE25BB0060B5F2 /* Counter.swift */,
+			);
+			name = Counter;
 			sourceTree = "<group>";
 		};
 		60CD065F1E227016006FC8C2 /* Tapestry */ = {
@@ -804,6 +833,7 @@
 				60811A8B1D709E2300D4DEEA /* LabelStyle.swift in Sources */,
 				606658EA1D64ABBF00450376 /* EventHandlerInvocation.swift in Sources */,
 				602B07691D6344FF0035CD86 /* AnyEventHandler.swift in Sources */,
+				60B8EE661EDE1E240060B5F2 /* Viewpoint.swift in Sources */,
 				602B07631D62FDA10035CD86 /* EventCenter.swift in Sources */,
 				602B076C1D63545F0035CD86 /* NSButtonIntegration.swift in Sources */,
 				60811A8A1D709E2300D4DEEA /* ButtonStyle.swift in Sources */,
