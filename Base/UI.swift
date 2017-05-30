@@ -8,19 +8,42 @@
 import Foundation
 import Tapestry
 
-open class UI {
+public protocol UI {
+	var objectGraph: ObjectGraph { get set }
+}
 
-	open var objectGraph: ObjectGraph
+
+extension UI {
 	
-	public init(objectGraph: ObjectGraph) {
-		self.objectGraph = objectGraph
-	}
-	
-	open func item(frame: Rect, items: [Item] = []) -> Item {
+	public func item(frame: Rect, items: [Item] = []) -> Item {
 		let item = Item(frame: frame, objectGraph: objectGraph)
-	
 		item.items = items
-		
 		return item
 	}
+    
+    public func column(items: [Item]) -> Item {
+        let maxWidth = items.map { $0.extent.width }.max() ?? 0
+        let sumHeight = items.reduce(0) { sum, item in sum + item.extent.height }
+        let column = item(frame: Rect(x: 0, y: 0, width: maxWidth, height: sumHeight), items: items)
+        var position: VectorFloat = 0
+
+        for item in items {
+            item.origin = Point(x: 0, y: position)
+            position += item.extent.height
+        }
+        return column
+    }
+    
+    public func row(items: [Item]) -> Item {
+        let maxHeight = items.map { $0.extent.height }.max() ?? 0
+        let sumWidth = items.reduce(0) { sum, item in sum + item.extent.width }
+        let row = item(frame: Rect(x: 0, y: 0, width: sumWidth, height: maxHeight), items: items)
+        var position: VectorFloat = 0
+
+        for item in items {
+            item.origin = Point(x: position, y: 0)
+            position += item.extent.width
+        }
+        return row
+    }
 }

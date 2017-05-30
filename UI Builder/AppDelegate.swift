@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventReceiver {
 	var objectGraph = ObjectGraph()
 
 	func applicationDidFinishLaunching(_ notification: Notification) {
-		let ui = UI(objectGraph: objectGraph)
+		let ui = UIBuilder(objectGraph: objectGraph)
 		let button = ui.button(frame: Rect(x: 0, y: 0, width: 400, height: 200), text: "OK")
 		let otherButton = ui.button(frame: Rect(x: 0, y: 0, width: 400, height: 200), text: "Cancel")
 		let slider = ui.slider(orientation: .horizontal, origin: Point(x: 400, y: 200), length: 400, max: 100, initial: 50)
@@ -50,4 +50,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventReceiver {
 	func tap(event: Event<Tap>) {
 		print("Tap")
 	}
+}
+
+
+class UIBuilder: UI {
+    var objectGraph: ObjectGraph
+    
+    required init(objectGraph: ObjectGraph) {
+        self.objectGraph = objectGraph
+    }
 }
