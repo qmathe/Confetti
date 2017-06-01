@@ -60,6 +60,8 @@
 		60A5D4DE1D1C14F8007B7A7B /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DD1D1C14F8007B7A7B /* Material.swift */; };
 		60B8EE611ED6EA1C0060B5F2 /* Tapestry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; };
 		60B8EE661EDE1E240060B5F2 /* Viewpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B8EE651EDE1E240060B5F2 /* Viewpoint.swift */; };
+		60B8EE6F1EE0D07E0060B5F2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B8EE6E1EE0D07E0060B5F2 /* Stream.swift */; };
+		60B8EE711EE0D0860060B5F2 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B8EE701EE0D0860060B5F2 /* Subscription.swift */; };
 		60CD06651E227016006FC8C2 /* Tapestry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; };
 		60CD06661E227016006FC8C2 /* Tapestry.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		60CD06711E2272D4006FC8C2 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CD06701E2272D4006FC8C2 /* Image.swift */; };
@@ -174,6 +176,8 @@
 		60B8EE631ED717B90060B5F2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		60B8EE651EDE1E240060B5F2 /* Viewpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Viewpoint.swift; path = Viewpoint/Viewpoint.swift; sourceTree = "<group>"; };
 		60B8EE691EDE25BB0060B5F2 /* Counter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Counter.swift; path = Examples/Counter/Counter.swift; sourceTree = "<group>"; };
+		60B8EE6E1EE0D07E0060B5F2 /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stream.swift; path = Stream/Stream.swift; sourceTree = "<group>"; };
+		60B8EE701EE0D0860060B5F2 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subscription.swift; path = Stream/Subscription.swift; sourceTree = "<group>"; };
 		60CD065E1E227016006FC8C2 /* Tapestry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tapestry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CD06701E2272D4006FC8C2 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		60CD06721E2274E1006FC8C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -325,6 +329,7 @@
 				60B8EE621ED717AB0060B5F2 /* DESIGN.md */,
 				60873B341DD87DB5004FFE29 /* Playground */,
 				60CD065F1E227016006FC8C2 /* Tapestry */,
+				60B8EE6D1EE0D0560060B5F2 /* Stream */,
 				602B07611D62FD7F0035CD86 /* Event */,
 				60484FB31D00400C003972DA /* Geometry */,
 				60811AB11D70E5FE00D4DEEA /* Base */,
@@ -511,6 +516,15 @@
 				60B8EE691EDE25BB0060B5F2 /* Counter.swift */,
 			);
 			name = Counter;
+			sourceTree = "<group>";
+		};
+		60B8EE6D1EE0D0560060B5F2 /* Stream */ = {
+			isa = PBXGroup;
+			children = (
+				60B8EE6E1EE0D07E0060B5F2 /* Stream.swift */,
+				60B8EE701EE0D0860060B5F2 /* Subscription.swift */,
+			);
+			name = Stream;
 			sourceTree = "<group>";
 		};
 		60CD065F1E227016006FC8C2 /* Tapestry */ = {
@@ -834,6 +848,7 @@
 				606658EA1D64ABBF00450376 /* EventHandlerInvocation.swift in Sources */,
 				602B07691D6344FF0035CD86 /* AnyEventHandler.swift in Sources */,
 				60B8EE661EDE1E240060B5F2 /* Viewpoint.swift in Sources */,
+				60B8EE6F1EE0D07E0060B5F2 /* Stream.swift in Sources */,
 				602B07631D62FDA10035CD86 /* EventCenter.swift in Sources */,
 				602B076C1D63545F0035CD86 /* NSButtonIntegration.swift in Sources */,
 				60811A8A1D709E2300D4DEEA /* ButtonStyle.swift in Sources */,
@@ -846,6 +861,7 @@
 				60811A961D709FDC00D4DEEA /* ActionHandler.swift in Sources */,
 				60811AC11D70E68300D4DEEA /* UIObject.swift in Sources */,
 				60484FB91D004071003972DA /* Geometry.swift in Sources */,
+				60B8EE711EE0D0860060B5F2 /* Subscription.swift in Sources */,
 				602B07701D6363D00035CD86 /* NSSliderIntegration.swift in Sources */,
 				60811A9D1D70A09A00D4DEEA /* ControlState.swift in Sources */,
 				60811AC01D70E68300D4DEEA /* UI+Controls.swift in Sources */,
