@@ -12,6 +12,7 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 
 	open private(set) var events = [T]()
 	open private(set) var subscriptions = Set<Subscription<T>>()
+	open private(set) var paused = false
 
 	// MARK: - Collection Protocol
 
@@ -57,6 +58,43 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 			}
 			return ObjectIdentifier(existingSubscriber) != ObjectIdentifier(subscriber)
 		})
+	}
+	
+	// MARK: - Posting Events
+	
+	open func append(_ newElement: T) {
+		events.append(newElement)
+		send()
+	}
+	
+	open func append<S>(contentsOf newElements: S) where S : Sequence, S.Iterator.Element == T {
+		events.append(contentsOf: newElements)
+		send()
+	}
+	
+	// MARK: - Sending Events
+	
+	open func send() {
+		if paused {
+			return
+		}
+		for subscription in subscriptions {
+			for event in events {
+				subscription.action(event)
+			}
+		}
+		events.removeAll()
+	}
+	
+	// MARK: - Controlling Sent Events
+	
+	open func pause() {
+		paused = true
+	}
+	
+	open func resume() {
+		paused = false
+		send()
 	}
 
 	// MARK: - Sequence Protocol
