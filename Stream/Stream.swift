@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class Stream<T>: Collection {
+open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 
 	open private(set) var events = [T]()
 	open private(set) var subscriptions = Set<Subscription<T>>()
@@ -20,12 +20,23 @@ open class Stream<T>: Collection {
 	public var endIndex: Int { return events.endIndex }
 
     open subscript(i: Int) -> T {
-        return events[i]
+		get {
+			return events[i]
+		}
+		set {
+			events[i] = newValue
+		}
     }
 	
 	public func index(after i: Int) -> Int {
 		return events.index(after: i)
 	}
+	
+	public func replaceSubrange<C>(_ subrange: Range<Int>, with newElements: C) where C: Collection, C.Iterator.Element == Stream.Iterator.Element  {
+		events.replaceSubrange(subrange, with: newElements)
+	}
+
+	public required init() { }
 	
 	// MARK: - Subcribing to Events
 	
