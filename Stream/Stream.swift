@@ -8,10 +8,26 @@
 
 import Foundation
 
-open class Stream<T>: Sequence {
+open class Stream<T>: Collection {
 
 	open private(set) var events = [T]()
 	open private(set) var subscriptions = Set<Subscription<T>>()
+
+	// MARK: - Collection Protocol
+
+	public typealias Index = Int
+	public var startIndex: Int { return events.startIndex }
+	public var endIndex: Int { return events.endIndex }
+
+    open subscript(i: Int) -> T {
+        return events[i]
+    }
+	
+	public func index(after i: Int) -> Int {
+		return events.index(after: i)
+	}
+	
+	// MARK: - Subcribing to Events
 	
 	open func subscribe(_ subscriber: AnyObject? = nil, action: @escaping Subscription<T>.Action) -> Subscription<T> {
 		let subscription = Subscription(subscriber: subscriber, action: action)
@@ -31,7 +47,9 @@ open class Stream<T>: Sequence {
 			return ObjectIdentifier(existingSubscriber) != ObjectIdentifier(subscriber)
 		})
 	}
-	
+
+	// MARK: - Sequence Protocol
+
 	public func makeIterator() -> StreamIterator<T> {
 		return StreamIterator(self)
 	}
