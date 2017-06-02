@@ -8,9 +8,10 @@
 
 import Foundation
 
-open class Stream<T> {
+open class Stream<T>: Sequence {
 
-	open fileprivate(set) var subscriptions = Set<Subscription<T>>()
+	open private(set) var events = [T]()
+	open private(set) var subscriptions = Set<Subscription<T>>()
 	
 	open func subscribe(_ subscriber: AnyObject? = nil, action: @escaping Subscription<T>.Action) -> Subscription<T> {
 		let subscription = Subscription(subscriber: subscriber, action: action)
@@ -29,5 +30,24 @@ open class Stream<T> {
 			}
 			return ObjectIdentifier(existingSubscriber) != ObjectIdentifier(subscriber)
 		})
+	}
+	
+	public func makeIterator() -> StreamIterator<T> {
+		return StreamIterator(self)
+	}
+}
+
+
+public struct StreamIterator<T>: IteratorProtocol {
+
+	public typealias Element = T
+	private var iterator: IndexingIterator<Array<Element>>
+
+	public init(_ stream: Stream<Element>) {
+		self.iterator = stream.events.makeIterator()
+	}
+
+	public mutating func next() -> StreamIterator.Element? {
+		return iterator.next()
 	}
 }
