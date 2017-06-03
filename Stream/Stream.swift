@@ -10,9 +10,16 @@ import Foundation
 
 open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 
-	open private(set) var events = [T]()
+	public enum Event<T> {
+		case value(T)
+		case error(Error)
+		case end
+	}
+
+	open private(set) var events = [Event<T>]()
 	open private(set) var subscriptions = Set<Subscription<T>>()
 	open private(set) var paused = false
+	public let queue: DispatchQueue
 
 	// MARK: - Collection Protocol
 
@@ -20,7 +27,7 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 	public var startIndex: Int { return events.startIndex }
 	public var endIndex: Int { return events.endIndex }
 
-    open subscript(i: Int) -> T {
+    open subscript(i: Int) -> Event<T> {
 		get {
 			return events[i]
 		}
@@ -36,8 +43,16 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 	public func replaceSubrange<C>(_ subrange: Range<Int>, with newElements: C) where C: Collection, C.Iterator.Element == Stream.Iterator.Element  {
 		events.replaceSubrange(subrange, with: newElements)
 	}
+	
+	// MARK: - Initialization
+	
+	public required init() {
+		queue = DispatchQueue.main
+	}
 
-	public required init() { }
+	public required init(queue: DispatchQueue) {
+		self.queue = queue
+	}
 	
 	// MARK: - Subcribing to Events
 	
@@ -62,12 +77,12 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 	
 	// MARK: - Posting Events
 	
-	open func append(_ newElement: T) {
+	open func append(_ newElement: Event<T>) {
 		events.append(newElement)
 		send()
 	}
 	
-	open func append<S>(contentsOf newElements: S) where S : Sequence, S.Iterator.Element == T {
+	open func append<S>(contentsOf newElements: S) where S : Sequence, S.Iterator.Element == Event<T> {
 		events.append(contentsOf: newElements)
 		send()
 	}
@@ -80,7 +95,7 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 		}
 		for subscription in subscriptions {
 			for event in events {
-				subscription.action(event)
+				// FIXME: subscription.action(event)
 			}
 		}
 		events.removeAll()
@@ -96,25 +111,5 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 		paused = false
 		send()
 	}
-
-	// MARK: - Sequence Protocol
-
-	public func makeIterator() -> StreamIterator<T> {
-		return StreamIterator(self)
-	}
 }
 
-
-public struct StreamIterator<T>: IteratorProtocol {
-
-	public typealias Element = T
-	private var iterator: IndexingIterator<Array<Element>>
-
-	public init(_ stream: Stream<Element>) {
-		self.iterator = stream.events.makeIterator()
-	}
-
-	public mutating func next() -> StreamIterator.Element? {
-		return iterator.next()
-	}
-}
