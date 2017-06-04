@@ -13,7 +13,7 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 	public enum Event<T> {
 		case value(T)
 		case error(Error)
-		case end
+		case completed
 	}
 
 	open private(set) var events = [Event<T>]()
@@ -56,8 +56,8 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 	
 	// MARK: - Subcribing to Events
 	
-	open func subscribe(_ subscriber: AnyObject? = nil, action: @escaping Subscription<T>.Action) -> Subscription<T> {
-		let subscription = Subscription(subscriber: subscriber, action: action)
+	open func subscribe(_ subscriber: AnyObject? = nil, valueHandler: @escaping Subscription<T>.ValueHandler) -> Subscription<T> {
+		let subscription = Subscription(subscriber: subscriber, valueHandler: valueHandler)
 		subscriptions.insert(subscription)
 		return subscription
 	}
@@ -95,10 +95,28 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 		}
 		for subscription in subscriptions {
 			for event in events {
-				// FIXME: subscription.action(event)
+				dispatch(event, with: subscription)
 			}
 		}
 		events.removeAll()
+	}
+	
+	private func dispatch(_ event: Event<T>, with subscription: Subscription<T>) {
+		switch subscription.action {
+		case .event(let eventHandler):
+			eventHandler(event)
+		case .value(let valueHandler, let errorHandler, let completion):
+			switch event {
+			case .value(let value):
+				valueHandler(value)
+			case .error(let error):
+				errorHandler(error)
+			case .completed:
+				completion()
+			}
+		case .valueSelector(receiver: _, sender: _, selector: _):
+			fatalError("Unsupported value selector dispatch case")
+		}
 	}
 	
 	// MARK: - Controlling Sent Events

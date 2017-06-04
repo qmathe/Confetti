@@ -10,7 +10,17 @@ import Foundation
 
 public struct Subscription<T>: Hashable {
 
-	public typealias Action = (T) -> ()
+	public typealias EventHandler = (Stream<T>.Event<T>) -> ()
+	public typealias ValueHandler = (T) -> ()
+	public typealias ErrorHandler = (Error) -> ()
+	public typealias Completion = () -> ()
+
+	public enum Action {
+	case event(EventHandler)
+	case value(ValueHandler, ErrorHandler, Completion)
+	// NOTE: We could support ErrorSelector, CompletionSelector and EventSelector too. 
+	case valueSelector(receiver: AnyObject?, sender: AnyObject?, selector: Selector)
+	}
 
 	public let id = UUID()
 	public let subscriber: AnyObject?
@@ -19,9 +29,14 @@ public struct Subscription<T>: Hashable {
 		return id.hashValue
 	}
 	
-	init(subscriber: AnyObject?, action: @escaping Action) {
+	init(subscriber: AnyObject?, valueHandler: @escaping ValueHandler, errorHandler: @escaping ErrorHandler = { _ in }, completion: @escaping Completion = {}) {
 		self.subscriber = subscriber
-		self.action = action
+		self.action = Action.value(valueHandler, errorHandler, completion)
+	}
+
+	init(subscriber: AnyObject?, eventHandler: @escaping EventHandler) {
+		self.subscriber = subscriber
+		self.action = Action.event(eventHandler)
 	}
 }
 
