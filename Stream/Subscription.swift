@@ -29,7 +29,7 @@ public struct Subscription<T>: Hashable {
 		return id.hashValue
 	}
 	
-	init(subscriber: AnyObject?, valueHandler: @escaping ValueHandler, errorHandler: @escaping ErrorHandler = { _ in }, completion: @escaping Completion = {}) {
+	init(subscriber: AnyObject?, valueHandler: @escaping ValueHandler, errorHandler: @escaping ErrorHandler, completion: @escaping Completion) {
 		self.subscriber = subscriber
 		self.action = Action.value(valueHandler, errorHandler, completion)
 	}
