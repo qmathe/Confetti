@@ -54,6 +54,16 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 		self.queue = queue
 	}
 	
+	public required init(_ stream: Stream, queue: DispatchQueue) {
+		self.events = stream.events
+		self.subscriptions = stream.subscriptions
+		self.queue = queue
+	}
+
+	public required init(interval: TimeInterval, repeats: Bool, queue: DispatchQueue) {
+		self.queue = queue
+	}
+	
 	// MARK: - Subcribing to Events
 	
 	open func subscribe(_ subscriber: AnyObject? = nil, valueHandler: @escaping Subscription<T>.ValueHandler, errorHandler: @escaping Subscription<T>.ErrorHandler = { _ in }, completion: @escaping Subscription<T>.Completion = {}) -> Subscription<T> {
@@ -99,8 +109,8 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 		if paused {
 			return
 		}
-		for subscription in subscriptions {
-			for event in events {
+		for event in events {
+			for subscription in subscriptions {
 				dispatch(event, with: subscription)
 			}
 		}
