@@ -46,15 +46,33 @@ open class Stream<T>: MutableCollection, RangeReplaceableCollection {
 	
 	// MARK: - Initialization
 	
+	
+	/// Initializes a new empty stream.
+	///
+	/// Operators and subscription callbacks will be executed in the main queue.
+	///
+	/// Can be used as RX Empty operator.
 	public required init() {
 		queue = DispatchQueue.main
 	}
 
+	/// Initializes a new empty stream using a custom queue to execute operators
+	/// and subscription callbacks.
 	public required init(queue: DispatchQueue) {
 		self.queue = queue
 	}
 	
-	public required init(_ stream: Stream, queue: DispatchQueue) {
+	/// Initalizes a new stream from another sequence.
+	///
+	/// Operators and subscription callbacks will be executed in the main queue.
+	///
+	/// Can be used as RX Just and From operators.
+	public required init<S>(_ elements: S) where S : Sequence, S.Iterator.Element == Stream.Iterator.Element {
+		events = Array(elements)
+		queue = DispatchQueue.main
+	}
+	
+	public required init(_ stream: Stream, queue: DispatchQueue = DispatchQueue.main) {
 		self.events = stream.events
 		self.subscriptions = stream.subscriptions
 		self.queue = queue
