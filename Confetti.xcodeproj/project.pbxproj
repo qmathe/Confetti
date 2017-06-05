@@ -27,6 +27,7 @@
 		602B076E1D6355510035CD86 /* Tap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B076D1D6355510035CD86 /* Tap.swift */; };
 		602B07701D6363D00035CD86 /* NSSliderIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B076F1D6363D00035CD86 /* NSSliderIntegration.swift */; };
 		602B07721D63722A0035CD86 /* ActionTrampoline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B07711D63722A0035CD86 /* ActionTrampoline.swift */; };
+		603537EC1EE221A500BDE53B /* StreamOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603537EB1EE221A500BDE53B /* StreamOperators.swift */; };
 		60484FB91D004071003972DA /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FB81D004071003972DA /* Geometry.swift */; };
 		60484FBC1D004E76003972DA /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FBA1D004E76003972DA /* Mesh.swift */; };
 		6065F4AA1D56A9A60063187A /* AppKitRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6065F4A91D56A9A60063187A /* AppKitRenderer.swift */; };
@@ -134,6 +135,7 @@
 		602B076D1D6355510035CD86 /* Tap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tap.swift; path = Event/Tap.swift; sourceTree = "<group>"; };
 		602B076F1D6363D00035CD86 /* NSSliderIntegration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSSliderIntegration.swift; path = Renderer/AppKitIntegration/NSSliderIntegration.swift; sourceTree = SOURCE_ROOT; };
 		602B07711D63722A0035CD86 /* ActionTrampoline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionTrampoline.swift; path = Renderer/AppKitIntegration/ActionTrampoline.swift; sourceTree = SOURCE_ROOT; };
+		603537EB1EE221A500BDE53B /* StreamOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamOperators.swift; path = Stream/StreamOperators.swift; sourceTree = "<group>"; };
 		60484F961D003DEB003972DA /* Confetti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Confetti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60484FA71D003DEB003972DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60484FB81D004071003972DA /* Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Geometry.swift; path = Geometry/Geometry.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				60B8EE6E1EE0D07E0060B5F2 /* Stream.swift */,
+				603537EB1EE221A500BDE53B /* StreamOperators.swift */,
 				60B8EE701EE0D0860060B5F2 /* Subscription.swift */,
 			);
 			name = Stream;
@@ -862,6 +865,7 @@
 				60811AC11D70E68300D4DEEA /* UIObject.swift in Sources */,
 				60484FB91D004071003972DA /* Geometry.swift in Sources */,
 				60B8EE711EE0D0860060B5F2 /* Subscription.swift in Sources */,
+				603537EC1EE221A500BDE53B /* StreamOperators.swift in Sources */,
 				602B07701D6363D00035CD86 /* NSSliderIntegration.swift in Sources */,
 				60811A9D1D70A09A00D4DEEA /* ControlState.swift in Sources */,
 				60811AC01D70E68300D4DEEA /* UI+Controls.swift in Sources */,
