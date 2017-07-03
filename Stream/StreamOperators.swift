@@ -11,7 +11,7 @@ import Dispatch
 
 extension Stream {
 
-	public func map<V>(_ transform: @escaping (T) throws -> V) rethrows -> Stream<V> {
+	open func map<V>(_ transform: @escaping (T) throws -> V) rethrows -> Stream<V> {
 		let stream = Stream<V>()
 		
 		_ = subscribe(stream) { event in
@@ -28,6 +28,24 @@ extension Stream {
 		}
 		return stream
 	}
+
+    open func flatMap<V>(_ transform: @escaping (T) throws -> Stream<V>) rethrows -> Stream<Stream<V>> {
+        let stream = Stream<Stream<V>>()
+        
+        _ = subscribe(stream) { event in
+            switch event {
+            case .value(let value):
+                if let mappedValue = try? transform(value) {
+                    stream.append(Stream<Stream<V>>.Event<Stream<V>>.value(mappedValue))
+                }
+            case .error(let error):
+                stream.append(Stream<Stream<V>>.Event<Stream<V>>.error(error))
+            case .completed:
+                stream.append(Stream<Stream<V>>.Event<Stream<V>>.completed)
+            }
+        }
+        return stream
+    }
 	
 	open func filter(_ isIncluded: @escaping (T) throws -> Bool) rethrows -> Stream<T> {
 		let stream = Stream()
