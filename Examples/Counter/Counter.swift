@@ -13,10 +13,10 @@ class Counter: Viewpoint<Int>, UI {
 
     override func generate() -> Item {
         return column(items:
-            label(frame: Rect(x: 0, y: 0, width: 200, height: 20), text: "0"),
+            label(extent: Extent(width: 200, height: 20), text: "0"),
             row(items: 
-                button(frame: Rect(x: 0, y: 0, width: 100, height: 20), text: "+") { value += 1 },
-                button(frame: Rect(x: 0, y: 0, width: 100, height: 20), text: "-") { value += 1 }
+                button(extent: Extent(width: 100, height: 20), text: "+") { value += 1 },
+                button(extent: Extent(width: 100, height: 20), text: "-") { value += 1 }
             )
         )
     }

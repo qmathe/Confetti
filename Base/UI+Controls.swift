@@ -19,6 +19,10 @@ public extension UI {
 		
 		return item
 	}
+	
+	public func label(extent: Extent, text: String = "") -> Item {
+		return label(frame: Rect(origin: Point(x: 0, y: 0), extent: extent), text: text)
+	}
 
 	public func button(frame: Rect, text: String = "", target: AnyObject? = nil,
 		action: Selector? = nil) -> Item {
@@ -41,6 +45,10 @@ public extension UI {
 		item.controlState = ButtonState(text: text, objectGraph: objectGraph)
 
 		return item
+	}
+	
+	public func button(extent: Extent, text: String = "", action: () -> ()) -> Item {
+		return button(frame: Rect(origin: Point(x: 0, y: 0), extent: extent), text: text, action: action)
 	}
 
 	/**
