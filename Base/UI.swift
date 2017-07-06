@@ -33,7 +33,11 @@ extension UI {
         }
         return column
     }
-    
+
+	public func column(items: Item...) -> Item {
+        return column(items: items)
+    }
+
     public func row(items: [Item]) -> Item {
         let maxHeight = items.map { $0.extent.height }.max() ?? 0
         let sumWidth = items.reduce(0) { sum, item in sum + item.extent.width }
@@ -45,5 +49,9 @@ extension UI {
             position += item.extent.width
         }
         return row
+    }
+	
+	public func row(items: Item...) -> Item {
+        return row(items: items)
     }
 }
