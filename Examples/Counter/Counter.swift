@@ -9,18 +9,16 @@ import Foundation
 import Confetti
 import Tapestry
 
-class Counter: UI, Viewpoint {
+class Counter: Viewpoint<Int>, UI {
 
-	typealias T = Int
-    var value = 0
-	var changed = false
     var objectGraph: ObjectGraph
     
-    required init(objectGraph: ObjectGraph) {
+    required init(value: Int, objectGraph: ObjectGraph) {
         self.objectGraph = objectGraph
+		super.init(value: value)
     }
 
-    func generate() -> Item {
+    override func generate() -> Item {
         return column(items:
             [label(frame: Rect(x: 0, y: 0, width: 200, height: 20), text: "0"),
             row(items: [

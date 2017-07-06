@@ -61,6 +61,7 @@ open class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringConve
 	
 	// MARK: Options
 
+	open var changed = false
 	open var hidden = false
 	open var hashValue: Int {
 		return Int()

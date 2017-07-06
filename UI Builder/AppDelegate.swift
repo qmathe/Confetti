@@ -32,7 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventReceiver {
         
         window?.contentView.debugDescription
 		
-		renderer.renderItem(Counter(objectGraph: objectGraph).item)
+		renderer.renderItem(Counter(value: 0, objectGraph: objectGraph).item)
 		
 		/*let styleMask: Int = NSBorderlessWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask | NSUnifiedTitleAndToolbarWindowMask
 		window = NSWindow(contentRect: CGRect(x: 200, y: 200, width: 1000, height: 400), styleMask: styleMask, backing: .Buffered, defer: false)
