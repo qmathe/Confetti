@@ -8,7 +8,7 @@
 import Foundation
 import Tapestry
 
-open class CollectionViewpoint<T>: UIGenerator {
+open class CollectionViewpoint<T>: ViewpointProtocol {
 
 	/// The presented collection.
     open var collection: AnyCollection<T>

@@ -7,11 +7,7 @@
 
 import Foundation
 
-public protocol UIGenerator {
-	var item: Item { get }
-}
-
-open class Viewpoint<T>: UIGenerator {
+open class Viewpoint<T>: ViewpointProtocol {
 
 	/// The presented value.
     open var value: T
@@ -26,12 +22,17 @@ open class Viewpoint<T>: UIGenerator {
 		item.changed = changed
 		return item
 	}
+	/// The object graph used to generate the item representation.
+	///
+	/// Can be ignored when you don't intent to persist or copy the generated item tree.
+	public var objectGraph: ObjectGraph
 
 	// MARK: - Initialization
 
 	/// Initializes a new viewpoint to present the given value.
-	public init(value: T) {
+	public init(value: T, objectGraph: ObjectGraph) {
 		self.value = value
+		self.objectGraph = objectGraph
 	}
 
 	// MARK: - Generating Item Representation

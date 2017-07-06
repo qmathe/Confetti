@@ -64,6 +64,8 @@
 		60B8EE661EDE1E240060B5F2 /* Viewpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B8EE651EDE1E240060B5F2 /* Viewpoint.swift */; };
 		60BD0DAB1F0E5EF0006836D0 /* CollectionViewpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD0DAA1F0E5EF0006836D0 /* CollectionViewpoint.swift */; };
 		60BD0DAC1F0E5EF0006836D0 /* CollectionViewpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD0DAA1F0E5EF0006836D0 /* CollectionViewpoint.swift */; };
+		60BD0DAE1F0E82DC006836D0 /* ViewpointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD0DAD1F0E82DC006836D0 /* ViewpointProtocol.swift */; };
+		60BD0DAF1F0E82DC006836D0 /* ViewpointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD0DAD1F0E82DC006836D0 /* ViewpointProtocol.swift */; };
 		60CD06651E227016006FC8C2 /* Tapestry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; };
 		60CD06661E227016006FC8C2 /* Tapestry.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		60CD06711E2272D4006FC8C2 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CD06701E2272D4006FC8C2 /* Image.swift */; };
@@ -208,6 +210,7 @@
 		60B8EE651EDE1E240060B5F2 /* Viewpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Viewpoint.swift; path = Viewpoint/Viewpoint.swift; sourceTree = "<group>"; };
 		60B8EE691EDE25BB0060B5F2 /* Counter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Counter.swift; path = Examples/Counter/Counter.swift; sourceTree = "<group>"; };
 		60BD0DAA1F0E5EF0006836D0 /* CollectionViewpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewpoint.swift; path = Viewpoint/CollectionViewpoint.swift; sourceTree = "<group>"; };
+		60BD0DAD1F0E82DC006836D0 /* ViewpointProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewpointProtocol.swift; path = Viewpoint/ViewpointProtocol.swift; sourceTree = "<group>"; };
 		60CD065E1E227016006FC8C2 /* Tapestry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tapestry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CD06701E2272D4006FC8C2 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		60CD06721E2274E1006FC8C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -539,6 +542,7 @@
 		60B8EE641EDE1E0F0060B5F2 /* Viewpoint */ = {
 			isa = PBXGroup;
 			children = (
+				60BD0DAD1F0E82DC006836D0 /* ViewpointProtocol.swift */,
 				60B8EE651EDE1E240060B5F2 /* Viewpoint.swift */,
 				60BD0DAA1F0E5EF0006836D0 /* CollectionViewpoint.swift */,
 			);
@@ -930,6 +934,7 @@
 				60BD0DAB1F0E5EF0006836D0 /* CollectionViewpoint.swift in Sources */,
 				6065F4AC1D56B4260063187A /* Renderer.swift in Sources */,
 				60811A9F1D70A09A00D4DEEA /* SliderState.swift in Sources */,
+				60BD0DAE1F0E82DC006836D0 /* ViewpointProtocol.swift in Sources */,
 				602B07721D63722A0035CD86 /* ActionTrampoline.swift in Sources */,
 				60811A961D709FDC00D4DEEA /* ActionHandler.swift in Sources */,
 				60811AC11D70E68300D4DEEA /* UIObject.swift in Sources */,
@@ -958,6 +963,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60BD0DAC1F0E5EF0006836D0 /* CollectionViewpoint.swift in Sources */,
+				60BD0DAF1F0E82DC006836D0 /* ViewpointProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

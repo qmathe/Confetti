@@ -11,13 +11,6 @@ import Tapestry
 
 class Counter: Viewpoint<Int>, UI {
 
-    var objectGraph: ObjectGraph
-    
-    required init(value: Int, objectGraph: ObjectGraph) {
-        self.objectGraph = objectGraph
-		super.init(value: value)
-    }
-
     override func generate() -> Item {
         return column(items:
             [label(frame: Rect(x: 0, y: 0, width: 200, height: 20), text: "0"),
