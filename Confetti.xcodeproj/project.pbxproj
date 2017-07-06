@@ -30,6 +30,7 @@
 		60484FB91D004071003972DA /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FB81D004071003972DA /* Geometry.swift */; };
 		60484FBC1D004E76003972DA /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FBA1D004E76003972DA /* Mesh.swift */; };
 		6049C0611F0A71A0005D117C /* Starfish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6049C05A1F0A714F005D117C /* Starfish.framework */; };
+		6049C0721F0B04CB005D117C /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B8EE691EDE25BB0060B5F2 /* Counter.swift */; };
 		6065F4AA1D56A9A60063187A /* AppKitRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6065F4A91D56A9A60063187A /* AppKitRenderer.swift */; };
 		6065F4AC1D56B4260063187A /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6065F4AB1D56B4260063187A /* Renderer.swift */; };
 		606658EA1D64ABBF00450376 /* EventHandlerInvocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606658E91D64ABBE00450376 /* EventHandlerInvocation.swift */; };
@@ -764,6 +765,7 @@
 					};
 					60873B3E1DD88174004FFE29 = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					60873B461DD88175004FFE29 = {
@@ -891,6 +893,7 @@
 			files = (
 				6003FD191D4F6CB200EEF814 /* ViewController.swift in Sources */,
 				6003FD171D4F6CB200EEF814 /* AppDelegate.swift in Sources */,
+				6049C0721F0B04CB005D117C /* Counter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1194,6 +1197,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1211,6 +1215,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1220,6 +1225,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1245,6 +1251,7 @@
 		60873B541DD88175004FFE29 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -1263,6 +1270,7 @@
 		60873B551DD88175004FFE29 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;

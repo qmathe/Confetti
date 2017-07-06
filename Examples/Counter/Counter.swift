@@ -7,18 +7,26 @@
 
 import Foundation
 import Confetti
+import Tapestry
 
-class Counter: Viewpoint, UI {
+class Counter: UI, Viewpoint {
 
-    var value: Int
+	typealias T = Int
+    var value = 0
+	var changed = false
+    var objectGraph: ObjectGraph
+    
+    required init(objectGraph: ObjectGraph) {
+        self.objectGraph = objectGraph
+    }
 
-    func counter() -> Item {
-        column(items:
-            textField(model: self),
-            row(items: 
-                button(title: "+") { value += 1 },
-                button(title: "-") { value +-= 1 }
-            )
+    func generate() -> Item {
+        return column(items:
+            [label(frame: Rect(x: 0, y: 0, width: 200, height: 20), text: "0"),
+            row(items: [
+                button(frame: Rect(x: 0, y: 0, width: 100, height: 20), text: "+") { value += 1 },
+                button(frame: Rect(x: 0, y: 0, width: 100, height: 20), text: "-") { value += 1 }
+            ])]
         )
     }
 }

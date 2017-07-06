@@ -32,6 +32,17 @@ public extension UI {
 		return item
 	}
 	
+	public func button(frame: Rect, text: String = "", action: () -> ()) -> Item {
+		let item = Item(frame: frame, objectGraph: objectGraph)
+
+		// TODO: Support target/action and property according to documentation
+		item.styles = [ButtonStyle(objectGraph: objectGraph)]
+		item.actionHandlers = [ButtonActionHandler(objectGraph: objectGraph)]
+		item.controlState = ButtonState(text: text, objectGraph: objectGraph)
+
+		return item
+	}
+
 	/**
 	Returns a toggle button that will be rendered either as a switch or checkbox.
 	

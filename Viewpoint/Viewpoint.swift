@@ -12,4 +12,13 @@ public protocol Viewpoint {
     associatedtype T
     var value: T { get set }
     var changed: Bool { get }
+	
+	func generate() -> Item
+}
+
+public extension Viewpoint {
+
+	public var item: Item {
+		return generate()
+	}
 }

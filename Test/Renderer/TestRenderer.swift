@@ -16,7 +16,7 @@ class TestRenderer: XCTestCase {
 	var rendererType: Renderer.Type!
 	var renderer: Renderer!
 	let sceneFrame = Rect(x: 0, y: 0, width: 1000, height: 400)
-	let ui = UI(objectGraph: ObjectGraph())
+	let ui = TestUI(objectGraph: ObjectGraph())
 	var item: Item!
 	var buttonItem: Item!
 	var subitem: Item!
@@ -36,4 +36,13 @@ class TestRenderer: XCTestCase {
 
 		item = ui.item(frame: sceneFrame, items: [buttonItem, subitem])
 	}
+}
+
+
+class TestUI: UI {
+    var objectGraph: ObjectGraph
+    
+    required init(objectGraph: ObjectGraph) {
+        self.objectGraph = objectGraph
+    }
 }
