@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol ViewpointProtocol {
+public protocol Presentation {
 	var item: Item { get }
 }

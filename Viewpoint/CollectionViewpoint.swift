@@ -8,7 +8,7 @@
 import Foundation
 import Tapestry
 
-open class CollectionViewpoint<T>: ViewpointProtocol {
+open class CollectionViewpoint<T>: Presentation {
 
 	/// The presented collection.
     open var collection: AnyCollection<T>
@@ -29,7 +29,7 @@ open class CollectionViewpoint<T>: ViewpointProtocol {
 
 		item.identifier = String(describing: self)
 		for index in changedIndexes {
-			item.items?[index].changed = true
+			collectionItem.items?[index].changed = true
 		}
 
 		return item

@@ -7,7 +7,7 @@
 
 import Foundation
 
-open class Viewpoint<T>: ViewpointProtocol {
+open class Viewpoint<T>: Presentation {
 
 	/// The presented value.
     open var value: T
@@ -30,9 +30,11 @@ open class Viewpoint<T>: ViewpointProtocol {
 	// MARK: - Initialization
 
 	/// Initializes a new viewpoint to present the given value.
-	public init(value: T, objectGraph: ObjectGraph) {
+	///
+	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
+	public init(value: T, objectGraph: ObjectGraph? = nil) {
 		self.value = value
-		self.objectGraph = objectGraph
+		self.objectGraph = objectGraph ?? ObjectGraph()
 	}
 
 	// MARK: - Generating Item Representation
