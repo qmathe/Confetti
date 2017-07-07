@@ -20,6 +20,10 @@ extension UI {
 		item.items = items
 		return item
 	}
+	
+	public func item(frame: Rect, items: Item...) -> Item {
+		return item(frame: frame, items: items)
+	}
     
     public func column(items: [Item]) -> Item {
         let maxWidth = items.map { $0.extent.width }.max() ?? 0
