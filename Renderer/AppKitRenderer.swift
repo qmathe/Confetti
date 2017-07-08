@@ -127,6 +127,8 @@ open class AppKitRenderer: Renderer {
 	fileprivate func renderViews(_ items: [Item], intoView view: NSView) {
 		view.subviews = items.map { $0.render(self) as! NSView }
 
+		precondition(zip(view.subviews, items).reduce(true) { $0 && $1.0.frame.origin.x == $1.1.origin.x && $1.0.frame.origin.y == $1.1.origin.y })
+
 		// Adjust the origin to compensate the coordinate system differences
 		//
 		// When the view was instantiated, the superview wasn't available

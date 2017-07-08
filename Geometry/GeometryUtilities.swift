@@ -67,7 +67,7 @@ public struct Rect: Equatable {
 	}
 
 	public init(x: VectorFloat, y: VectorFloat, width: VectorFloat, height: VectorFloat) {
-		origin = Point(x: y, y: y)
+		origin = Point(x: x, y: y)
 		extent = Extent(width: width, height: height)
 	}
 }

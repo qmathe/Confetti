@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Tapestry
 @testable import Confetti
 
 class TestAppKitRenderer: TestRenderer {
@@ -74,6 +75,32 @@ class TestAppKitToDefaultDestinationRenderer: TestAppKitRenderer {
 		XCTAssertNil(windows[buttonItem])
 		XCTAssertTrue((window.contentView?.subviews ?? []).isEmpty)
 	}
+
+	func testViewHierarchyGeometry() {
+		let _ = renderer.renderItem(item)
+        let buttonView = views[buttonItem]!
+        let subview = views[subitem]!
+        let sliderView = views[sliderItem]!
+        let otherButtonView = views[otherButtonItem]!
+		
+		var buttonFrame = buttonItem.frame
+		var subFrame = subitem.frame
+		var sliderFrame = sliderItem.frame
+		var otherButtonFrame = otherButtonItem.frame
+		
+		buttonFrame.origin = Point(x: 0, y: 0)
+		subFrame.origin = Point(x: 0, y: 0)
+
+		sliderFrame.extent.height = sliderView.frame.height
+		sliderFrame.origin.y = sceneFrame.extent.height - sliderFrame.origin.y - sliderFrame.extent.height
+		otherButtonFrame.extent.height = otherButtonView.frame.height
+		otherButtonFrame.origin.y = sceneFrame.extent.height - otherButtonFrame.origin.y - otherButtonFrame.extent.height
+
+        XCTAssertEqual(CGRectFromRect(buttonFrame), buttonView.frame)
+        XCTAssertEqual(CGRectFromRect(subFrame), subview.frame)
+		XCTAssertEqual(CGRectFromRect(sliderFrame), sliderView.frame)
+		XCTAssertEqual(CGRectFromRect(otherButtonFrame), otherButtonView.frame)
+	}
 }
 
 
@@ -127,4 +154,28 @@ class TestAppKitToViewDestinationRenderer: TestAppKitRenderer {
 		XCTAssertTrue(destination.subviews.isEmpty)
 	}
 
+	func testViewHierarchyGeometry() {
+		let view = renderer.renderItem(item) as! NSView
+        let buttonView = views[buttonItem]!
+        let subview = views[subitem]!
+        let sliderView = views[sliderItem]!
+        let otherButtonView = views[otherButtonItem]!
+		
+		var buttonFrame = buttonItem.frame
+		var sliderFrame = sliderItem.frame
+		var otherButtonFrame = otherButtonItem.frame
+		
+		buttonFrame.extent.height = buttonView.frame.height
+		buttonFrame.origin.y = sceneFrame.extent.height - buttonFrame.origin.y - buttonFrame.extent.height
+		sliderFrame.extent.height = sliderView.frame.height
+		sliderFrame.origin.y = sceneFrame.extent.height - sliderFrame.origin.y - sliderFrame.extent.height
+		otherButtonFrame.extent.height = otherButtonView.frame.height
+		otherButtonFrame.origin.y = sceneFrame.extent.height - otherButtonFrame.origin.y - otherButtonFrame.extent.height
+
+        XCTAssertEqual(CGRectFromRect(sceneFrame), view.frame)
+        XCTAssertEqual(CGRectFromRect(buttonFrame), buttonView.frame)
+        XCTAssertEqual(CGRectFromRect(subitem.frame), subview.frame)
+		XCTAssertEqual(CGRectFromRect(sliderFrame), sliderView.frame)
+		XCTAssertEqual(CGRectFromRect(otherButtonFrame), otherButtonView.frame)
+	}
 }
