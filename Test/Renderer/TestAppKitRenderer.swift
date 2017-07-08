@@ -82,24 +82,12 @@ class TestAppKitToDefaultDestinationRenderer: TestAppKitRenderer {
         let subview = views[subitem]!
         let sliderView = views[sliderItem]!
         let otherButtonView = views[otherButtonItem]!
-		
-		var buttonFrame = buttonItem.frame
-		var subFrame = subitem.frame
-		var sliderFrame = sliderItem.frame
-		var otherButtonFrame = otherButtonItem.frame
-		
-		buttonFrame.origin = Point(x: 0, y: 0)
-		subFrame.origin = Point(x: 0, y: 0)
+		let sliderHeight = sliderView.frame.height
 
-		sliderFrame.extent.height = sliderView.frame.height
-		sliderFrame.origin.y = sceneFrame.extent.height - sliderFrame.origin.y - sliderFrame.extent.height
-		otherButtonFrame.extent.height = otherButtonView.frame.height
-		otherButtonFrame.origin.y = sceneFrame.extent.height - otherButtonFrame.origin.y - otherButtonFrame.extent.height
-
-        XCTAssertEqual(CGRectFromRect(buttonFrame), buttonView.frame)
-        XCTAssertEqual(CGRectFromRect(subFrame), subview.frame)
-		XCTAssertEqual(CGRectFromRect(sliderFrame), sliderView.frame)
-		XCTAssertEqual(CGRectFromRect(otherButtonFrame), otherButtonView.frame)
+        XCTAssertEqual(CGRect(x: 0, y: 0, width: 100, height: 20), buttonView.frame)
+        XCTAssertEqual(CGRect(x: 0, y: 0, width: 600, height: 400), subview.frame)
+		XCTAssertEqual(CGRect(x: 100, y: 400 - 200 - sliderHeight, width: 200, height: sliderHeight), sliderView.frame)
+		XCTAssertEqual(CGRect(x: 0, y: 400 - 20 - 200, width: 400, height: 200), otherButtonView.frame)
 	}
 }
 
@@ -160,22 +148,12 @@ class TestAppKitToViewDestinationRenderer: TestAppKitRenderer {
         let subview = views[subitem]!
         let sliderView = views[sliderItem]!
         let otherButtonView = views[otherButtonItem]!
-		
-		var buttonFrame = buttonItem.frame
-		var sliderFrame = sliderItem.frame
-		var otherButtonFrame = otherButtonItem.frame
-		
-		buttonFrame.extent.height = buttonView.frame.height
-		buttonFrame.origin.y = sceneFrame.extent.height - buttonFrame.origin.y - buttonFrame.extent.height
-		sliderFrame.extent.height = sliderView.frame.height
-		sliderFrame.origin.y = sceneFrame.extent.height - sliderFrame.origin.y - sliderFrame.extent.height
-		otherButtonFrame.extent.height = otherButtonView.frame.height
-		otherButtonFrame.origin.y = sceneFrame.extent.height - otherButtonFrame.origin.y - otherButtonFrame.extent.height
+		let sliderHeight = sliderView.frame.height
 
-        XCTAssertEqual(CGRectFromRect(sceneFrame), view.frame)
-        XCTAssertEqual(CGRectFromRect(buttonFrame), buttonView.frame)
-        XCTAssertEqual(CGRectFromRect(subitem.frame), subview.frame)
-		XCTAssertEqual(CGRectFromRect(sliderFrame), sliderView.frame)
-		XCTAssertEqual(CGRectFromRect(otherButtonFrame), otherButtonView.frame)
+        XCTAssertEqual(CGRect(x: 0, y: 0, width: 1000, height: 400), view.frame)
+        XCTAssertEqual(CGRect(x: 10, y: 400 - 10 - 20, width: 100, height: 20), buttonView.frame)
+        XCTAssertEqual(CGRect(x: 400, y: 400 - 400, width: 600, height: 400), subview.frame)
+		XCTAssertEqual(CGRect(x: 100, y: 400 - 200 - sliderHeight, width: 200, height: sliderHeight), sliderView.frame)
+		XCTAssertEqual(CGRect(x: 0, y: 400 - 20 - 200, width: 400, height: 200), otherButtonView.frame)
 	}
 }
