@@ -26,10 +26,26 @@ public protocol EventReceiver: class {
 
 public struct EventHandler<T> : EventHandlerType, Hashable {
 
+	// MARK: - Types
+
+	private class Weak {
+		weak var value: AnyObject?
+		
+		init(value: AnyObject?) {
+			self.value = value
+		}
+	}
+	
+	// MARK: - Target and Action
+
+	fileprivate(set) var _receiver: AnyObject?
 	/// The receiver is never nil.
-	public fileprivate(set) weak  var receiver: AnyObject?
+	public var receiver: AnyObject? { return (_receiver as? Weak)?.value ?? _receiver }
 	public fileprivate(set) weak var sender: AnyObject?
 	public let selector: FunctionIdentifier
+	
+	// MARK: - Hashable 
+
 	public var hashValue: Int {
 		var hash = 17
 		if let receiver = receiver {
@@ -41,12 +57,22 @@ public struct EventHandler<T> : EventHandlerType, Hashable {
 		hash = 37 * hash + selector.hashValue
 		return hash
 	}
+	
+	// MARK: - Initialization
 
 	public init(selector: FunctionIdentifier, receiver: AnyObject, sender: AnyObject?) {
 		self.selector = selector
-		self.receiver = receiver
+		self._receiver = Weak(value: receiver)
 		self.sender = sender
 	}
+	
+	public init(block: @escaping (Event<T>) -> (), sender: AnyObject?) {
+		self._receiver = EventHandlerCallback(block: block)
+		self.selector = ""
+		self.sender = sender
+	}
+	
+	// MARK: - Sending Events
 
 	public func send(_ data: T, from: AnyObject) -> EventHandler<T> {
 		precondition(sender === nil || sender === from)

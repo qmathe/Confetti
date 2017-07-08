@@ -84,6 +84,8 @@
 		60E773621F0FD03700196D82 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E773611F0FD03700196D82 /* App.swift */; };
 		60E773631F0FD03700196D82 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E773611F0FD03700196D82 /* App.swift */; };
 		60E773641F0FE07C00196D82 /* AppKitRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD0DB01F0E99FA006836D0 /* AppKitRunner.swift */; };
+		60E773691F111FF700196D82 /* EventHandlerCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E773681F111FF700196D82 /* EventHandlerCallback.swift */; };
+		60E7736A1F111FF700196D82 /* EventHandlerCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E773681F111FF700196D82 /* EventHandlerCallback.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -266,6 +268,7 @@
 		60CD067D1E26BF8B006FC8C2 /* Blend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Blend.swift; path = Paint/Blend.swift; sourceTree = "<group>"; };
 		60E773501F0FADE900196D82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Examples/Counter/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		60E773611F0FD03700196D82 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = App.swift; path = Base/App.swift; sourceTree = "<group>"; };
+		60E773681F111FF700196D82 /* EventHandlerCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventHandlerCallback.swift; path = Event/EventHandlerCallback.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -398,6 +401,7 @@
 				602B07621D62FDA10035CD86 /* EventCenter.swift */,
 				602B07681D6344FF0035CD86 /* AnyEventHandler.swift */,
 				602B07661D6311B20035CD86 /* EventHandler.swift */,
+				60E773681F111FF700196D82 /* EventHandlerCallback.swift */,
 				606658E91D64ABBE00450376 /* EventHandlerInvocation.swift */,
 				602B076D1D6355510035CD86 /* Tap.swift */,
 			);
@@ -1019,6 +1023,7 @@
 			files = (
 				60E773621F0FD03700196D82 /* App.swift in Sources */,
 				60E773641F0FE07C00196D82 /* AppKitRunner.swift in Sources */,
+				60E773691F111FF700196D82 /* EventHandlerCallback.swift in Sources */,
 				60484FBC1D004E76003972DA /* Mesh.swift in Sources */,
 				602B07671D6311B20035CD86 /* EventHandler.swift in Sources */,
 				60811ABB1D70E68300D4DEEA /* Item.swift in Sources */,
@@ -1065,6 +1070,7 @@
 			files = (
 				60E773631F0FD03700196D82 /* App.swift in Sources */,
 				60BD0DAC1F0E5EF0006836D0 /* CollectionViewpoint.swift in Sources */,
+				60E7736A1F111FF700196D82 /* EventHandlerCallback.swift in Sources */,
 				60BD0DAF1F0E82DC006836D0 /* Presentation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -32,11 +32,15 @@ public extension UI {
 		item.styles = [ButtonStyle(objectGraph: objectGraph)]
 		item.actionHandlers = [ButtonActionHandler(objectGraph: objectGraph)]
 		item.controlState = ButtonState(text: text, objectGraph: objectGraph)
+		
+		if let target = target, let action = action {
+			item.eventCenter.add(EventHandler<Tap>(selector: String(describing: action), receiver: target, sender: item))
+		}
 
 		return item
 	}
 	
-	public func button(frame: Rect, text: String = "", action: () -> ()) -> Item {
+	public func button(frame: Rect, text: String = "", action: @escaping (Event<Tap>) -> ()) -> Item {
 		let item = Item(frame: frame, objectGraph: objectGraph)
 
 		// TODO: Support target/action and property according to documentation
@@ -44,10 +48,12 @@ public extension UI {
 		item.actionHandlers = [ButtonActionHandler(objectGraph: objectGraph)]
 		item.controlState = ButtonState(text: text, objectGraph: objectGraph)
 
+		item.eventCenter.add(EventHandler<Tap>(block: action, sender: item))
+
 		return item
 	}
 	
-	public func button(extent: Extent, text: String = "", action: () -> ()) -> Item {
+	public func button(extent: Extent, text: String = "", action: @escaping (Event<Tap>) -> ()) -> Item {
 		return button(frame: Rect(origin: Point(x: 0, y: 0), extent: extent), text: text, action: action)
 	}
 
