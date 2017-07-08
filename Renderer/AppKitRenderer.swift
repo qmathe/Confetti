@@ -167,6 +167,8 @@ open class AppKitRenderer: Renderer {
 	open func renderButton(_ item: Item) -> RenderedNode {
 		let button = viewForItem(item) { NSButton(frame: CGRectFromRect(item.frame)) } as! NSButton
 		
+		button.setButtonType(.momentaryLight)
+		button.bezelStyle = .rounded
 		button.title = (item.controlState as? ButtonState)?.text ?? ""
 		button.setAction { [weak item = item] (sender: NSButton) in item?.reactTo(sender, isSwitch: false) }
 
