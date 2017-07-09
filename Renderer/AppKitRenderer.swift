@@ -178,7 +178,7 @@ open class AppKitRenderer: Renderer {
 	open func renderLabel(_ item: Item) -> RenderedNode {
 		let label = viewForItem(item) { NSTextField(frame: CGRectFromRect(item.frame)) } as! NSTextField
 		
-		label.stringValue = (item.controlState as? ButtonState)?.text ?? ""
+		label.stringValue = (item.controlState as? LabelState)?.text ?? ""
 		label.isBezeled = false
 		label.drawsBackground = false
 		label.isEditable = false

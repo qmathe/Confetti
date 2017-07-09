@@ -10,7 +10,11 @@ import Foundation
 open class Viewpoint<T>: Presentation {
 
 	/// The presented value.
-    open var value: T
+    open var value: T {
+		didSet {
+			changed = true
+		}
+	}
 	/// Whether the item representation or presented value have changed since the last UI update.
     var changed = true
 	/// The item representation.
