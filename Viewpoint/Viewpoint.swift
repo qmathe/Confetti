@@ -12,7 +12,7 @@ open class Viewpoint<T>: Presentation {
 	/// The presented value.
     open var value: T
 	/// Whether the item representation or presented value have changed since the last UI update.
-    var changed = false
+    var changed = true
 	/// The item representation.
 	///
 	/// The returned item tree is annotated with optimizations for `Renderer.render()`.
@@ -35,6 +35,14 @@ open class Viewpoint<T>: Presentation {
 	public init(value: T, objectGraph: ObjectGraph? = nil) {
 		self.value = value
 		self.objectGraph = objectGraph ?? ObjectGraph()
+	}
+	
+	// MARK: - Handling Changes
+	
+	open func update() -> Presentation? {
+		let presentation = changed ? self : nil
+		changed = false
+		return presentation
 	}
 
 	// MARK: - Generating Item Representation

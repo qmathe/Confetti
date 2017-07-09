@@ -22,8 +22,8 @@ public func run(_ presentation: Presentation, with renderer: Renderer = AppKitRe
 
 @objc(ConfettiApplication) public class ConfettiApplication: NSApplication {
 
-	override public func finishLaunching() {
-		super.finishLaunching()
+	override public func sendEvent(_ event: NSEvent) {
+		super.sendEvent(event)
 		app.update()
 	}
 }

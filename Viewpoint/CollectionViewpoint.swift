@@ -12,10 +12,15 @@ open class CollectionViewpoint<T>: Presentation {
 
 	/// The presented collection.
     open var collection: AnyCollection<T>
+	var changed = true
 	/// The item indexes changed since the last UI update.
 	///
 	/// These indexes are relative to `itemPresentingCollection(from:)`.
-    var changedIndexes = IndexSet()
+    var changedIndexes = IndexSet() {
+		didSet {
+			changed = !changedIndexes.isEmpty || changed
+		}
+	}
 	/// The item indexes visible based on the current expected extent.
 	///
 	/// These indexes and extent are relative to `itemPresentingCollection(from:)`.
@@ -42,7 +47,7 @@ open class CollectionViewpoint<T>: Presentation {
 		self.collection = collection
 	}
 	
-	// MARK: - Tracking Changes and Visibility
+	// MARK: - Handling Changes and Visibility
 	
 	/// Returns the item presenting the viewpoint model.
 	///
@@ -54,6 +59,12 @@ open class CollectionViewpoint<T>: Presentation {
 	/// Can be overriden but it is rarely needed.
 	open func itemPresentingCollection(from item: Item) -> Item {
 		return item
+	}
+	
+	open func update() -> Presentation? {
+		let presentation = changed ? self : nil
+		changed = false
+		return presentation
 	}
 	
 	// MARK: - Generating Item Representation

@@ -18,6 +18,8 @@ class App {
 	}
 
 	func update() {
-		node = renderer.renderItem(presentation.item)
+		if let presentation = presentation.update() {
+			node = renderer.renderItem(presentation.item)
+		}
 	}
 }

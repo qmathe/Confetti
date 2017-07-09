@@ -9,4 +9,5 @@ import Foundation
 
 public protocol Presentation {
 	var item: Item { get }
+	func update() -> Presentation?
 }
