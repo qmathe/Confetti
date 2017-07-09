@@ -18,11 +18,12 @@ public func run(_ presentation: Presentation, with renderer: Renderer = AppKitRe
 	_ = NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv)
 }
 
-// MARK: - Confetti Application Delegate
+// MARK: - Confetti AppKit Application
 
-public class AppDelegate: NSObject, NSApplicationDelegate {
+@objc(ConfettiApplication) public class ConfettiApplication: NSApplication {
 
-	public func applicationDidFinishLaunching(_ notification: Notification) {
+	override public func finishLaunching() {
+		super.finishLaunching()
 		app.update()
 	}
 }
