@@ -23,33 +23,30 @@ public extension UI {
 	public func label(extent: Extent, text: String = "") -> Item {
 		return label(frame: Rect(origin: Point(x: 0, y: 0), extent: extent), text: text)
 	}
-
-	public func button(frame: Rect, text: String = "", target: AnyObject? = nil,
-		action: Selector? = nil) -> Item {
+	
+	private func button(frame: Rect, text: String) -> Item {
 		let item = Item(frame: frame, objectGraph: objectGraph)
 
-		// TODO: Support target/action and property according to documentation
 		item.styles = [ButtonStyle(objectGraph: objectGraph)]
 		item.actionHandlers = [ButtonActionHandler(objectGraph: objectGraph)]
 		item.controlState = ButtonState(text: text, objectGraph: objectGraph)
-		
+
+		return item
+	}
+
+	public func button(frame: Rect, text: String = "", target: AnyObject? = nil, action: Selector? = nil) -> Item {
+		let item = button(frame: frame, text: text)
+
+		// TODO: Support target/action and property according to documentation
 		if let target = target, let action = action {
 			item.eventCenter.add(EventHandler<Tap>(selector: String(describing: action), receiver: target, sender: item))
 		}
-
 		return item
 	}
 	
 	public func button(frame: Rect, text: String = "", action: @escaping (Event<Tap>) -> ()) -> Item {
-		let item = Item(frame: frame, objectGraph: objectGraph)
-
-		// TODO: Support target/action and property according to documentation
-		item.styles = [ButtonStyle(objectGraph: objectGraph)]
-		item.actionHandlers = [ButtonActionHandler(objectGraph: objectGraph)]
-		item.controlState = ButtonState(text: text, objectGraph: objectGraph)
-
-		item.eventCenter.add(EventHandler<Tap>(block: action, sender: item))
-
+		let item = button(frame: frame, text: text)
+		item.eventCenter.add( EventHandler<Tap>(block: action, sender: item))
 		return item
 	}
 	
