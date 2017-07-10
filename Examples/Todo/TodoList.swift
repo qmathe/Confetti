@@ -15,6 +15,10 @@ class TodoList: CollectionViewpoint<Todo>, UI {
 	override init<S>(collection: S, objectGraph: ObjectGraph? = nil) where S : Sequence, S.Iterator.Element == Todo {
 		super.init(collection: collection, objectGraph: objectGraph)
 	}
+	
+	override func itemPresentingCollection(from item: Item) -> Item {
+		return (item.items ?? [])[0]
+	}
 
     override func generate() -> Item {
         return column(items:

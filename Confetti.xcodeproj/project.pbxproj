@@ -100,6 +100,8 @@
 		60E773941F128E8500196D82 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E773931F128E8500196D82 /* TodoList.swift */; };
 		60E773961F12966B00196D82 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E773951F12966B00196D82 /* Todo.swift */; };
 		60E773971F12DC5C00196D82 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E773801F128D9D00196D82 /* main.swift */; };
+		60E773A01F1391FB00196D82 /* TestCollectionViewpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E7739F1F1391FB00196D82 /* TestCollectionViewpoint.swift */; };
+		60E773A11F1391FB00196D82 /* TestCollectionViewpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E7739F1F1391FB00196D82 /* TestCollectionViewpoint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -308,6 +310,7 @@
 		60E773881F128DA400196D82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Examples/Todo/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		60E773931F128E8500196D82 /* TodoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TodoList.swift; path = Examples/Todo/TodoList.swift; sourceTree = SOURCE_ROOT; };
 		60E773951F12966B00196D82 /* Todo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Todo.swift; path = Examples/Todo/Todo.swift; sourceTree = SOURCE_ROOT; };
+		60E7739F1F1391FB00196D82 /* TestCollectionViewpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestCollectionViewpoint.swift; path = Viewpoint/TestCollectionViewpoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,6 +513,7 @@
 		60484FA41D003DEB003972DA /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				60E7739E1F1391C800196D82 /* Viewpoint */,
 				600E8C6F1D5A27F500AFD10E /* Renderer */,
 				60484FA71D003DEB003972DA /* Info.plist */,
 			);
@@ -741,6 +745,14 @@
 			path = Todo;
 			sourceTree = "<group>";
 		};
+		60E7739E1F1391C800196D82 /* Viewpoint */ = {
+			isa = PBXGroup;
+			children = (
+				60E7739F1F1391FB00196D82 /* TestCollectionViewpoint.swift */,
+			);
+			name = Viewpoint;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -948,6 +960,7 @@
 					};
 					60873B461DD88175004FFE29 = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					60BD0DB51F0E9E9F006836D0 = {
@@ -1117,6 +1130,7 @@
 			files = (
 				600E8C751D5A280800AFD10E /* TestRenderer.swift in Sources */,
 				600E8C741D5A280800AFD10E /* TestAppKitRenderer.swift in Sources */,
+				60E773A01F1391FB00196D82 /* TestCollectionViewpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1182,6 +1196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60E773A11F1391FB00196D82 /* TestCollectionViewpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1530,6 +1545,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1540,6 +1556,7 @@
 				PRODUCT_NAME = TestConfetti;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1549,6 +1566,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

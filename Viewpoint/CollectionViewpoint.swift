@@ -29,7 +29,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation {
 	///
 	/// These indexes and extent are relative to `itemPresentingCollection(from:)`.
 	var visibleIndexes = IndexSet()
-	var selectionIndexes = IndexSet()
+	open var selectionIndexes = IndexSet()
 	/// The item representation.
 	///
 	/// The returned item tree is annotated with optimizations for `Renderer.render()`.
@@ -85,8 +85,12 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation {
     }
 	
 	open func remove() {
-		for index in selectionIndexes {
-			collection.remove(at: index)
+		if selectionIndexes.isEmpty {
+			print("Missing selection for remove action in /(self)")
+		}
+		// FIXME: IndexSet(selectionIndexes).reversed() crashes, see testEnumerateReverseEmptiedSelection()
+		for index in Array(selectionIndexes).reversed() {
+			remove(at: index)
 		}
 	}
 	
