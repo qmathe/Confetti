@@ -9,6 +9,7 @@ import Foundation
 
 open class Viewpoint<T>: Presentation {
 
+	open var presentations: [Presentation] { return [] }
 	/// The presented value.
     open var value: T {
 		didSet {
@@ -16,7 +17,7 @@ open class Viewpoint<T>: Presentation {
 		}
 	}
 	/// Whether the item representation or presented value have changed since the last UI update.
-    var changed = true
+    public var changed = true
 	/// The item representation.
 	///
 	/// The returned item tree is annotated with optimizations for `Renderer.render()`.
@@ -36,17 +37,9 @@ open class Viewpoint<T>: Presentation {
 	/// Initializes a new viewpoint to present the given value.
 	///
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
-	public init(value: T, objectGraph: ObjectGraph? = nil) {
+	public init(_ value: T, objectGraph: ObjectGraph? = nil) {
 		self.value = value
 		self.objectGraph = objectGraph ?? ObjectGraph()
-	}
-	
-	// MARK: - Handling Changes
-	
-	open func update() -> Presentation? {
-		let presentation = changed ? self : nil
-		changed = false
-		return presentation
 	}
 
 	// MARK: - Generating Item Representation

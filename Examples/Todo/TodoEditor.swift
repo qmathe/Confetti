@@ -1,0 +1,18 @@
+/**
+	Copyright (C) 2017 Quentin Mathe
+ 
+	Date:  July 2017
+	License:  MIT
+ */
+
+import Foundation
+import Confetti
+import Tapestry
+
+class TodoEditor: Viewpoint<Todo?>, UI {
+
+    override func generate() -> Item {
+        return label(extent: Extent(width: 600, height: 800), text: value?.text ?? "")
+    }
+}
+

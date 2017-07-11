@@ -18,7 +18,7 @@ class App {
 	}
 
 	func update() {
-		if let presentation = presentation.update() {
+		if presentation.update().count > 0 {
 			node = renderer.renderItem(presentation.item)
 		}
 	}

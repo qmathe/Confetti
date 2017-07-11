@@ -14,9 +14,10 @@ public protocol CreatableElement {
 
 open class CollectionViewpoint<T: CreatableElement>: Presentation {
 
+	open var presentations: [Presentation] { return [] }
 	/// The presented collection.
     open var collection: Array<T>
-	var changed = true
+	public var changed = true
 	/// The item indexes changed since the last UI update.
 	///
 	/// These indexes are relative to `itemPresentingCollection(from:)`.
@@ -54,7 +55,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation {
 	/// Initializes a new viewpoint to present the given collection.
 	///
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
-	public init<S>(collection: S, objectGraph: ObjectGraph? = nil) where S: Sequence, S.Iterator.Element == T {
+	public init<S>(_ collection: S, objectGraph: ObjectGraph? = nil) where S: Sequence, S.Iterator.Element == T {
 		self.collection = Array(collection)
 		self.objectGraph = objectGraph ?? ObjectGraph()
 	}
@@ -106,12 +107,6 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation {
 	/// Can be overriden but it is rarely needed.
 	open func itemPresentingCollection(from item: Item) -> Item {
 		return item
-	}
-	
-	open func update() -> Presentation? {
-		let presentation = changed ? self : nil
-		changed = false
-		return presentation
 	}
 	
 	// MARK: - Generating Item Representation

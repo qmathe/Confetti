@@ -9,7 +9,7 @@ import Foundation
 import Confetti
 
 struct Todo: CreatableElement {
-	var text = ""
+	var text = "Untitled"
 	
 	init() { }
 }

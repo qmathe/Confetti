@@ -7,7 +7,21 @@
 
 import Foundation
 
-public protocol Presentation {
+public protocol Presentation: class {
+	var presentations: [Presentation] { get }
+	var changed: Bool { get set }
 	var item: Item { get }
-	func update() -> Presentation?
+	func update() -> [Presentation]
+}
+
+// MARK: - Handling Changes
+
+public extension Presentation {
+
+	public func update() -> [Presentation] {
+		let descendantPresentations = presentations.flatMap { $0.update() }
+		let presentation = changed ? [self] : []
+		changed = false
+		return presentation + descendantPresentations
+	}
 }

@@ -25,4 +25,4 @@ class Counter: Viewpoint<Int>, UI {
     }
 }
 
-run(Counter(value: 0))
+run(Counter(0))
