@@ -7,6 +7,8 @@
 
 import Foundation
 import Tapestry
+// FIXME: Remove this hack used to prevent linker errors with iOS target
+import CoreGraphics
 
 public protocol UI {
 	var objectGraph: ObjectGraph { get set }

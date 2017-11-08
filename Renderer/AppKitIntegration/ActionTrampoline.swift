@@ -7,6 +7,7 @@
  */
 
 import Foundation
+import AppKit
 
 /// This code is copied/pasted from https://www.mikeash.com/pyblog/friday-qa-2015-12-25-swifty-targetaction.html
 class ActionTrampoline<T>: NSObject {
@@ -31,7 +32,7 @@ extension NSControlActionFunctionProtocol where Self: NSControl {
 	func setAction(_ action: @escaping (Self) -> Void) {
 		let trampoline = ActionTrampoline(action: action)
 		self.target = trampoline
-		self.action = Selector("action:")
+		self.action = #selector(ActionTrampoline<Any>.action(_:)) as Selector
 		objc_setAssociatedObject(self, NSControlActionFunctionProtocolAssociatedObjectKey, trampoline, .OBJC_ASSOCIATION_RETAIN)
 	}
 }

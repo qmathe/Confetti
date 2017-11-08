@@ -7,6 +7,7 @@
  */
 
 import Foundation
+import AppKit
 
 extension Item {
 
@@ -15,8 +16,8 @@ extension Item {
 		if isSwitch {
 			let status: SwitchStatus = {
 				switch sender.state {
-				case NSOnState: return SwitchStatus.on
-				case NSOffState: return SwitchStatus.off
+				case NSControl.StateValue.on: return SwitchStatus.on
+				case NSControl.StateValue.off: return SwitchStatus.off
 				default: return SwitchStatus.none
 				}
 			}()

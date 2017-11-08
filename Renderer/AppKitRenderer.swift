@@ -148,7 +148,7 @@ open class AppKitRenderer: Renderer {
 	/// For a window unlike a view, we can determine the correct origin 
 	/// immediately, since we can know the screen where it will appear.
 	fileprivate func renderWindow(_ item: Item) -> RenderedNode {
-		let styleMask: NSWindowStyleMask = [NSWindowStyleMask.titled, NSWindowStyleMask.closable, NSWindowStyleMask.miniaturizable, NSWindowStyleMask.resizable, NSWindowStyleMask.unifiedTitleAndToolbar]
+		let styleMask: NSWindow.StyleMask = [NSWindow.StyleMask.titled, NSWindow.StyleMask.closable, NSWindow.StyleMask.miniaturizable, NSWindow.StyleMask.resizable, NSWindow.StyleMask.unifiedTitleAndToolbar]
 		let window = nodeForItem(item, in: &windows) { NSWindow(contentRect: CGRectFromRect(item.frame), styleMask: styleMask, backing: .buffered, defer: false) }
 		
 		window.contentView = (item.render(self) as! NSView)
@@ -211,7 +211,7 @@ open class AppKitRenderer: Renderer {
 		
 		button.frame.size.height = defaultSwitchHeight
 		button.title = (item.controlState as? SwitchState)?.text ?? ""
-		button.state = (item.controlState as? SwitchState)?.status.rawValue ?? 0
+		button.state = NSControl.StateValue(rawValue: (item.controlState as? SwitchState)?.status.rawValue ?? 0)
 		button.setButtonType(.switch)
 		button.setAction { [weak item = item] (sender: NSButton) in item?.reactTo(sender, isSwitch: true) }
 

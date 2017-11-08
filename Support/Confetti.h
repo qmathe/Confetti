@@ -6,7 +6,7 @@
 //  Copyright © 2016 Quentin Mathé. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for Confetti.
 FOUNDATION_EXPORT double ConfettiVersionNumber;

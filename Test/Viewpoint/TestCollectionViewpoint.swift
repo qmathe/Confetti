@@ -11,7 +11,7 @@ import Tapestry
 
 class TestCollectionViewpoint: XCTestCase {
 
-	var viewpoint = TestableCollectionViewpoint<Int>(collection: [0, 2, 4])
+	var viewpoint = TestableCollectionViewpoint<Int>([0, 2, 4])
 
 	func testGenerate() {
 		XCTAssertEqual(3, viewpoint.item.items?.count)
@@ -57,8 +57,8 @@ class TestCollectionViewpoint: XCTestCase {
 
 class TestableCollectionViewpoint<T: CreatableElement>: CollectionViewpoint<T>, UI {
 
-	override init<S>(collection: S, objectGraph: ObjectGraph? = nil) where S : Sequence, S.Iterator.Element == T {
-		super.init(collection: collection, objectGraph: objectGraph)
+	override init<S>(_ collection: S, objectGraph: ObjectGraph? = nil) where S : Sequence, S.Iterator.Element == T {
+		super.init(collection, objectGraph: objectGraph)
 	}
 
 	override func generate() -> Item {
