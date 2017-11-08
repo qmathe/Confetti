@@ -70,6 +70,14 @@ public struct Rect: Equatable {
 		origin = Point(x: x, y: y)
 		extent = Extent(width: width, height: height)
 	}
+
+	/// Returns whether the given point expressed in the receiver coordinate space is inside it.
+	public func contains(_ point: Point) -> Bool {
+		return point.x >= origin.x
+			&& point.y >= origin.y
+			&& point.x <= origin.x + extent.width
+			&& point.y <= origin.y + extent.height
+	}
 }
 
 public func == (lhs: Vector2, rhs: Vector2) -> Bool {

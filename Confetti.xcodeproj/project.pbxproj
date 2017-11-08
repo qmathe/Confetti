@@ -104,6 +104,7 @@
 		60E773A11F1391FB00196D82 /* TestCollectionViewpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E7739F1F1391FB00196D82 /* TestCollectionViewpoint.swift */; };
 		60E773A31F13B32800196D82 /* TodoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E773A21F13B32800196D82 /* TodoEditor.swift */; };
 		60E773A51F13B3AE00196D82 /* TodoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E773A41F13B3AE00196D82 /* TodoApp.swift */; };
+		60E773A71F14FFD600196D82 /* NSWindowIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E773A61F14FFD600196D82 /* NSWindowIntegration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -315,6 +316,7 @@
 		60E7739F1F1391FB00196D82 /* TestCollectionViewpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestCollectionViewpoint.swift; path = Viewpoint/TestCollectionViewpoint.swift; sourceTree = "<group>"; };
 		60E773A21F13B32800196D82 /* TodoEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TodoEditor.swift; path = Examples/Todo/TodoEditor.swift; sourceTree = SOURCE_ROOT; };
 		60E773A41F13B3AE00196D82 /* TodoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TodoApp.swift; path = Examples/Todo/TodoApp.swift; sourceTree = SOURCE_ROOT; };
+		60E773A61F14FFD600196D82 /* NSWindowIntegration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSWindowIntegration.swift; path = Renderer/AppKitIntegration/NSWindowIntegration.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -469,6 +471,7 @@
 				602B07711D63722A0035CD86 /* ActionTrampoline.swift */,
 				602B076B1D63545F0035CD86 /* NSButtonIntegration.swift */,
 				602B076F1D6363D00035CD86 /* NSSliderIntegration.swift */,
+				60E773A61F14FFD600196D82 /* NSWindowIntegration.swift */,
 			);
 			name = "AppKit Integration";
 			sourceTree = "<group>";
@@ -1153,6 +1156,7 @@
 				60811A8B1D709E2300D4DEEA /* LabelStyle.swift in Sources */,
 				606658EA1D64ABBF00450376 /* EventHandlerInvocation.swift in Sources */,
 				602B07691D6344FF0035CD86 /* AnyEventHandler.swift in Sources */,
+				60E773A71F14FFD600196D82 /* NSWindowIntegration.swift in Sources */,
 				60B8EE661EDE1E240060B5F2 /* Viewpoint.swift in Sources */,
 				602B07631D62FDA10035CD86 /* EventCenter.swift in Sources */,
 				602B076C1D63545F0035CD86 /* NSButtonIntegration.swift in Sources */,

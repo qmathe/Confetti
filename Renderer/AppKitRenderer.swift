@@ -239,6 +239,14 @@ internal func CGRectFromRect(_ rect: Rect) -> CGRect {
 	return CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.extent.width, height: rect.extent.height)
 }
 
+extension Point {
+	init(point: CGPoint) { x = point.x; y = point.y }
+}
+
+extension CGPoint {
+	init(point: Point) { x = point.x; y = point.y }
+}
+
 // MARK: - Rendered Nodes
 
 extension NSView: RendererDestination, RenderedNode {
