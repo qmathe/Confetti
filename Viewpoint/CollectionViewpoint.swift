@@ -79,10 +79,10 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation {
 			changedIndexes.remove(index)
 		}
 		changedIndexes.shift(startingAt: IndexSet.Element(index), by: -1)
-		if selectionIndexes.contains(index) {
-			selectionIndexes.remove(index)
-		}
 		selectionIndexes.shift(startingAt: IndexSet.Element(index), by: -1)
+		if selectionIndexes.isEmpty && !collection.isEmpty {
+			selectionIndexes = IndexSet(integer: 0)
+		}
     }
 	
 	open func remove() {
