@@ -16,12 +16,15 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation {
 
 	open var presentations: [Presentation] { return [] }
 	/// The presented collection.
+    ///
+    /// When a new collection is assigned, selection and changed indexes must be manually updated.
+    /// Once a viewpoint has been created, assigning a new  collection should usually be avoided.
     open var collection: Array<T>
 	public var changed = true
 	/// The indexes corresponding to inserted and updated items since the last UI update.
 	///
-	/// Calling `remove()` or `remove(at:)` result in indexes being removed and successors shifted towards the
-	/// first index.
+	/// Calling `remove()` or `remove(at:)` result in indexes being removed and successors shifted
+    /// towards the first index.
 	///
 	/// These indexes are relative to `itemPresentingCollection(from:)`.
     var changedIndexes = IndexSet() {
