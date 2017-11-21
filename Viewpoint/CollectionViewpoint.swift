@@ -18,7 +18,10 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation {
 	/// The presented collection.
     open var collection: Array<T>
 	public var changed = true
-	/// The item indexes changed since the last UI update.
+	/// The indexes corresponding to inserted and updated items since the last UI update.
+	///
+	/// Calling `remove()` or `remove(at:)` result in indexes being removed and successors shifted towards the
+	/// first index.
 	///
 	/// These indexes are relative to `itemPresentingCollection(from:)`.
     var changedIndexes = IndexSet() {
@@ -57,6 +60,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation {
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
 	public init<S>(_ collection: S, objectGraph: ObjectGraph? = nil) where S: Sequence, S.Iterator.Element == T {
 		self.collection = Array(collection)
+		self.changedIndexes = IndexSet(self.collection.indices)
 		self.objectGraph = objectGraph ?? ObjectGraph()
 	}
 	
@@ -75,11 +79,8 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation {
 
     open func remove(at index: Int) {
         collection.remove(at: index)
-		if changedIndexes.contains(index) {
-			changedIndexes.remove(index)
-		}
-		changedIndexes.shift(startingAt: IndexSet.Element(index), by: -1)
-		selectionIndexes.shift(startingAt: IndexSet.Element(index), by: -1)
+		changedIndexes.shift(startingAt: index, by: -1)
+		selectionIndexes.shift(startingAt: index, by: -1)
 		if selectionIndexes.isEmpty && !collection.isEmpty {
 			selectionIndexes = IndexSet(integer: 0)
 		}
