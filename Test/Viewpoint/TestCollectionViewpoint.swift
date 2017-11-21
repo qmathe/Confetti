@@ -11,7 +11,7 @@ import Tapestry
 
 class TestCollectionViewpoint: XCTestCase {
 
-	var viewpoint = TestableCollectionViewpoint<Int>([0, 2, 4])
+	var viewpoint = TestableCollectionViewpoint<String>(["a", "b", "c"])
 
 	// MARK: - Generation
 
@@ -103,9 +103,9 @@ class TestableCollectionViewpoint<T: CreatableElement>: CollectionViewpoint<T>, 
 	}
 }
 
-extension Int: CreatableElement {
+extension String: CreatableElement {
 
 	public init() {
-		self.init(integerLiteral: 1)
+		self.init("x")
 	}
 }
