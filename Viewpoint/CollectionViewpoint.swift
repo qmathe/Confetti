@@ -29,7 +29,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation {
 	/// These indexes are relative to `itemPresentingCollection(from:)`.
     var changedIndexes = IndexSet() {
 		didSet {
-			changed = !changedIndexes.isEmpty || changed
+			changed = true
 		}
 	}
 	/// The item indexes visible based on the current expected extent.

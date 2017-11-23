@@ -91,6 +91,17 @@ class TestCollectionViewpoint: XCTestCase {
 		XCTAssertTrue(viewpoint.changed)
         XCTAssertEqual(IndexSet(0...1), viewpoint.changedIndexes)
 	}
+    
+    func testRemoveAllForSingleSelection() {
+        viewpoint.selectionIndexes = IndexSet(integer: 2)
+        viewpoint.remove()
+        viewpoint.remove()
+        viewpoint.remove()
+
+        XCTAssertTrue(viewpoint.selectionIndexes.isEmpty)
+        XCTAssertTrue(viewpoint.changed)
+        XCTAssertTrue(viewpoint.changedIndexes.isEmpty)
+    }
 
 	// MARK: - Removal and Insertion Combined
 	
