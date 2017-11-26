@@ -24,7 +24,7 @@ class TodoList: CollectionViewpoint<Todo>, UI {
         return column(items:
 			column(items:
                 collection.map { self.label(extent: Extent(width: 400, height: 50), text: $0.text) },
-                   select: { _ in self.send(selectedElements.first) }
+                   select: { _ in self.send(self.selectedElements.first) }
 			),
 			row(items:
 				button(extent: Extent(width: 200, height: 20), text: "Add", action: { _ in self.add() }),
