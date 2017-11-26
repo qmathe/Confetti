@@ -24,7 +24,6 @@
 		602B07671D6311B20035CD86 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B07661D6311B20035CD86 /* EventHandler.swift */; };
 		602B07691D6344FF0035CD86 /* AnyEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B07681D6344FF0035CD86 /* AnyEventHandler.swift */; };
 		602B076C1D63545F0035CD86 /* NSButtonIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B076B1D63545F0035CD86 /* NSButtonIntegration.swift */; };
-		602B076E1D6355510035CD86 /* Tap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B076D1D6355510035CD86 /* Tap.swift */; };
 		602B07701D6363D00035CD86 /* NSSliderIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B076F1D6363D00035CD86 /* NSSliderIntegration.swift */; };
 		602B07721D63722A0035CD86 /* ActionTrampoline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B07711D63722A0035CD86 /* ActionTrampoline.swift */; };
 		60484FB91D004071003972DA /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FB81D004071003972DA /* Geometry.swift */; };
@@ -43,7 +42,6 @@
 		604B74AF1FB4697D002462CD /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B07661D6311B20035CD86 /* EventHandler.swift */; };
 		604B74B01FB4697D002462CD /* EventHandlerCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E773681F111FF700196D82 /* EventHandlerCallback.swift */; };
 		604B74B11FB4697D002462CD /* EventHandlerInvocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606658E91D64ABBE00450376 /* EventHandlerInvocation.swift */; };
-		604B74B21FB4697D002462CD /* Tap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B076D1D6355510035CD86 /* Tap.swift */; };
 		604B74B31FB4699F002462CD /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FB81D004071003972DA /* Geometry.swift */; };
 		604B74B41FB4699F002462CD /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60484FBA1D004E76003972DA /* Mesh.swift */; };
 		604B74B51FB469AB002462CD /* UIObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60811AB91D70E68300D4DEEA /* UIObject.swift */; };
@@ -75,6 +73,17 @@
 		604B74D01FB46B2A002462CD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604B74CF1FB46B2A002462CD /* Foundation.framework */; };
 		604B74D31FB46B4C002462CD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604B74D21FB46B4C002462CD /* QuartzCore.framework */; };
 		604B74D41FB46B56002462CD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604B74AA1FB467E9002462CD /* CoreGraphics.framework */; };
+		6059F8891FC6E661001CE66D /* SelectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8881FC6E661001CE66D /* SelectHandler.swift */; };
+		6059F88A1FC6E661001CE66D /* SelectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8881FC6E661001CE66D /* SelectHandler.swift */; };
+		6059F8931FC7108F001CE66D /* Tap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8911FC7108F001CE66D /* Tap.swift */; };
+		6059F8941FC7108F001CE66D /* Tap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8911FC7108F001CE66D /* Tap.swift */; };
+		6059F8951FC7108F001CE66D /* Select.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8921FC7108F001CE66D /* Select.swift */; };
+		6059F8961FC7108F001CE66D /* Select.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8921FC7108F001CE66D /* Select.swift */; };
+		6059F8981FC710B5001CE66D /* Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8971FC710B5001CE66D /* Touch.swift */; };
+		6059F8991FC710B5001CE66D /* Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8971FC710B5001CE66D /* Touch.swift */; };
+		6059F89B1FC714ED001CE66D /* NSViewIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F89A1FC714ED001CE66D /* NSViewIntegration.swift */; };
+		6059F8A51FC96F46001CE66D /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8A01FC96F46001CE66D /* Array.swift */; };
+		6059F8A61FC96F46001CE66D /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8A01FC96F46001CE66D /* Array.swift */; };
 		6059F8B31FCAFC6F001CE66D /* TestItemGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8B01FCAFA72001CE66D /* TestItemGeometry.swift */; };
 		6059F8B41FCAFC70001CE66D /* TestItemGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8B01FCAFA72001CE66D /* TestItemGeometry.swift */; };
 		6065F4AA1D56A9A60063187A /* AppKitRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6065F4A91D56A9A60063187A /* AppKitRenderer.swift */; };
@@ -306,7 +315,6 @@
 		602B07661D6311B20035CD86 /* EventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventHandler.swift; path = Event/EventHandler.swift; sourceTree = "<group>"; };
 		602B07681D6344FF0035CD86 /* AnyEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnyEventHandler.swift; path = Event/AnyEventHandler.swift; sourceTree = "<group>"; };
 		602B076B1D63545F0035CD86 /* NSButtonIntegration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSButtonIntegration.swift; path = Renderer/AppKitIntegration/NSButtonIntegration.swift; sourceTree = SOURCE_ROOT; };
-		602B076D1D6355510035CD86 /* Tap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tap.swift; path = Event/Tap.swift; sourceTree = "<group>"; };
 		602B076F1D6363D00035CD86 /* NSSliderIntegration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSSliderIntegration.swift; path = Renderer/AppKitIntegration/NSSliderIntegration.swift; sourceTree = SOURCE_ROOT; };
 		602B07711D63722A0035CD86 /* ActionTrampoline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionTrampoline.swift; path = Renderer/AppKitIntegration/ActionTrampoline.swift; sourceTree = SOURCE_ROOT; };
 		60484F961D003DEB003972DA /* Confetti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Confetti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -319,6 +327,12 @@
 		604B74AA1FB467E9002462CD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		604B74CF1FB46B2A002462CD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		604B74D21FB46B4C002462CD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		6059F8881FC6E661001CE66D /* SelectHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectHandler.swift; path = ActionHandler/SelectHandler.swift; sourceTree = "<group>"; };
+		6059F8911FC7108F001CE66D /* Tap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tap.swift; path = Event/Output/Tap.swift; sourceTree = "<group>"; };
+		6059F8921FC7108F001CE66D /* Select.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Select.swift; path = Event/Output/Select.swift; sourceTree = "<group>"; };
+		6059F8971FC710B5001CE66D /* Touch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Touch.swift; path = Event/Input/Touch.swift; sourceTree = "<group>"; };
+		6059F89A1FC714ED001CE66D /* NSViewIntegration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSViewIntegration.swift; path = Renderer/AppKitIntegration/NSViewIntegration.swift; sourceTree = SOURCE_ROOT; };
+		6059F8A01FC96F46001CE66D /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Utilities/Array.swift; sourceTree = SOURCE_ROOT; };
 		6059F8B01FCAFA72001CE66D /* TestItemGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestItemGeometry.swift; path = Item/TestItemGeometry.swift; sourceTree = "<group>"; };
 		6065F4A91D56A9A60063187A /* AppKitRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppKitRenderer.swift; path = Renderer/AppKitRenderer.swift; sourceTree = SOURCE_ROOT; };
 		6065F4AB1D56B4260063187A /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Renderer.swift; path = Renderer/Renderer.swift; sourceTree = SOURCE_ROOT; };
@@ -342,7 +356,7 @@
 		60811AB91D70E68300D4DEEA /* UIObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIObject.swift; path = Base/UIObject.swift; sourceTree = "<group>"; };
 		60838B1A1ED1F3B50034D892 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Support/Info.plist; sourceTree = "<group>"; };
 		60838B1C1ED1F43C0034D892 /* Tapestry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tapestry.h; path = Support/Tapestry.h; sourceTree = "<group>"; };
-		60873B351DD87DD0004FFE29 /* Playground-macOS.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "Playground-macOS.playground"; path = "Playgrounds/Playground-macOS.playground"; sourceTree = "<group>"; };
+		60873B351DD87DD0004FFE29 /* Playground-macOS.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "Playground-macOS.playground"; path = "Playgrounds/Playground-macOS.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		60873B361DD87DD0004FFE29 /* Playground-private.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "Playground-private.playground"; path = "Playgrounds/Playground-private.playground"; sourceTree = "<group>"; };
 		60873B3F1DD88175004FFE29 /* Confetti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Confetti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60873B471DD88175004FFE29 /* TestConfetti.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestConfetti.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -511,6 +525,7 @@
 		600E8C761D5B444B00AFD10E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				6059F8A01FC96F46001CE66D /* Array.swift */,
 				600E8C771D5B445700AFD10E /* Dictionary.swift */,
 			);
 			name = Utilities;
@@ -542,7 +557,8 @@
 				602B07661D6311B20035CD86 /* EventHandler.swift */,
 				60E773681F111FF700196D82 /* EventHandlerCallback.swift */,
 				606658E91D64ABBE00450376 /* EventHandlerInvocation.swift */,
-				602B076D1D6355510035CD86 /* Tap.swift */,
+				6059F88F1FC71077001CE66D /* Input */,
+				6059F8901FC7107E001CE66D /* Output */,
 			);
 			name = Event;
 			sourceTree = "<group>";
@@ -553,6 +569,7 @@
 				602B07711D63722A0035CD86 /* ActionTrampoline.swift */,
 				602B076B1D63545F0035CD86 /* NSButtonIntegration.swift */,
 				602B076F1D6363D00035CD86 /* NSSliderIntegration.swift */,
+				6059F89A1FC714ED001CE66D /* NSViewIntegration.swift */,
 				60E773A61F14FFD600196D82 /* NSWindowIntegration.swift */,
 			);
 			name = "AppKit Integration";
@@ -632,6 +649,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		6059F88F1FC71077001CE66D /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				6059F8971FC710B5001CE66D /* Touch.swift */,
+			);
+			name = Input;
+			sourceTree = "<group>";
+		};
+		6059F8901FC7107E001CE66D /* Output */ = {
+			isa = PBXGroup;
+			children = (
+				6059F8921FC7108F001CE66D /* Select.swift */,
+				6059F8911FC7108F001CE66D /* Tap.swift */,
+			);
+			name = Output;
+			sourceTree = "<group>";
+		};
 		6059F8AF1FCAFA69001CE66D /* Item */ = {
 			isa = PBXGroup;
 			children = (
@@ -655,6 +689,8 @@
 		60811A841D709D3400D4DEEA /* Action Handler */ = {
 			isa = PBXGroup;
 			children = (
+				60811A951D709FDC00D4DEEA /* ActionHandler.swift */,
+				6059F8881FC6E661001CE66D /* SelectHandler.swift */,
 				60811A8E1D709E4A00D4DEEA /* Control */,
 			);
 			name = "Action Handler";
@@ -674,7 +710,6 @@
 		60811A8E1D709E4A00D4DEEA /* Control */ = {
 			isa = PBXGroup;
 			children = (
-				60811A951D709FDC00D4DEEA /* ActionHandler.swift */,
 				60811A8F1D709E5600D4DEEA /* ButtonActionHandler.swift */,
 				60811A901D709E5600D4DEEA /* SliderActionHandler.swift */,
 				60811A911D709E5600D4DEEA /* SwitchActionHandler.swift */,
@@ -1291,6 +1326,9 @@
 				60E773A71F14FFD600196D82 /* NSWindowIntegration.swift in Sources */,
 				60B8EE661EDE1E240060B5F2 /* Viewpoint.swift in Sources */,
 				602B07631D62FDA10035CD86 /* EventCenter.swift in Sources */,
+				6059F8891FC6E661001CE66D /* SelectHandler.swift in Sources */,
+				6059F8981FC710B5001CE66D /* Touch.swift in Sources */,
+				6059F8951FC7108F001CE66D /* Select.swift in Sources */,
 				602B076C1D63545F0035CD86 /* NSButtonIntegration.swift in Sources */,
 				60811A8A1D709E2300D4DEEA /* ButtonStyle.swift in Sources */,
 				60811A9C1D70A09A00D4DEEA /* ButtonState.swift in Sources */,
@@ -1305,8 +1343,11 @@
 				60811AC11D70E68300D4DEEA /* UIObject.swift in Sources */,
 				60484FB91D004071003972DA /* Geometry.swift in Sources */,
 				602B07701D6363D00035CD86 /* NSSliderIntegration.swift in Sources */,
+				6059F8A51FC96F46001CE66D /* Array.swift in Sources */,
+				6059F8931FC7108F001CE66D /* Tap.swift in Sources */,
 				60811A9D1D70A09A00D4DEEA /* ControlState.swift in Sources */,
 				60811AC01D70E68300D4DEEA /* UI+Controls.swift in Sources */,
+				6059F89B1FC714ED001CE66D /* NSViewIntegration.swift in Sources */,
 				60811A8C1D709E2300D4DEEA /* SliderStyle.swift in Sources */,
 				60811AA01D70A09A00D4DEEA /* SwitchState.swift in Sources */,
 				60811A941D709E5600D4DEEA /* SwitchActionHandler.swift in Sources */,
@@ -1319,7 +1360,6 @@
 				60811A921D709E5600D4DEEA /* ButtonActionHandler.swift in Sources */,
 				60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */,
 				6065F4AA1D56A9A60063187A /* AppKitRenderer.swift in Sources */,
-				602B076E1D6355510035CD86 /* Tap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1346,10 +1386,10 @@
 				604B74AF1FB4697D002462CD /* EventHandler.swift in Sources */,
 				604B74B01FB4697D002462CD /* EventHandlerCallback.swift in Sources */,
 				604B74B11FB4697D002462CD /* EventHandlerInvocation.swift in Sources */,
-				604B74B21FB4697D002462CD /* Tap.swift in Sources */,
 				604B74B31FB4699F002462CD /* Geometry.swift in Sources */,
 				604B74B51FB469AB002462CD /* UIObject.swift in Sources */,
 				604B74B61FB469AB002462CD /* Item.swift in Sources */,
+				6059F8A61FC96F46001CE66D /* Array.swift in Sources */,
 				604B74B71FB469AB002462CD /* UI.swift in Sources */,
 				604B74B81FB469AB002462CD /* UI+Controls.swift in Sources */,
 				604B74B91FB469AB002462CD /* App.swift in Sources */,
@@ -1362,11 +1402,14 @@
 				604B74BF1FB469D5002462CD /* LabelState.swift in Sources */,
 				604B74C01FB469D5002462CD /* SliderState.swift in Sources */,
 				604B74C11FB469D5002462CD /* SwitchState.swift in Sources */,
+				6059F8991FC710B5001CE66D /* Touch.swift in Sources */,
 				604B74C21FB469DD002462CD /* ActionHandler.swift in Sources */,
 				604B74C31FB469DD002462CD /* ButtonActionHandler.swift in Sources */,
 				604B74C41FB469DD002462CD /* SliderActionHandler.swift in Sources */,
 				604B74C51FB469DD002462CD /* SwitchActionHandler.swift in Sources */,
+				6059F88A1FC6E661001CE66D /* SelectHandler.swift in Sources */,
 				604B74C61FB469F2002462CD /* Style.swift in Sources */,
+				6059F8941FC7108F001CE66D /* Tap.swift in Sources */,
 				604B74C71FB469F2002462CD /* ButtonStyle.swift in Sources */,
 				604B74C81FB469F2002462CD /* LabelStyle.swift in Sources */,
 				604B74C91FB469F2002462CD /* SliderStyle.swift in Sources */,
@@ -1374,6 +1417,7 @@
 				604B74CB1FB469FD002462CD /* Material.swift in Sources */,
 				604B74CC1FB46A06002462CD /* Renderer.swift in Sources */,
 				604B74CD1FB46A1E002462CD /* Dictionary.swift in Sources */,
+				6059F8961FC7108F001CE66D /* Select.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,7 @@ public protocol Presentation: class {
 	var changed: Bool { get set }
 	var item: Item { get }
 	func update() -> [Presentation]
+    func send<U>(_ value: U)
 }
 
 // MARK: - Handling Changes
@@ -24,4 +25,10 @@ public extension Presentation {
 		changed = false
 		return presentation + descendantPresentations
 	}
+    
+    // MARK: - Emitting Events
+    
+    public func send<U>(_ value: U) {
+        item.eventCenter.send(value, from: self)
+    }
 }

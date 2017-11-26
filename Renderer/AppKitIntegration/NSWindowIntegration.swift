@@ -31,7 +31,7 @@ class ConfettiWindow: NSWindow {
 		}
 		precondition(!contentView.isFlipped)
 
-		let point = Point(point: contentView.convert(event.locationInWindow, from:  nil))
+		let point = Point(contentView.convert(event.locationInWindow, from:  nil))
 		let pointInItem = Point(x: point.x, y:contentView.frame.height - point.y)
 
 		return hit(pointInItem, in: item, for: event)

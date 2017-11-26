@@ -12,7 +12,11 @@ public protocol CreatableElement {
 	init()
 }
 
-open class CollectionViewpoint<T: CreatableElement>: Presentation {
+public protocol SelectionState: class {
+    var selectionIndexes: IndexSet { get set }
+}
+
+open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionState {
 
 	open var presentations: [Presentation] { return [] }
 	/// The presented collection.
@@ -36,7 +40,13 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation {
 	///
 	/// These indexes and extent are relative to `itemPresentingCollection(from:)`.
 	var visibleIndexes = IndexSet()
-	open var selectionIndexes = IndexSet()
+    open var selectionIndexes = IndexSet() {
+        didSet {
+            let unchangedIndexes = selectionIndexes.intersection(oldValue)
+            changedIndexes.formUnion(selectionIndexes.subtracting(unchangedIndexes))
+        }
+    }
+    public var selectedElements: [T] { return collection[selectionIndexes] }
 	/// The item representation.
 	///
 	/// The returned item tree is annotated with optimizations for `Renderer.render()`.

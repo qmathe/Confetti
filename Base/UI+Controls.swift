@@ -46,7 +46,7 @@ public extension UI {
 	
 	public func button(frame: Rect, text: String = "", action: @escaping (Event<Tap>) -> ()) -> Item {
 		let item = button(frame: frame, text: text)
-		item.eventCenter.add( EventHandler<Tap>(block: action, sender: item))
+		item.eventCenter.add(EventHandler<Tap>(block: action, sender: item))
 		return item
 	}
 	

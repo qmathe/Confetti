@@ -27,6 +27,7 @@ extension UI {
 		return item(frame: frame, items: items)
 	}
     
+    
     public func column(items: [Item]) -> Item {
         let maxWidth = items.map { $0.extent.width }.max() ?? 0
         let sumHeight = items.reduce(0) { sum, item in sum + item.extent.height }
@@ -61,3 +62,21 @@ extension UI {
         return row(items: items)
     }
 }
+
+extension UI where Self : SelectionState {
+    
+    public func column(items: [Item], select: @escaping ((Event<Select>) -> ())) -> Item {
+        let column = self.column(items: items)
+        let handler = SelectHandler(objectGraph: objectGraph, state: self)
+
+        column.actionHandlers += [handler]
+        column.eventCenter.add(EventHandler<Select>(block: select, sender: item as AnyObject))
+
+        return column
+    }
+    
+    public func column(items: Item..., select: @escaping ((Event<Select>) -> ())) -> Item {
+        return column(items: items, select: select)
+    }
+}
+

@@ -47,6 +47,7 @@ open class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringConve
 	// MARK: Item Tree
 
 	open var parent: Item?
+    open var root: Item { return parent ?? self }
 	open var items: [Item]? {
 		willSet {
 			for item in items ?? [] { item.parent = nil }

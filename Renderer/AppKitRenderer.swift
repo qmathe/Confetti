@@ -139,7 +139,7 @@ open class AppKitRenderer: Renderer {
 	/// Geometry changes requires the parent item to be rendered in the same pass,
 	/// otherwise the rendered view won't match the latest size and position.
 	open func renderView(_ item: Item) -> RenderedNode {
-		let view = viewForItem(item) { NSView(frame: CGRectFromRect(item.frame)) }
+        let view = viewForItem(item) { ConfettiView(item) }
 
 		renderViews(item.items ?? [], intoView: view)
 		return view
@@ -240,11 +240,11 @@ internal func CGRectFromRect(_ rect: Rect) -> CGRect {
 }
 
 extension Point {
-	init(point: CGPoint) { x = point.x; y = point.y }
+	init(_ point: CGPoint) { x = point.x; y = point.y }
 }
 
 extension CGPoint {
-	init(point: Point) { x = point.x; y = point.y }
+	init(_ point: Point) { x = point.x; y = point.y }
 }
 
 // MARK: - Rendered Nodes
@@ -299,6 +299,12 @@ extension NSWindow: RenderedNode {
 			}
 		}
 	}
+    
+    internal func point(from point: CGPoint) -> Point {
+        var confettiPoint = Point(point)
+        confettiPoint.y = frame.height - confettiPoint.y
+        return confettiPoint
+    }
 }
 
 /// A dummy node returned when the rendered item is the root item.

@@ -19,6 +19,7 @@ class TodoApp: Viewpoint<[Todo]>, UI {
 		todoList = TodoList(value)
 		todoEditor = TodoEditor(value.first)
 		super.init(value, objectGraph: objectGraph)
+        prepareEditedTodoUpdate()
 	}
 
     override func generate() -> Item {
@@ -28,6 +29,12 @@ class TodoApp: Viewpoint<[Todo]>, UI {
 				todoEditor.item
 			)
 		)
+    }
+
+    func prepareEditedTodoUpdate() {
+        item.eventCenter.add(EventHandler<Todo?>(block: { event in
+            self.todoEditor.value = event.data
+        }, sender: todoList))
     }
 }
 
