@@ -85,4 +85,20 @@ class TestItemGeometry: XCTestCase {
         XCTAssertEqual(Rect(x: -5, y: -2, width: 0, height: 0), item.convert(Rect.zero, from: parent))
         XCTAssertEqual(Rect(x: -15, y: -32, width: 10, height: 20), item.convert(rect, from: ancestor))
     }
+
+    func testConvertRectToIdenticalItem() {
+        let rect = Rect(x: 0, y: 0, width: 10, height: 20)
+        XCTAssertEqual(rect, item.convert(rect, to: item))
+    }
+    
+    func testConvertRectToInvalidItem() {
+        let rect = Rect(x: 0, y: 0, width: 10, height: 20)
+        XCTAssertNil(ancestor.convert(rect, to: item))
+    }
+    
+    func testConvertRectToItem() {
+        let rect = Rect(x: 0, y: 0, width: 10, height: 20)
+        XCTAssertEqual(Rect(x: 5, y: 2, width: 0, height: 0), item.convert(Rect.zero, to: parent))
+        XCTAssertEqual(Rect(x: 15, y: 32, width: 10, height: 20), item.convert(rect, to: ancestor))
+    }
 }

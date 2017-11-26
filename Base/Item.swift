@@ -74,10 +74,10 @@ open class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringConve
             return rect
         }
         guard let parent = parent,
-              let rectInAncestor = parent.convert(rect, from: ancestor) else {
+              let rectInParent = parent.convert(rect, from: ancestor) else {
             return nil
         }
-        return convertFromParent(rectInAncestor)
+        return convertFromParent(rectInParent)
     }
 
     /// Returns a rect expressed in ancestor coordinate space equivalent to _rect_ parameter
@@ -85,17 +85,13 @@ open class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringConve
     ///
     /// In case the receiver is not a descendant, returns nil.
     public func convert(_ rect: Rect, to ancestor: Item) -> Rect? {
-        var rectInAncestor = rect
-        var nextParent = self.parent
-
-        while nextParent != ancestor {
-            guard let parent = parent else {
-                return nil
-            }
-            rectInAncestor = parent.convertToParent(rectInAncestor)
-            nextParent = parent.parent
+        guard ancestor != self else {
+            return rect
         }
-        return rectInAncestor
+        guard let parent = parent else {
+            return nil
+        }
+        return parent.convert(convertToParent(rect), to: ancestor)
     }
     
     /// Returns a point expressed in the receiver coordinate space equivalent to _point_ parameter
