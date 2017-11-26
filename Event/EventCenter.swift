@@ -8,6 +8,9 @@
 
 import Foundation
 
+// FIXME: Event handlers are never removed from the center, even after their real owner has been released.
+// For block handlers, it's even worse we don't track their owner unlike target/action handlers, where we have a reference to the receiver.
+// After regenerating the UI multiple times, this causes the same action (e.g. tap) to be handled multiple times.
 open class EventCenter {
 
 	open fileprivate(set) var handlers = Set<AnyEventHandler>()
