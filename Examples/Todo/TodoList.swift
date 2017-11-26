@@ -6,10 +6,13 @@
  */
 
 import Foundation
+import RxSwift
 import Confetti
 import Tapestry
 
 class TodoList: CollectionViewpoint<Todo>, UI {
+    
+    private let bag = DisposeBag()
 
 	// TODO: Remove
 	override init<S>(_ collection: S, objectGraph: ObjectGraph? = nil) where S : Sequence, S.Iterator.Element == Todo {
@@ -24,11 +27,24 @@ class TodoList: CollectionViewpoint<Todo>, UI {
         return column(items:
 			column(items:
                 collection.map { self.label(extent: Extent(width: 400, height: 50), text: $0.text) },
-                   select: { _ in self.send(self.selectedElements.first) }
+                   touches: { touches, column in
+                    // NOTE: touches.mapToIndexes(in: column, combinedWithSelectionFrom: self).bind(to: self.selectionIndexes)
+                    touches.mapToIndexes(in: column, combinedWith: self.selectionIndexes).subscribe(onNext: { indexes in
+                        self.selectionIndexes = indexes
+                    }).disposed(by: bag)
+                }
 			),
 			row(items:
-				button(extent: Extent(width: 200, height: 20), text: "Add", action: { _ in self.add() }),
-				button(extent: Extent(width: 200, height: 20), text: "Remove", action: { _ in self.remove() })
+                button(extent: Extent(width: 200, height: 20), text: "Add", tap: { tap, _ in
+                    tap.subscribe { _ in
+                        self.add()
+                    }.disposed(by: bag)
+                }), 
+				button(extent: Extent(width: 200, height: 20), text: "Remove", tap: { tap, _ in
+                    tap.subscribe { _ in
+                        self.remove()
+                    }.disposed(by: bag)
+                })
 			)
 		)
     }

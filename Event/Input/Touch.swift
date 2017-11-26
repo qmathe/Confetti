@@ -18,6 +18,7 @@ public struct Touch {
     public let tapCount: UInt
     /// The location where the touch finished in the window coordinate space (with a top left origin).
     public let location: Point
+    public let modifiers: Modifiers
     
     public func location(in item: Item) -> Point? {
         return item.convert(location, from: item.root)

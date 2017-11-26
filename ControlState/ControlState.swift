@@ -6,7 +6,12 @@
  */
 
 import Foundation
+import RxSwift
 
 open class ControlState: UIObject {
 
+    /// Emits a multi-touch event when the button is touched or clicked.
+    ///
+    /// Can be used to post a multi-touch event with `tap.onNext([touch])`.
+    let touches = PublishSubject<[Touch]>()
 }

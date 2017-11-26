@@ -6,6 +6,7 @@
  */
 
 import Foundation
+import RxSwift
 import Tapestry
 
 public protocol CreatableElement {
@@ -17,6 +18,11 @@ public protocol SelectionState: class {
 }
 
 open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionState {
+
+	public enum SelectionAdjustment {
+		case none
+		case previous
+	}
 
 	open var presentations: [Presentation] { return [] }
 	/// The presented collection.
@@ -40,13 +46,21 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 	///
 	/// These indexes and extent are relative to `itemPresentingCollection(from:)`.
 	var visibleIndexes = IndexSet()
-    open var selectionIndexes = IndexSet() {
-        didSet {
-            let unchangedIndexes = selectionIndexes.intersection(oldValue)
-            changedIndexes.formUnion(selectionIndexes.subtracting(unchangedIndexes))
+    public var selection: Observable<IndexSet> { return _selectionIndexes.asObservable() }
+    private let _selectionIndexes = Variable<IndexSet>(IndexSet())
+    public var selectionIndexes: IndexSet {
+        get {
+            return _selectionIndexes.value
+        }
+        set {
+            let oldValue = _selectionIndexes.value
+            _selectionIndexes.value = newValue
+            let unchangedIndexes = newValue.intersection(oldValue)
+            changedIndexes.formUnion(newValue.subtracting(unchangedIndexes))
         }
     }
     public var selectedElements: [T] { return collection[selectionIndexes] }
+	open var selectionAdjustmentOnRemoval: SelectionAdjustment = .previous
 	/// The item representation.
 	///
 	/// The returned item tree is annotated with optimizations for `Renderer.render()`.

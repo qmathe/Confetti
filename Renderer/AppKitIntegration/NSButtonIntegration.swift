@@ -22,10 +22,10 @@ extension Item {
 				}
 			}()
 
-			(actionHandlers.first as? SwitchActionHandler)?.toggle(self, toStatus: status.rawValue)
+			(controlState as? SwitchState)?.status.value = status
 		}
 		else {
-			(actionHandlers.first as? ButtonActionHandler)?.tap(self)
+			(controlState as? ButtonState)?.tap.onNext(Tap(count: 1))
 		}
 	}
 }

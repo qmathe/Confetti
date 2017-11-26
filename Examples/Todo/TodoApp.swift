@@ -6,11 +6,13 @@
  */
 
 import Foundation
+import RxSwift
 import Confetti
 import Tapestry
 
 class TodoApp: Viewpoint<[Todo]>, UI {
-
+    
+    let bag = DisposeBag()
 	let todoList: TodoList
 	let todoEditor: TodoEditor
 	override var presentations: [Presentation] { return [todoList, todoEditor] }
@@ -32,9 +34,9 @@ class TodoApp: Viewpoint<[Todo]>, UI {
     }
 
     func prepareEditedTodoUpdate() {
-        item.eventCenter.add(EventHandler<Todo?>(block: { event in
-            self.todoEditor.value = event.data
-        }, sender: todoList))
+        todoList.selection.map { self.todoList.collection[$0] }.subscribe(onNext: { [unowned self] todos in
+            self.todoEditor.value = todos.first
+        }).disposed(by: bag)
     }
 }
 

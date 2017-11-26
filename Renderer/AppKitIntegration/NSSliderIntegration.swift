@@ -12,6 +12,6 @@ import Tapestry
 extension Item {
 
 	func reactTo(_ sender: NSSlider) {
-		(actionHandlers.first as? SliderActionHandler)?.pan(self, toValue: VectorFloat(sender.floatValue))
+		(controlState as? SliderState)?.currentValue.value = VectorFloat(sender.floatValue)
 	}
 }

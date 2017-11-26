@@ -6,6 +6,7 @@
  */
 
 import Foundation
+import RxSwift
 
 public enum SwitchStatus: Int {
 	case on
@@ -16,11 +17,14 @@ public enum SwitchStatus: Int {
 open class SwitchState: ControlState {
 
 	open var text = ""
-	open var status = SwitchStatus.off
+    /// Emits a status change event when the switch is clicked or swiped.
+    ///
+    /// Can be used to change the current status with `status.value = aValue`.
+    public let status: Variable<SwitchStatus>
 	
 	public init(text: String = "", status: SwitchStatus = .off, objectGraph: ObjectGraph) {
-		super.init(objectGraph: objectGraph)
 		self.text = text
-		self.status = status
+		self.status = Variable(status)
+        super.init(objectGraph: objectGraph)
 	}
 }

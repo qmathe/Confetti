@@ -7,9 +7,9 @@
 
 import Foundation
 
-extension Array {
+public extension Array {
 
-    subscript(indexes: IndexSet) -> [Element] {
+    public subscript(indexes: IndexSet) -> [Element] {
         return indexes.rangeView.reduce([Element](), { $0 + self[$1] })
     }
 }

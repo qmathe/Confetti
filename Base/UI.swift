@@ -6,6 +6,7 @@
  */
 
 import Foundation
+import RxSwift
 import Tapestry
 // FIXME: Remove this hack used to prevent linker errors with iOS target
 import CoreGraphics
@@ -65,18 +66,22 @@ extension UI {
 
 extension UI where Self : SelectionState {
     
-    public func column(items: [Item], select: @escaping ((Event<Select>) -> ())) -> Item {
+    public func column(items: [Item], touches bindTouches: ((Observable<[Touch]>, Item) -> ())) -> Item {
         let column = self.column(items: items)
-        let handler = SelectHandler(objectGraph: objectGraph, state: self)
-
-        column.actionHandlers += [handler]
-        column.eventCenter.add(EventHandler<Select>(block: select, sender: item as AnyObject))
+        let state = ControlState(objectGraph: objectGraph)
+    
+        column.controlState = state
+        bindTouches(state.touches.asObservable(), column)
 
         return column
     }
-    
-    public func column(items: Item..., select: @escaping ((Event<Select>) -> ())) -> Item {
-        return column(items: items, select: select)
+
+    public func column(items: Item..., touches bindTouches: (Observable<[Touch]>, Item) -> ()) -> Item {
+        return column(items: items, touches: bindTouches)
+    }
+
+    public func column(items: Item...) -> Item {
+        return column(items: items, touches: { _, _ in })
     }
 }
 

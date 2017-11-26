@@ -211,7 +211,7 @@ open class AppKitRenderer: Renderer {
 		
 		button.frame.size.height = defaultSwitchHeight
 		button.title = (item.controlState as? SwitchState)?.text ?? ""
-		button.state = NSControl.StateValue(rawValue: (item.controlState as? SwitchState)?.status.rawValue ?? 0)
+		button.state = NSControl.StateValue(rawValue: (item.controlState as? SwitchState)?.status.value.rawValue ?? 0)
 		button.setButtonType(.switch)
 		button.setAction { [weak item = item] (sender: NSButton) in item?.reactTo(sender, isSwitch: true) }
 

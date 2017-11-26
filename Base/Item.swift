@@ -8,8 +8,6 @@
 import Foundation
 import Tapestry
 
-private let _eventCenter = EventCenter()
-
 open class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringConvertible {
 
 	// MARK: Geometry
@@ -40,9 +38,6 @@ open class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringConve
 	/// A style drawn behind the foreground style and any 2D descendant items.
 	open var styles = [Style]()
 	open var layout: Any?
-
-	open var actionHandlers = [ActionHandler]()
-	open var eventCenter: EventCenter { return _eventCenter }
 	
 	// MARK: Item Tree
 

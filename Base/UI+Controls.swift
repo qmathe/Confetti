@@ -6,6 +6,7 @@
  */
 
 import Foundation
+import RxSwift
 import Tapestry
 
 // TODO: Make frame arguments optional once we support Item.sizeToFit()
@@ -24,34 +25,19 @@ public extension UI {
 		return label(frame: Rect(origin: Point(x: 0, y: 0), extent: extent), text: text)
 	}
 	
-	private func button(frame: Rect, text: String) -> Item {
+	private func button(frame: Rect, text: String, tap bindTap: (Observable<Tap>, Item) -> ()) -> Item {
 		let item = Item(frame: frame, objectGraph: objectGraph)
+        let state = ButtonState(text: text, objectGraph: objectGraph)
 
 		item.styles = [ButtonStyle(objectGraph: objectGraph)]
-		item.actionHandlers = [ButtonActionHandler(objectGraph: objectGraph)]
-		item.controlState = ButtonState(text: text, objectGraph: objectGraph)
+		item.controlState = state
+        bindTap(state.tap.asObservable(), item)
 
 		return item
 	}
 
-	public func button(frame: Rect, text: String = "", target: AnyObject? = nil, action: Selector? = nil) -> Item {
-		let item = button(frame: frame, text: text)
-
-		// TODO: Support target/action and property according to documentation
-		if let target = target, let action = action {
-			item.eventCenter.add(EventHandler<Tap>(selector: String(describing: action), receiver: target, sender: item))
-		}
-		return item
-	}
-	
-	public func button(frame: Rect, text: String = "", action: @escaping (Event<Tap>) -> ()) -> Item {
-		let item = button(frame: frame, text: text)
-		item.eventCenter.add(EventHandler<Tap>(block: action, sender: item))
-		return item
-	}
-	
-	public func button(extent: Extent, text: String = "", action: @escaping (Event<Tap>) -> ()) -> Item {
-		return button(frame: Rect(origin: Point(x: 0, y: 0), extent: extent), text: text, action: action)
+	public func button(extent: Extent, text: String = "", tap bindTap: (Observable<Tap>, Item) -> ()) -> Item {
+        return button(frame: Rect(origin: Point(x: 0, y: 0), extent: extent), text: text, tap: bindTap)
 	}
 
 	/**
@@ -67,34 +53,33 @@ public extension UI {
 	
 	Note: Reading/writing a property is not yet implemented.
 	*/
-	public func `switch`(frame: Rect, text: String = "", status: SwitchStatus = .off, target: AnyObject? = nil,
-		action: Selector? = nil, forProperty property: String = "", ofRepresentedObject representedObject: AnyObject? = nil) -> Item {
+    public func `switch`(frame: Rect, text: String = "", status: SwitchStatus = .off, tap bindStatus: (Observable<SwitchStatus>, Item) -> (), forProperty property: String = "", ofRepresentedObject representedObject: AnyObject? = nil) -> Item {
 		let item = Item(frame: frame, objectGraph: objectGraph)
+        let state = SwitchState(text: text, status: status, objectGraph: objectGraph)
 
-		// TODO: Support target/action and property according to documentation
 		item.styles = [SwitchStyle(objectGraph: objectGraph)]
-		item.actionHandlers = [SwitchActionHandler(objectGraph: objectGraph)]
-		item.controlState = SwitchState(text: text, status: status, objectGraph: objectGraph)
-
+		item.controlState = state
 		item.representedObject = representedObject
+        
+        bindStatus(state.status.asObservable(), item)
 		
 		return item
 	}
 	
 	public func slider(orientation: Orientation, origin: Point, length: VectorFloat, min: VectorFloat = 0, max: VectorFloat, initial: VectorFloat,
-		target: AnyObject? = nil, action: Selector? = nil, forProperty property: String = "", ofRepresentedObject representedObject: AnyObject? = nil) -> Item {
+                       pan bindValue: (Observable<VectorFloat>, Item) -> (), forProperty property: String = "", ofRepresentedObject representedObject: AnyObject? = nil) -> Item {
 	
 		let width = orientation == .horizontal ? length : SliderStyle.defaultHeight
 		let height = orientation == .horizontal ? SliderStyle.defaultHeight : length
 
 		let item = Item(frame: Rect(x: origin.x, y: origin.y, width: width, height: height), objectGraph: objectGraph)
+        let state = SliderState(min: min, max: max, initial: initial, objectGraph: objectGraph)
 
-		// TODO: Support target/action and property
 		item.styles = [SliderStyle(objectGraph: objectGraph)]
-		item.actionHandlers = [SliderActionHandler(objectGraph: objectGraph)]
 		item.controlState = SliderState(min: min, max: max, initial: initial, objectGraph: objectGraph)
-	
 		item.representedObject = representedObject
+        
+        bindValue(state.currentValue.asObservable(), item)
 		
 		return item
 	}

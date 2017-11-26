@@ -28,12 +28,12 @@ class ConfettiView: NSView {
     
     override func mouseUp(with event: NSEvent) {
         guard let item = item,
-              let handler = item.actionHandlers.flatMap({ $0 as? SelectHandler }).first,
+              let state = item.controlState,
               let location = event.window?.point(from: event.locationInWindow) else {
-            print("Missing item, action handler or window - \(event)")
+            print("Missing item, state or window - \(event)")
             return
         }
-        let touch = Touch(timestamp: event.timestamp, tapCount: UInt(event.clickCount), location: location)
-        handler.select(with: [touch], in: item)
+        let touch = Touch(timestamp: event.timestamp, tapCount: UInt(event.clickCount), location: location, modifiers: [])
+        state.touches.onNext([touch])
     }
 }
