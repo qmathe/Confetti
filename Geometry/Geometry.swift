@@ -110,4 +110,36 @@ public extension Geometry {
 			size = Size(x: size.y, y: size.x, z: size.z)
 		}
 	}
+    
+    // MARK: - Converting Between Coordinate Spaces
+    
+    /// Returns a rect expressed in the parent coordinate space equivalent to _rect_ parameter
+    /// expressed in the receiver coordinate space.
+    public func convertToParent(_ rect: Rect) -> Rect {
+        var rectInParent = rect
+        rectInParent.origin.x = rect.origin.x + origin.x
+        rectInParent.origin.y = rect.origin.y + origin.y
+        return rectInParent
+    }
+    
+    /// Returns a rect expressed in the receiver coordinate space equivalent to _rect_ parameter
+    /// expressed in the parent coordinate space.
+    public func convertFromParent(_ rect: Rect) -> Rect {
+        var rectInReceiver = rect
+        rectInReceiver.origin.x = rect.origin.x - origin.x
+        rectInReceiver.origin.y = rect.origin.y - origin.y
+        return rectInReceiver
+    }
+
+    /// Returns a point expressed in the parent coordinate space equivalent to _point_ parameter
+    /// expressed in the receiver coordinate space.
+    public func convertToPoint(_ point: Point) -> Point {
+        return convertToParent(Rect(origin: point, extent: .zero)).origin
+    }
+    
+    /// Returns a point expressed in the receiver coordinate space equivalent to _point_ parameter
+    /// expressed in the parent coordinate space.
+    public func convertFromParent(_ point: Point) -> Point {
+        return convertFromParent(Rect(origin: point, extent: .zero)).origin
+    }
 }

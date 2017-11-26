@@ -17,6 +17,8 @@ public struct Matrix4 {
     public var m31: CGFloat = 0, m32: CGFloat = 0, m33: CGFloat = 0, m34: CGFloat = 0
     public var m41: CGFloat = 0, m42: CGFloat = 0, m43: CGFloat = 0, m44: CGFloat = 0
 	
+    // MARK: - Initialization
+
 	static func identity() -> Matrix4 {
 		var matrix = Matrix4()
 
@@ -33,7 +35,9 @@ public struct Matrix4 {
 
 public struct Vector3 {
 	public var x: VectorFloat, y: VectorFloat, z: VectorFloat
-    
+
+    // MARK: - Initialization
+
 	public init(x: VectorFloat, y: VectorFloat, z: VectorFloat) {
 		self.x = x
 		self.y = y
@@ -44,6 +48,8 @@ public struct Vector3 {
 public struct Vector2: Equatable {
 	public var x: VectorFloat, y: VectorFloat
 
+    // MARK: - Initialization
+
 	public init(x: VectorFloat, y: VectorFloat) {
 		self.x = x
 		self.y = y
@@ -53,6 +59,10 @@ public struct Vector2: Equatable {
 public struct Extent: Equatable {
 	public var width: VectorFloat, height: VectorFloat
     
+    // MARK: - Initialization
+
+    public static var zero: Extent { return Extent(width: 0, height: 0) }
+    
     public init(width: VectorFloat, height: VectorFloat) {
 		self.width = width
 		self.height = height
@@ -60,7 +70,12 @@ public struct Extent: Equatable {
 }
 
 public struct Rect: Equatable {
+
 	public var origin: Point, extent: Extent
+    
+    // MARK: - Initialization
+
+    public static var zero: Rect { return Rect(x: 0, y: 0, width: 0, height: 0) }
 	
 	public init(origin: Point, extent: Extent) {
 		self.origin = origin
@@ -71,6 +86,8 @@ public struct Rect: Equatable {
 		origin = Point(x: x, y: y)
 		extent = Extent(width: width, height: height)
 	}
+    
+    // MARK: - Conveniency
 
 	/// Returns whether the given point expressed in the receiver coordinate space is inside it.
 	public func contains(_ point: Point) -> Bool {

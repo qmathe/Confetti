@@ -75,6 +75,8 @@
 		604B74D01FB46B2A002462CD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604B74CF1FB46B2A002462CD /* Foundation.framework */; };
 		604B74D31FB46B4C002462CD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604B74D21FB46B4C002462CD /* QuartzCore.framework */; };
 		604B74D41FB46B56002462CD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604B74AA1FB467E9002462CD /* CoreGraphics.framework */; };
+		6059F8B31FCAFC6F001CE66D /* TestItemGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8B01FCAFA72001CE66D /* TestItemGeometry.swift */; };
+		6059F8B41FCAFC70001CE66D /* TestItemGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059F8B01FCAFA72001CE66D /* TestItemGeometry.swift */; };
 		6065F4AA1D56A9A60063187A /* AppKitRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6065F4A91D56A9A60063187A /* AppKitRenderer.swift */; };
 		6065F4AC1D56B4260063187A /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6065F4AB1D56B4260063187A /* Renderer.swift */; };
 		606658EA1D64ABBF00450376 /* EventHandlerInvocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606658E91D64ABBE00450376 /* EventHandlerInvocation.swift */; };
@@ -317,6 +319,7 @@
 		604B74AA1FB467E9002462CD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		604B74CF1FB46B2A002462CD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		604B74D21FB46B4C002462CD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		6059F8B01FCAFA72001CE66D /* TestItemGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestItemGeometry.swift; path = Item/TestItemGeometry.swift; sourceTree = "<group>"; };
 		6065F4A91D56A9A60063187A /* AppKitRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppKitRenderer.swift; path = Renderer/AppKitRenderer.swift; sourceTree = SOURCE_ROOT; };
 		6065F4AB1D56B4260063187A /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Renderer.swift; path = Renderer/Renderer.swift; sourceTree = SOURCE_ROOT; };
 		606658E91D64ABBE00450376 /* EventHandlerInvocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventHandlerInvocation.swift; path = Event/EventHandlerInvocation.swift; sourceTree = "<group>"; };
@@ -600,6 +603,7 @@
 		60484FA41D003DEB003972DA /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				6059F8AF1FCAFA69001CE66D /* Item */,
 				60E7739E1F1391C800196D82 /* Viewpoint */,
 				600E8C6F1D5A27F500AFD10E /* Renderer */,
 				60484FA71D003DEB003972DA /* Info.plist */,
@@ -626,6 +630,14 @@
 				6049C0601F0A714F005D117C /* TestStarfish.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6059F8AF1FCAFA69001CE66D /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				6059F8B01FCAFA72001CE66D /* TestItemGeometry.swift */,
+			);
+			name = Item;
 			sourceTree = "<group>";
 		};
 		60811A831D709D1C00D4DEEA /* Control State */ = {
@@ -1256,6 +1268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6059F8B41FCAFC70001CE66D /* TestItemGeometry.swift in Sources */,
 				600E8C751D5A280800AFD10E /* TestRenderer.swift in Sources */,
 				600E8C741D5A280800AFD10E /* TestAppKitRenderer.swift in Sources */,
 				60E773A01F1391FB00196D82 /* TestCollectionViewpoint.swift in Sources */,
@@ -1368,6 +1381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6059F8B31FCAFC6F001CE66D /* TestItemGeometry.swift in Sources */,
 				60E773A11F1391FB00196D82 /* TestCollectionViewpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

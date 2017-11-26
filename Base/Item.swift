@@ -58,7 +58,62 @@ open class Item: UIObject, Hashable, Geometry, RenderableNode, CustomStringConve
 	open var isGroup: Bool { return items != nil }
 	open var isRoot: Bool { return parent == nil }
 	open var isFrontmost: Bool { return parent?.items?.first == self }
-	
+    
+    /// Returns the first item whose frame contains the given point expressed in the receiver
+    /// coordinate space.
+    public func item(at point: Point) -> Item? {
+        return items?.first { $0.frame.contains(point) }
+    }
+
+    /// Returns a rect expressed in the receiver coordinate space equivalent to _rect_ parameter
+    /// expressed in ancestor coordinate space.
+    ///
+    /// In case the receiver is not a descendant, returns nil.
+    public func convert(_ rect: Rect, from ancestor: Item) -> Rect? {
+        guard ancestor != self else {
+            return rect
+        }
+        guard let parent = parent,
+              let rectInAncestor = parent.convert(rect, from: ancestor) else {
+            return nil
+        }
+        return convertFromParent(rectInAncestor)
+    }
+
+    /// Returns a rect expressed in ancestor coordinate space equivalent to _rect_ parameter
+    /// expressed in the receiver coordinate space.
+    ///
+    /// In case the receiver is not a descendant, returns nil.
+    public func convert(_ rect: Rect, to ancestor: Item) -> Rect? {
+        var rectInAncestor = rect
+        var nextParent = self.parent
+
+        while nextParent != ancestor {
+            guard let parent = parent else {
+                return nil
+            }
+            rectInAncestor = parent.convertToParent(rectInAncestor)
+            nextParent = parent.parent
+        }
+        return rectInAncestor
+    }
+    
+    /// Returns a point expressed in the receiver coordinate space equivalent to _point_ parameter
+    /// expressed in ancestor coordinate space.
+    ///
+    /// In case the receiver is not a descendant, returns nil.
+    public func convert(_ point: Point, from ancestor: Item) -> Point? {
+        return convert(Rect(origin: point, extent: .zero), from: ancestor)?.origin
+    }
+
+    /// Returns a point expressed in ancestor coordinate space equivalent to _point_ parameter
+    /// expressed in the receiver coordinate space.
+    ///
+    /// In case the receiver is not a descendant, returns nil.
+    public func convert(_ point: Point, to ancestor: Item) -> Point? {
+        return convert(Rect(origin: point, extent: .zero), to: ancestor)?.origin
+    }
+
 	// MARK: Options
 
 	open var changed = false
