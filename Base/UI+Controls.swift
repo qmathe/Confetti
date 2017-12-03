@@ -25,7 +25,7 @@ public extension UI {
 		return label(frame: Rect(origin: Point(x: 0, y: 0), extent: extent), text: text)
 	}
 	
-	private func button(frame: Rect, text: String, tap bindTap: (Observable<Tap>, Item) -> ()) -> Item {
+	public func button(frame: Rect, text: String, tap bindTap: (Observable<Tap>, Item) -> ()) -> Item {
 		let item = Item(frame: frame, objectGraph: objectGraph)
         let state = ButtonState(text: text, objectGraph: objectGraph)
 
