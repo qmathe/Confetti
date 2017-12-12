@@ -8,4 +8,4 @@
 import Foundation
 import Confetti
 
-run(TodoApp([]))
+run(TodoApp(.just([])))

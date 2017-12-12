@@ -16,12 +16,11 @@ class TodoApp: Viewpoint<[Todo]>, UI {
 	let todoList: TodoList
 	let todoEditor: TodoEditor
 	override var presentations: [Presentation] { return [todoList, todoEditor] }
-	
-	override init(_ value: [Todo], objectGraph: ObjectGraph? = nil) {
+
+	override init(_ value: Observable<[Todo]>, objectGraph: ObjectGraph? = nil) {
 		todoList = TodoList(value)
-		todoEditor = TodoEditor(value.first)
-		super.init(value, objectGraph: objectGraph)
-        prepareEditedTodoUpdate()
+        todoEditor = TodoEditor(editedValue(in: todoList))
+        super.init(value, objectGraph: objectGraph)
 	}
 
     override func generate() -> Item {
@@ -32,11 +31,8 @@ class TodoApp: Viewpoint<[Todo]>, UI {
 			)
 		)
     }
-
-    func prepareEditedTodoUpdate() {
-        todoList.selection.map { self.todoList.collection[$0] }.subscribe(onNext: { [unowned self] todos in
-            self.todoEditor.value = todos.first
-        }).disposed(by: bag)
-    }
 }
 
+private func editedValue(in todoList: TodoList) -> Observable<Todo?> {
+    return todoList.selection.mapToFirstElement(in: todoList)
+}

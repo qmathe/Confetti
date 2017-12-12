@@ -19,17 +19,38 @@ public protocol SelectionState: class {
 
 open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionState {
 
+    // MARK: - Types
+
 	public enum SelectionAdjustment {
 		case none
 		case previous
 	}
+    
+    // MARK: - Rx
 
-	open var presentations: [Presentation] { return [] }
-	/// The presented collection.
+    private let bag = DisposeBag()
+    
+    // MARK: - Content
+    
+    private let _collection = Variable([T]())
+    /// The presented collection.
     ///
     /// When a new collection is assigned, selection and changed indexes must be manually updated.
     /// Once a viewpoint has been created, assigning a new  collection should usually be avoided.
-    open var collection: Array<T>
+    ///
+    /// The setter should be
+    public var collection: [T] {
+        get { return _collection.value }
+        set { _collection.value = newValue }
+    }
+    // The presented collection as an observable.
+    public var content: Observable<[T]> { return _collection.asObservable() }
+    
+    // MARK: - Presentation
+
+    /// The presentation tree.
+	open var presentations: [Presentation] { return [] }
+    /// Whether the item representation or presented collection have changed since the last UI update.
 	public var changed = true
 	/// The indexes corresponding to inserted and updated items since the last UI update.
 	///
@@ -42,10 +63,30 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 			changed = true
 		}
 	}
+    /// The item representation.
+    ///
+    /// The returned item tree is annotated with optimizations for `Renderer.render()`.
+    public var item: Item {
+        let item = generate()
+        let collectionItem = itemPresentingCollection(from: item)
+        
+        item.identifier = String(describing: self)
+        for index in changedIndexes {
+            collectionItem.items?[index].changed = true
+        }
+        
+        return item
+    }
+    
+    // MARK: - Visibility
+
 	/// The item indexes visible based on the current expected extent.
 	///
 	/// These indexes and extent are relative to `itemPresentingCollection(from:)`.
 	var visibleIndexes = IndexSet()
+    
+    // MARK: - Selection
+
     public var selection: Observable<IndexSet> { return _selectionIndexes.asObservable() }
     private let _selectionIndexes = Variable<IndexSet>(IndexSet())
     public var selectionIndexes: IndexSet {
@@ -59,36 +100,20 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
             changedIndexes.formUnion(newValue.subtracting(unchangedIndexes))
         }
     }
-    public var selectedElements: [T] { return collection[selectionIndexes] }
 	open var selectionAdjustmentOnRemoval: SelectionAdjustment = .previous
-	/// The item representation.
-	///
-	/// The returned item tree is annotated with optimizations for `Renderer.render()`.
-	public var item: Item {
-		let item = generate()
-		let collectionItem = itemPresentingCollection(from: item)
-
-		item.identifier = String(describing: self)
-		for index in changedIndexes {
-			collectionItem.items?[index].changed = true
-		}
-
-		return item
-	}
-	/// The object graph used to generate the item representation.
-	///
-	/// Can be ignored when you don't intent to persist or copy the generated item tree.
-	public var objectGraph: ObjectGraph
 	
 	// MARK: - Initialization
 
 	/// Initializes a new viewpoint to present the given collection.
 	///
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
-	public init<S>(_ collection: S, objectGraph: ObjectGraph? = nil) where S: Sequence, S.Iterator.Element == T {
-		self.collection = Array(collection)
-		self.changedIndexes = IndexSet(self.collection.indices)
+	public init(_ collection: Observable<[T]>, objectGraph: ObjectGraph? = nil) {
 		self.objectGraph = objectGraph ?? ObjectGraph()
+        
+        collection.subscribe(onNext: { [unowned self] value in
+            self.collection = value
+            self.changedIndexes = IndexSet(value.indices)
+        }).disposed(by: bag)
 	}
 	
 	// MARK: - Mutating Collection
@@ -138,6 +163,11 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 	}
 	
 	// MARK: - Generating Item Representation
+    
+    /// The object graph used to generate the item representation.
+    ///
+    /// Can be ignored when you don't intent to persist or copy the generated item tree.
+    public var objectGraph: ObjectGraph
 	
 	/// Must be overriden to return a custom item tree.
 	///

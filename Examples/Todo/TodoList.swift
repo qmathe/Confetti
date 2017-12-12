@@ -13,11 +13,6 @@ import Tapestry
 class TodoList: CollectionViewpoint<Todo>, UI {
     
     private let bag = DisposeBag()
-
-	// TODO: Remove
-	override init<S>(_ collection: S, objectGraph: ObjectGraph? = nil) where S : Sequence, S.Iterator.Element == Todo {
-		super.init(collection, objectGraph: objectGraph)
-	}
 	
 	override func itemPresentingCollection(from item: Item) -> Item {
 		return (item.items ?? [])[0]
