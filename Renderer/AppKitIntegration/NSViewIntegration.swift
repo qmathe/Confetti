@@ -33,7 +33,11 @@ class ConfettiView: NSView {
             print("Missing item, state or window - \(event)")
             return
         }
-        let touch = Touch(timestamp: event.timestamp, tapCount: UInt(event.clickCount), location: location, modifiers: [])
+        let touch = Touch(timestamp: event.timestamp,
+                             marker: 0,
+                           tapCount: UInt(event.clickCount),
+                           location: location,
+                          modifiers: [])
         state.touches.onNext([touch])
     }
 }

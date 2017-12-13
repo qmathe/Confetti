@@ -12,6 +12,8 @@ import Tapestry
 public struct Touch {
     /// The time at which the touch finished.
     public let timestamp: TimeInterval
+    /// A correlation marker to estimate whether new touches are updates to the current touch or not.
+    public let marker: Int
     /// The number of repeated mouse clicks or finger taps within the sampling interval.
     ///
     /// Can be used to distinguish between single, double and triple clicks or taps.
