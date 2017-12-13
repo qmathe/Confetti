@@ -442,7 +442,6 @@
 				6003FD0E1D4F5F8D00EEF814 /* Shaders.metal */,
 			);
 			name = Renderer;
-			path = Confetti;
 			sourceTree = "<group>";
 		};
 		6003FD151D4F6CB200EEF814 /* UI Builder */ = {
@@ -473,7 +472,6 @@
 				600E8C771D5B445700AFD10E /* Dictionary.swift */,
 			);
 			name = Utilities;
-			path = Confetti;
 			sourceTree = "<group>";
 		};
 		601292A21D00619700B8E9EA /* Frameworks */ = {
@@ -814,7 +812,7 @@
 				60E773A21F13B32800196D82 /* TodoEditor.swift */,
 				60E773951F12966B00196D82 /* Todo.swift */,
 			);
-			path = Todo;
+			name = Todo;
 			sourceTree = "<group>";
 		};
 		60E7739E1F1391C800196D82 /* Viewpoint */ = {
