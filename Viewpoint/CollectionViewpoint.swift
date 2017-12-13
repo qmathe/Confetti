@@ -28,7 +28,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     
     // MARK: - Rx
 
-    private let bag = DisposeBag()
+    public let bag = DisposeBag()
     
     // MARK: - Content
     

@@ -11,8 +11,6 @@ import Confetti
 import Tapestry
 
 class TodoList: CollectionViewpoint<Todo>, UI {
-    
-    private let bag = DisposeBag()
 	
 	override func itemPresentingCollection(from item: Item) -> Item {
 		return (item.items ?? [])[0]

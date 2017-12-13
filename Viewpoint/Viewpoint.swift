@@ -13,15 +13,15 @@ open class Viewpoint<T: Placeholder>: Presentation {
 
     // MARK: - Rx
 
-    private let bag = DisposeBag()
+    public let bag = DisposeBag()
     
     // MARK: - Content
 
     private let _value = Variable(T.placeholder)
     /// The presented value.
-    public private(set)var value: T {
+    public var value: T {
         get { return _value.value }
-        set { _value.value = newValue }
+        set { _value.value = newValue; changed = true }
     }
     // The presented value as an observable.
     public var content: Observable<T> { return _value.asObservable() }

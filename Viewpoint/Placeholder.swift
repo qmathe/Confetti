@@ -18,9 +18,14 @@ public protocol Placeholder {
 extension Array: Placeholder {
 
     /// Returns an empty array.
-    public static var placeholder: Array<Element> {
-        return Array()
-    }
+    public static var placeholder: Array<Element> { return Array() }
+}
+
+/// Default implementation of `Placeholder` protocol` for integers.
+extension Int: Placeholder {
+    
+    /// Returns zero.
+    public static var placeholder: Int { return 0 }
 }
 
 /// Default implementation of `Placeholder` protocol for optional values.

@@ -11,8 +11,7 @@ import Confetti
 import Tapestry
 
 class TodoApp: Viewpoint<[Todo]>, UI {
-    
-    let bag = DisposeBag()
+
 	let todoList: TodoList
 	let todoEditor: TodoEditor
 	override var presentations: [Presentation] { return [todoList, todoEditor] }
