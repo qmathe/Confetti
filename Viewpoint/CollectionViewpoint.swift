@@ -38,7 +38,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     /// When a new collection is assigned, selection and changed indexes must be manually updated.
     /// Once a viewpoint has been created, assigning a new  collection should usually be avoided.
     ///
-    /// The setter should be
+    /// Using the setter should be restricted to subclasses.
     public var collection: [T] {
         get { return _collection.value }
         set { _collection.value = newValue }
@@ -132,10 +132,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     open func remove(at index: Int) {
         collection.remove(at: index)
 		changedIndexes.shift(startingAt: index, by: -1)
-		selectionIndexes.shift(startingAt: index, by: -1)
-		if selectionIndexes.isEmpty && !collection.isEmpty {
-			selectionIndexes = IndexSet(integer: 0)
-		}
+        selectionIndexes.shift(startingAt: index, by: -1, isEmpty: collection.isEmpty)
     }
 	
 	open func remove() {
