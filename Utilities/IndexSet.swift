@@ -9,10 +9,15 @@ import Foundation
 
 public extension IndexSet {
 
-    public mutating func shift(startingAt integer: IndexSet.Element, by delta: Int, isEmpty: Bool) {
+    internal mutating func shift(startingAt integer: IndexSet.Element, by delta: Int, isEmpty: Bool) {
         shift(startingAt: integer, by: delta)
         if self.isEmpty && !isEmpty {
             self = IndexSet(integer: 0)
         }
+    }
+    
+    internal mutating func updateSubset(from oldIndexes: IndexSet, to newIndexes: IndexSet) {
+        let unchangedIndexes = newIndexes.intersection(oldIndexes)
+        formUnion(newIndexes.subtracting(unchangedIndexes))
     }
 }

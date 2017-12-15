@@ -96,8 +96,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
         set {
             let oldValue = _selectionIndexes.value
             _selectionIndexes.value = newValue
-            let unchangedIndexes = newValue.intersection(oldValue)
-            changedIndexes.formUnion(newValue.subtracting(unchangedIndexes))
+            changedIndexes.updateSubset(from: oldValue, to: newValue)
         }
     }
 	open var selectionAdjustmentOnRemoval: SelectionAdjustment = .previous
