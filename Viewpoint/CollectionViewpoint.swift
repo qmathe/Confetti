@@ -14,7 +14,7 @@ public protocol CreatableElement {
 }
 
 public protocol SelectionState: class {
-    var selectionIndexes: IndexSet { get set }
+    var selection: SubjectType<IndexSet> { get }
 }
 
 open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionState {
@@ -87,17 +87,10 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     
     // MARK: - Selection
 
-    public var selection: Observable<IndexSet> { return _selectionIndexes.asObservable() }
-    private let _selectionIndexes = Variable<IndexSet>(IndexSet())
-    public var selectionIndexes: IndexSet {
-        get {
-            return _selectionIndexes.value
-        }
-        set {
-            let oldValue = _selectionIndexes.value
-            _selectionIndexes.value = newValue
-            changedIndexes.updateSubset(from: oldValue, to: newValue)
-        }
+    public let selection = BehaviorSubject(value: IndexSet())
+    private var selectionIndexes: IndexSet {
+        get { return (try? selection.value()) ?? IndexSet() }
+        set { selection.onNext(newValue) }
     }
 	open var selectionAdjustmentOnRemoval: SelectionAdjustment = .previous
 	
@@ -112,6 +105,10 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
         collection.subscribe(onNext: { [unowned self] value in
             self.collection = value
             self.changedIndexes = IndexSet(value.indices)
+        }).disposed(by: bag)
+
+        selection.update(IndexSet()).subscribe(onNext: { [unowned self] (oldIndexes, newIndexes) in
+            self.changedIndexes.updateSubset(from: oldIndexes, to: newIndexes)
         }).disposed(by: bag)
 	}
 	
