@@ -92,7 +92,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 		self.objectGraph = objectGraph ?? ObjectGraph()
         
         collection.subscribe(onNext: { [unowned self] value in
-            self.collection.accept(value)
+            self.collection =^ value
             self.changedIndexes = IndexSet(value.indices)
         }).disposed(by: bag)
 
@@ -108,24 +108,24 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 	}
 
     open func add() {
-        collection.accept(collection.value.appending(createElement()))
-		let index = Int(collection.value.count) - 1
+        collection =^ collection^.appending(createElement())
+		let index = Int(collection^.count) - 1
 		changedIndexes.insert(index)
-		selectionIndexes.accept(IndexSet(integer: index))
+		selectionIndexes =^ IndexSet(integer: index)
     }
 
     open func remove(at index: Int) {
-        collection.accept(collection.value.removing(at: index))
+        collection =^ collection^.removing(at: index)
 		changedIndexes.shift(startingAt: index, by: -1)
-        selectionIndexes.accept(selectionIndexes.value.shifted(startingAt: index, by: -1, isEmpty: collection.value.isEmpty))
+        selectionIndexes =^ selectionIndexes^.shifted(startingAt: index, by: -1, isEmpty: collection^.isEmpty)
     }
 	
 	open func remove() {
-		if selectionIndexes.value.isEmpty {
+		if selectionIndexes^.isEmpty {
 			print("Missing selection for remove action in /(self)")
 		}
 		// FIXME: IndexSet(selectionIndexes).reversed() crashes, see testEnumerateReverseEmptiedSelection()
-		for index in Array(selectionIndexes.value).reversed() {
+		for index in Array(selectionIndexes^).reversed() {
 			remove(at: index)
 		}
 	}
@@ -150,13 +150,20 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     ///
     /// Can be ignored when you don't intent to persist or copy the generated item tree.
     public var objectGraph: ObjectGraph
+
+    /// Returns a custom tree.
+    ///
+    /// You must never call this method directly.
+    public func generate() -> Item {
+        return generate(with: collection^)
+    }
 	
 	/// Must be overriden to return a custom item tree.
 	///
 	/// By default, causes a fatal error.
 	///
 	/// You must never call this method directly.
-	open func generate() -> Item {
+    open func generate(with collection: [T]) -> Item {
 		fatalError("Must be overriden")
 	}
 }

@@ -47,7 +47,7 @@ open class Viewpoint<T: Placeholder>: Presentation {
 		self.objectGraph = objectGraph ?? ObjectGraph()
 
         value.subscribe(onNext: { [unowned self] value in
-            self.value.accept(value)
+            self.value =^ value
             self.changed = true
         }).disposed(by: bag)
 	}
@@ -58,13 +58,20 @@ open class Viewpoint<T: Placeholder>: Presentation {
     ///
     /// Can be ignored when you don't intent to persist or copy the generated item tree.
     public var objectGraph: ObjectGraph
-	
+
+    /// Returns a custom tree.
+    ///
+    /// You must never call this method directly.
+    public func generate() -> Item {
+        return generate(with: value^)
+    }
+
 	/// Must be overriden to return a custom item tree.
 	///
 	/// By default, causes a fatal error.
 	///
 	/// You must never call this method directly.
-	open func generate() -> Item {
+    open func generate(with value: T) -> Item {
 		fatalError("Must be overriden")
 	}
 }

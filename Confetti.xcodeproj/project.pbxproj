@@ -105,6 +105,8 @@
 		609364511FE3F411009A946E /* IndexSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6093644F1FE3F410009A946E /* IndexSet.swift */; };
 		609364551FE4192A009A946E /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609364541FE4192A009A946E /* Update.swift */; };
 		609364561FE4192A009A946E /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609364541FE4192A009A946E /* Update.swift */; };
+		609364591FE54A4A009A946E /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609364581FE54A4A009A946E /* Subject.swift */; };
+		6093645A1FE54A4A009A946E /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609364581FE54A4A009A946E /* Subject.swift */; };
 		60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DA1D1C1488007B7A7B /* Style.swift */; };
 		60A5D4DE1D1C14F8007B7A7B /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DD1D1C14F8007B7A7B /* Material.swift */; };
 		60B8EE611ED6EA1C0060B5F2 /* Tapestry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; };
@@ -307,6 +309,7 @@
 		609183D61D1C1DCB00AE4262 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6093644F1FE3F410009A946E /* IndexSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndexSet.swift; path = Utilities/IndexSet.swift; sourceTree = "<group>"; };
 		609364541FE4192A009A946E /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Update.swift; path = Utilities/Operator/Update.swift; sourceTree = "<group>"; };
+		609364581FE54A4A009A946E /* Subject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subject.swift; path = Utilities/Operator/Subject.swift; sourceTree = "<group>"; };
 		60A5D4DA1D1C1488007B7A7B /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = Style/Style.swift; sourceTree = "<group>"; };
 		60A5D4DD1D1C14F8007B7A7B /* Material.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Material.swift; path = Material/Material.swift; sourceTree = "<group>"; };
 		60B8EE621ED717AB0060B5F2 /* DESIGN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = DESIGN.md; path = Documentation/DESIGN.md; sourceTree = "<group>"; };
@@ -707,6 +710,7 @@
 		609364531FE41910009A946E /* Operator */ = {
 			isa = PBXGroup;
 			children = (
+				609364581FE54A4A009A946E /* Subject.swift */,
 				609364541FE4192A009A946E /* Update.swift */,
 			);
 			name = Operator;
@@ -1375,6 +1379,7 @@
 				60BD0DAB1F0E5EF0006836D0 /* CollectionViewpoint.swift in Sources */,
 				6065F4AC1D56B4260063187A /* Renderer.swift in Sources */,
 				60811A9F1D70A09A00D4DEEA /* SliderState.swift in Sources */,
+				609364591FE54A4A009A946E /* Subject.swift in Sources */,
 				60BD0DAE1F0E82DC006836D0 /* Presentation.swift in Sources */,
 				601F64241FE0948E0012EFA8 /* Drag.swift in Sources */,
 				602B07721D63722A0035CD86 /* ActionTrampoline.swift in Sources */,
@@ -1435,6 +1440,7 @@
 				604B74BC1FB469C2002462CD /* CollectionViewpoint.swift in Sources */,
 				604B74BD1FB469D5002462CD /* ControlState.swift in Sources */,
 				604B74BE1FB469D5002462CD /* ButtonState.swift in Sources */,
+				6093645A1FE54A4A009A946E /* Subject.swift in Sources */,
 				604B74BF1FB469D5002462CD /* LabelState.swift in Sources */,
 				604B74C01FB469D5002462CD /* SliderState.swift in Sources */,
 				604B74C11FB469D5002462CD /* SwitchState.swift in Sources */,
