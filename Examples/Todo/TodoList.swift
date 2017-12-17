@@ -16,14 +16,14 @@ class TodoList: CollectionViewpoint<Todo>, UI {
 		return (item.items ?? [])[0]
 	}
 
-    override func generate() -> Item {
+    override func generate(with collection: [Todo]) -> Item {
         return column(items:
 			column(items:
                 collection.map { self.label(extent: Extent(width: 400, height: 50), text: $0.text) },
                    touches: { touches, column in
                     // NOTE: touches.mapToIndexes(in: column, combinedWithSelectionFrom: self).bind(to: self.selectionIndexes)
-                    touches.mapToIndexes(in: column, combinedWith: self.selectionIndexes).subscribe(onNext: { indexes in
-                        self.selectionIndexes = indexes
+                    touches.mapToIndexes(in: column, combinedWith: self.selectionIndexes^).subscribe(onNext: { indexes in
+                        self.selectionIndexes =^ indexes
                     }).disposed(by: bag)
                 }
 			),

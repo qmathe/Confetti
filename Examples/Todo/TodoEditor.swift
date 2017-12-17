@@ -11,7 +11,7 @@ import Tapestry
 
 class TodoEditor: Viewpoint<Todo?>, UI {
 
-    override func generate() -> Item {
+    override func generate(with value: Todo?) -> Item {
         return label(extent: Extent(width: 600, height: 800), text: value?.text ?? "")
     }
 }

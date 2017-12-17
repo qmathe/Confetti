@@ -18,7 +18,8 @@ open class Viewpoint<T: Placeholder>: Presentation {
     
     // MARK: - Content
 
-    private let value = BehaviorRelay(value: T.placeholder)
+    // NOTE: Made public to support updates in Counter app
+    public let value = BehaviorRelay(value: T.placeholder)
     // The presented value.
     public var content: Observable<T> { return value.asObservable() }
 
@@ -48,6 +49,9 @@ open class Viewpoint<T: Placeholder>: Presentation {
 
         value.subscribe(onNext: { [unowned self] value in
             self.value =^ value
+        }).disposed(by: bag)
+
+        self.value.subscribe(onNext: { [unowned self] value in
             self.changed = true
         }).disposed(by: bag)
 	}

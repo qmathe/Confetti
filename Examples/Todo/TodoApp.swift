@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 import Confetti
 import Tapestry
 
@@ -22,7 +23,7 @@ class TodoApp: Viewpoint<[Todo]>, UI {
         super.init(value, objectGraph: objectGraph)
 	}
 
-    override func generate() -> Item {
+    override func generate(with value: [Todo]) -> Item {
         return item(frame: Rect(x: 200, y: 200, width: 600, height: 800), items:
 			row(items:
 				todoList.item,
@@ -33,5 +34,5 @@ class TodoApp: Viewpoint<[Todo]>, UI {
 }
 
 private func editedValue(in todoList: TodoList) -> Observable<Todo?> {
-    return todoList.selection.mapToFirstElement(in: todoList)
+    return todoList.selectionIndexes.asObservable().mapToFirstElement(in: todoList)
 }
