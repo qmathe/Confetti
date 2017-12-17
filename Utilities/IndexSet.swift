@@ -15,7 +15,13 @@ public extension IndexSet {
             self = IndexSet(integer: 0)
         }
     }
-    
+
+    internal func shifted(startingAt integer: IndexSet.Element, by delta: Int, isEmpty: Bool) -> IndexSet {
+        var indexes = self
+        indexes.shift(startingAt: integer, by: delta, isEmpty: isEmpty)
+        return indexes
+    }
+
     internal mutating func updateSubset(from oldIndexes: IndexSet, to newIndexes: IndexSet) {
         let unchangedIndexes = newIndexes.intersection(oldIndexes)
         formUnion(newIndexes.subtracting(unchangedIndexes))

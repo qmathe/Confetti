@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 open class Viewpoint<T: Placeholder>: Presentation {
 
@@ -17,14 +18,9 @@ open class Viewpoint<T: Placeholder>: Presentation {
     
     // MARK: - Content
 
-    private let _value = Variable(T.placeholder)
-    /// The presented value.
-    public var value: T {
-        get { return _value.value }
-        set { _value.value = newValue; changed = true }
-    }
-    // The presented value as an observable.
-    public var content: Observable<T> { return _value.asObservable() }
+    private let value = BehaviorRelay(value: T.placeholder)
+    // The presented value.
+    public var content: Observable<T> { return value.asObservable() }
 
     // MARK: - Presentation
 
@@ -51,7 +47,7 @@ open class Viewpoint<T: Placeholder>: Presentation {
 		self.objectGraph = objectGraph ?? ObjectGraph()
 
         value.subscribe(onNext: { [unowned self] value in
-            self.value = value
+            self.value.accept(value)
             self.changed = true
         }).disposed(by: bag)
 	}

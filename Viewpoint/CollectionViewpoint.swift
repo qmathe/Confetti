@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 import Tapestry
 
 public protocol CreatableElement {
@@ -14,7 +15,7 @@ public protocol CreatableElement {
 }
 
 public protocol SelectionState: class {
-    var selection: SubjectType<IndexSet> { get }
+    var selectionIndexes: BehaviorRelay<IndexSet> { get }
 }
 
 open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionState {
@@ -31,20 +32,11 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     public let bag = DisposeBag()
     
     // MARK: - Content
-    
-    private let _collection = Variable([T]())
-    /// The presented collection.
-    ///
+
     /// When a new collection is assigned, selection and changed indexes must be manually updated.
-    /// Once a viewpoint has been created, assigning a new  collection should usually be avoided.
-    ///
-    /// Using the setter should be restricted to subclasses.
-    public var collection: [T] {
-        get { return _collection.value }
-        set { _collection.value = newValue }
-    }
-    // The presented collection as an observable.
-    public var content: Observable<[T]> { return _collection.asObservable() }
+    private let collection = BehaviorRelay(value: [T]())
+    /// The presented collection.
+    public var content: Observable<[T]> { return collection.asObservable() }
     
     // MARK: - Presentation
 
@@ -87,11 +79,8 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     
     // MARK: - Selection
 
-    public let selection = BehaviorSubject(value: IndexSet())
-    private var selectionIndexes: IndexSet {
-        get { return (try? selection.value()) ?? IndexSet() }
-        set { selection.onNext(newValue) }
-    }
+    /// The selection as indexes relative to `content`.
+    public let selectionIndexes = BehaviorRelay(value: IndexSet())
 	open var selectionAdjustmentOnRemoval: SelectionAdjustment = .previous
 	
 	// MARK: - Initialization
@@ -103,11 +92,11 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 		self.objectGraph = objectGraph ?? ObjectGraph()
         
         collection.subscribe(onNext: { [unowned self] value in
-            self.collection = value
+            self.collection.accept(value)
             self.changedIndexes = IndexSet(value.indices)
         }).disposed(by: bag)
 
-        selection.update(IndexSet()).subscribe(onNext: { [unowned self] (oldIndexes, newIndexes) in
+        selectionIndexes.update(IndexSet()).subscribe(onNext: { [unowned self] (oldIndexes, newIndexes) in
             self.changedIndexes.updateSubset(from: oldIndexes, to: newIndexes)
         }).disposed(by: bag)
 	}
@@ -119,24 +108,24 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 	}
 
     open func add() {
-        collection.append(createElement())
-		let index = Int(collection.count) - 1
+        collection.accept(collection.value.appending(createElement()))
+		let index = Int(collection.value.count) - 1
 		changedIndexes.insert(index)
-		selectionIndexes = IndexSet(integer: index)
+		selectionIndexes.accept(IndexSet(integer: index))
     }
 
     open func remove(at index: Int) {
-        collection.remove(at: index)
+        collection.accept(collection.value.removing(at: index))
 		changedIndexes.shift(startingAt: index, by: -1)
-        selectionIndexes.shift(startingAt: index, by: -1, isEmpty: collection.isEmpty)
+        selectionIndexes.accept(selectionIndexes.value.shifted(startingAt: index, by: -1, isEmpty: collection.value.isEmpty))
     }
 	
 	open func remove() {
-		if selectionIndexes.isEmpty {
+		if selectionIndexes.value.isEmpty {
 			print("Missing selection for remove action in /(self)")
 		}
 		// FIXME: IndexSet(selectionIndexes).reversed() crashes, see testEnumerateReverseEmptiedSelection()
-		for index in Array(selectionIndexes).reversed() {
+		for index in Array(selectionIndexes.value).reversed() {
 			remove(at: index)
 		}
 	}

@@ -12,4 +12,16 @@ public extension Array {
     public subscript(indexes: IndexSet) -> [Element] {
         return indexes.rangeView.reduce([Element](), { $0 + self[$1] })
     }
+    
+    func  appending(_ element: Element) -> [Element] {
+        var elements = self
+        elements.append(element)
+        return elements
+    }
+    
+    func removing(at position: Int) -> [Element] {
+        var elements = self
+        elements.remove(at: position)
+        return elements
+    }
 }
