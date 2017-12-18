@@ -24,3 +24,10 @@ precedencegroup SubjectAccept {
 public func =^ <T>(subject: BehaviorRelay<T>, value: T) {
     subject.accept(value)
 }
+
+public extension BehaviorRelay {
+
+    public func update(_ closure: (E) -> (E)) {
+        accept(closure(value))
+    }
+}

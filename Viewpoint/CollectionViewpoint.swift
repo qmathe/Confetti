@@ -108,16 +108,16 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 	}
 
     open func add() {
-        collection =^ collection^.appending(createElement())
+        collection.update { $0.appending(createElement()) }
 		let index = Int(collection^.count) - 1
 		changedIndexes.insert(index)
 		selectionIndexes =^ IndexSet(integer: index)
     }
 
     open func remove(at index: Int) {
-        collection =^ collection^.removing(at: index)
+        collection.update { $0.removing(at: index) }
 		changedIndexes.shift(startingAt: index, by: -1)
-        selectionIndexes =^ selectionIndexes^.shifted(startingAt: index, by: -1, isEmpty: collection^.isEmpty)
+        selectionIndexes.update { $0.shifted(startingAt: index, by: -1, isEmpty: collection^.isEmpty) }
     }
 	
 	open func remove() {
