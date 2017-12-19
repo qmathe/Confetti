@@ -13,6 +13,7 @@ import CoreGraphics
 
 public protocol UI {
 	var objectGraph: ObjectGraph { get set }
+    var bag: DisposeBag { get }
 }
 
 

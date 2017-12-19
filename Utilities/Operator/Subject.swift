@@ -43,4 +43,17 @@ public extension Observable {
             }
         }
     }
+
+    public func bind(to action: @escaping (E) -> ())  -> Disposable {
+        return subscribe { event in
+            switch event {
+            case .completed:
+                break
+            case .error(let error):
+                fatalError("Binding error for action: \(error)")
+            case .next(let element):
+                action(element)
+            }
+        }
+    }
 }

@@ -40,6 +40,10 @@ public extension UI {
         return button(frame: Rect(origin: Point(x: 0, y: 0), extent: extent), text: text, tap: bindTap)
 	}
 
+    public func button(extent: Extent, text: String = "", tap tapAction: @escaping (Tap) -> ()) -> Item {
+        return button(frame: Rect(origin: Point(x: 0, y: 0), extent: extent), text: text, tap: bind(to: tapAction))
+    }
+
 	/**
 	Returns a toggle button that will be rendered either as a switch or checkbox.
 	
@@ -83,4 +87,12 @@ public extension UI {
 		
 		return item
 	}
+
+    // MARK: - Binding Observable to Action
+
+    private func bind<E>(to action: @escaping (E) -> ()) -> ((Observable<E>, Item) -> ()) {
+        return { observable, _ in
+            observable.bind(to: action).disposed(by: self.bag)
+        }
+    }
 }

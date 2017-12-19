@@ -18,15 +18,11 @@ class Counter: Viewpoint<Int>, UI {
 			column(items:
 				label(extent: Extent(width: 200, height: 20), text: String(describing: value)),
 				row(items:
-                    button(extent: Extent(width: 100, height: 20), text: "+", tap: { tap, _ in
-                        tap.subscribe { _ in
-                            self.value.update { $0 + 1 }
-                        }.disposed(by: bag)
+                    button(extent: Extent(width: 100, height: 20), text: "+", tap: { _ in
+                        self.value.update { $0 + 1 }
                     }),
-                    button(extent: Extent(width: 100, height: 20), text: "-", tap: { tap, _ in
-                        tap.subscribe { _ in
-                            self.value.update { $0 - 1 }
-                        }.disposed(by: bag)
+                    button(extent: Extent(width: 100, height: 20), text: "-", tap: { _ in
+                        self.value.update { $0 - 1 }
                     })
 				)
 			)
