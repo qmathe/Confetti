@@ -7,7 +7,6 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
 import Tapestry
 
 public protocol CreatableElement {
@@ -15,7 +14,7 @@ public protocol CreatableElement {
 }
 
 public protocol SelectionState: class {
-    var selectionIndexes: BehaviorRelay<IndexSet> { get }
+    var selectionIndexes: BehaviorSubject<IndexSet> { get }
 }
 
 open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionState {
@@ -34,7 +33,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     // MARK: - Content
 
     /// When a new collection is assigned, selection and changed indexes must be manually updated.
-    private let collection = BehaviorRelay(value: [T]())
+    private let collection = BehaviorSubject(value: [T]())
     /// The presented collection.
     public var content: Observable<[T]> { return collection.asObservable() }
     
@@ -80,7 +79,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     // MARK: - Selection
 
     /// The selection as indexes relative to `content`.
-    public let selectionIndexes = BehaviorRelay(value: IndexSet())
+    public let selectionIndexes = BehaviorSubject(value: IndexSet())
 	open var selectionAdjustmentOnRemoval: SelectionAdjustment = .previous
 	
 	// MARK: - Initialization

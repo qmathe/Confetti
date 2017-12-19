@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
 
 open class Viewpoint<T: Placeholder>: Presentation {
 
@@ -19,7 +18,7 @@ open class Viewpoint<T: Placeholder>: Presentation {
     // MARK: - Content
 
     // NOTE: Made public to support updates in Counter app
-    public let value = BehaviorRelay(value: T.placeholder)
+    public let value = BehaviorSubject(value: T.placeholder)
     // The presented value.
     public var content: Observable<T> { return value.asObservable() }
 
@@ -47,9 +46,7 @@ open class Viewpoint<T: Placeholder>: Presentation {
     public init(_ value: Observable<T>, objectGraph: ObjectGraph? = nil) {
 		self.objectGraph = objectGraph ?? ObjectGraph()
 
-        value.subscribe(onNext: { [unowned self] value in
-            self.value =^ value
-        }).disposed(by: bag)
+        value.bind(to: self.value).disposed(by: bag)
 
         self.value.subscribe(onNext: { [unowned self] value in
             self.changed = true

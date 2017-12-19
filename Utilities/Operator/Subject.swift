@@ -7,12 +7,11 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
 
 postfix operator ^
 
-public postfix func ^ <T>(subject: BehaviorRelay<T>) -> T {
-    return subject.value
+public postfix func ^ <T>(subject: BehaviorSubject<T>) -> T {
+    return try! subject.value()
 }
 
 infix operator =^ : SubjectAccept
@@ -21,13 +20,27 @@ precedencegroup SubjectAccept {
     higherThan: BitwiseShiftPrecedence
 }
 
-public func =^ <T>(subject: BehaviorRelay<T>, value: T) {
-    subject.accept(value)
+public func =^ <T>(subject: BehaviorSubject<T>, value: T) {
+    subject.onNext(value)
 }
 
-public extension BehaviorRelay {
+public extension BehaviorSubject {
 
     public func update(_ closure: (E) -> (E)) {
-        accept(closure(value))
+        onNext(closure(try! value()))
+    }
+}
+
+public extension Observable {
+
+    public func bind<O: ObserverType>(to observer: O) -> Disposable where O.E == E {
+        return subscribe { event in
+            switch event {
+            case .completed:
+                break
+            default:
+                observer.on(event)
+            }
+        }
     }
 }

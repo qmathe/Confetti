@@ -7,7 +7,6 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
 import Confetti
 import Tapestry
 
@@ -34,5 +33,5 @@ class TodoApp: Viewpoint<[Todo]>, UI {
 }
 
 private func editedValue(in todoList: TodoList) -> Observable<Todo?> {
-    return todoList.selectionIndexes.asObservable().mapToFirstElement(in: todoList)
+    return todoList.selectionIndexes.mapToFirstElement(in: todoList)
 }
