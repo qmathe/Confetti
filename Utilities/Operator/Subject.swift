@@ -44,6 +44,12 @@ public extension Observable {
         }
     }
 
+    public func bind(to action: @escaping () -> ())  -> Disposable {
+        return bind(to: { _ in
+            action()
+        })
+    }
+
     public func bind(to action: @escaping (E) -> ())  -> Disposable {
         return subscribe { event in
             switch event {

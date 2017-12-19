@@ -28,12 +28,8 @@ class TodoList: CollectionViewpoint<Todo>, UI {
                 }
 			),
 			row(items:
-                button(extent: Extent(width: 200, height: 20), text: "Add", tap: { _ in
-                    self.add()
-                }), 
-				button(extent: Extent(width: 200, height: 20), text: "Remove", tap: { _ in
-                    self.remove()
-                })
+                button(extent: Extent(width: 200, height: 20), text: "Add", tap: add),
+				button(extent: Extent(width: 200, height: 20), text: "Remove", tap: remove)
 			)
 		)
     }
