@@ -9,7 +9,13 @@ import Foundation
 import Confetti
 
 struct Todo: CreatableElement {
-	var text = "Untitled"
+
+    static var counter = 0
+    var text: String
 	
-	init() { }
+	init() {
+        let baseName = "Untitled"
+        text = Todo.counter > 0 ? "\(baseName) \(Todo.counter)" : baseName
+        Todo.counter += 1
+    }
 }
