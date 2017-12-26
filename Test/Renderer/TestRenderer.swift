@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import RxSwift
 @testable import Tapestry
 @testable import Confetti
 
@@ -41,6 +42,7 @@ class TestRenderer: XCTestCase {
 
 class TestUI: UI {
     var objectGraph: ObjectGraph
+    let bag = DisposeBag()
     
     required init(objectGraph: ObjectGraph) {
         self.objectGraph = objectGraph

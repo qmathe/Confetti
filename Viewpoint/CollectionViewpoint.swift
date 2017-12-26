@@ -42,31 +42,35 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     /// The presentation tree.
 	open var presentations: [Presentation] { return [] }
     /// Whether the item representation or presented collection have changed since the last UI update.
-	public var changed = true
+    public var changed: Observable<Void> {
+        return changedIndexes.map { _ in Void () }
+    }
 	/// The indexes corresponding to inserted and updated items since the last UI update.
 	///
 	/// Calling `remove()` or `remove(at:)` result in indexes being removed and successors shifted
     /// towards the first index.
 	///
 	/// These indexes are relative to `itemPresentingCollection(from:)`.
-    var changedIndexes = IndexSet() {
-		didSet {
-			changed = true
-		}
-	}
+    let changedIndexes = BehaviorSubject(value: IndexSet())
     /// The item representation.
     ///
     /// The returned item tree is annotated with optimizations for `Renderer.render()`.
-    public var item: Item {
-        let item = generate()
-        let collectionItem = itemPresentingCollection(from: item)
-        
-        item.identifier = String(describing: self)
-        for index in changedIndexes {
-            collectionItem.items?[index].changed = true
+    public var item: Observable<Item> {
+        return changedIndexes.map { [unowned self] changedIndexes in
+            let item = self.generate()
+            let collectionItem = self.itemPresentingCollection(from: item)
+
+            item.identifier = String(describing: self)
+            for index in changedIndexes {
+                collectionItem.items?[index].changed = true
+            }
+
+            return item
         }
-        
-        return item
+    }
+
+    public func clear() {
+        changedIndexes.onNext(IndexSet())
     }
     
     // MARK: - Visibility
@@ -89,14 +93,12 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
 	public init(_ collection: Observable<[T]>, objectGraph: ObjectGraph? = nil) {
 		self.objectGraph = objectGraph ?? ObjectGraph()
-        
-        collection.subscribe(onNext: { [unowned self] value in
-            self.collection =^ value
-            self.changedIndexes = IndexSet(value.indices)
-        }).disposed(by: bag)
 
-        selectionIndexes.update(IndexSet()).subscribe(onNext: { [unowned self] (oldIndexes, newIndexes) in
-            self.changedIndexes.updateSubset(from: oldIndexes, to: newIndexes)
+        collection.bind(to: self.collection).disposed(by: bag)
+        collection.map { IndexSet($0.indices) }.bind(to: changedIndexes).disposed(by: bag)
+
+        selectionIndexes.change(startingWith: IndexSet()).subscribe(onNext: { [unowned self] (oldIndexes, newIndexes) in
+            self.changedIndexes.update { $0.updatedSubset(from: oldIndexes, to: newIndexes) }
         }).disposed(by: bag)
 	}
 	
@@ -109,13 +111,13 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     open func add() {
         collection.update { $0.appending(createElement()) }
 		let index = Int(collection^.count) - 1
-		changedIndexes.insert(index)
-		selectionIndexes =^ IndexSet(integer: index)
+        changedIndexes.update { $0.inserting(index) }
+        selectionIndexes.update { _ in IndexSet(integer: index) }
     }
 
     open func remove(at index: Int) {
         collection.update { $0.removing(at: index) }
-		changedIndexes.shift(startingAt: index, by: -1)
+        changedIndexes.update { $0.shifted(startingAt: index, by: -1) }
         selectionIndexes.update { $0.shifted(startingAt: index, by: -1, isEmpty: collection^.isEmpty) }
     }
 	

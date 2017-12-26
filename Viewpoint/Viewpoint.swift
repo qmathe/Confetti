@@ -27,16 +27,22 @@ open class Viewpoint<T: Placeholder>: Presentation {
     /// The presentation tree.
 	open var presentations: [Presentation] { return [] }
 	/// Whether the item representation or presented value have changed since the last UI update.
-    public var changed = true
+    public var changed: Observable<Void> {
+        return self.value.map { _ in Void() }
+    }
 	/// The item representation.
 	///
 	/// The returned item tree is annotated with optimizations for `Renderer.render()`.
-	public var item: Item {
-		let item = generate()
-		item.identifier = String(describing: self)
-		item.changed = changed
-		return item
+	public var item: Observable<Item> {
+        return changed.map { [unowned self] in
+            let item = self.generate()
+            item.identifier = String(describing: self)
+            item.changed = true
+            return item
+        }
 	}
+
+    public func clear() { }
 
 	// MARK: - Initialization
 
@@ -45,12 +51,7 @@ open class Viewpoint<T: Placeholder>: Presentation {
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
     public init(_ value: Observable<T>, objectGraph: ObjectGraph? = nil) {
 		self.objectGraph = objectGraph ?? ObjectGraph()
-
         value.bind(to: self.value).disposed(by: bag)
-
-        self.value.subscribe(onNext: { [unowned self] value in
-            self.changed = true
-        }).disposed(by: bag)
 	}
 
 	// MARK: - Generating Item Representation

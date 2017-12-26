@@ -107,6 +107,8 @@
 		609364561FE4192A009A946E /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609364541FE4192A009A946E /* Update.swift */; };
 		609364591FE54A4A009A946E /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609364581FE54A4A009A946E /* Subject.swift */; };
 		6093645A1FE54A4A009A946E /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609364581FE54A4A009A946E /* Subject.swift */; };
+		60991D321FF3078F00CACE4B /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60991D2D1FF3078F00CACE4B /* RxBlocking.framework */; };
+		60991D341FF3079200CACE4B /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60991D331FF3079200CACE4B /* RxTest.framework */; };
 		60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DA1D1C1488007B7A7B /* Style.swift */; };
 		60A5D4DE1D1C14F8007B7A7B /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DD1D1C14F8007B7A7B /* Material.swift */; };
 		60B8EE611ED6EA1C0060B5F2 /* Tapestry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; };
@@ -310,6 +312,8 @@
 		6093644F1FE3F410009A946E /* IndexSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndexSet.swift; path = Utilities/IndexSet.swift; sourceTree = "<group>"; };
 		609364541FE4192A009A946E /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Update.swift; path = Utilities/Operator/Update.swift; sourceTree = "<group>"; };
 		609364581FE54A4A009A946E /* Subject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subject.swift; path = Utilities/Operator/Subject.swift; sourceTree = "<group>"; };
+		60991D2D1FF3078F00CACE4B /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/Mac/RxBlocking.framework; sourceTree = "<group>"; };
+		60991D331FF3079200CACE4B /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/Mac/RxTest.framework; sourceTree = "<group>"; };
 		60A5D4DA1D1C1488007B7A7B /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = Style/Style.swift; sourceTree = "<group>"; };
 		60A5D4DD1D1C14F8007B7A7B /* Material.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Material.swift; path = Material/Material.swift; sourceTree = "<group>"; };
 		60B8EE621ED717AB0060B5F2 /* DESIGN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = DESIGN.md; path = Documentation/DESIGN.md; sourceTree = "<group>"; };
@@ -364,6 +368,8 @@
 			files = (
 				600E8C651D593F0A00AFD10E /* Confetti.framework in Frameworks */,
 				601F641E1FE0900F0012EFA8 /* RxSwift.framework in Frameworks */,
+				60991D321FF3078F00CACE4B /* RxBlocking.framework in Frameworks */,
+				60991D341FF3079200CACE4B /* RxTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,6 +494,8 @@
 		601292A21D00619700B8E9EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				60991D331FF3079200CACE4B /* RxTest.framework */,
+				60991D2D1FF3078F00CACE4B /* RxBlocking.framework */,
 				602176571FD08B7C007638C9 /* RxCocoa.framework */,
 				602176591FD08BC5007638C9 /* RxCocoa.framework */,
 				6059F8B71FCB8833001CE66D /* RxSwift.framework */,
@@ -1270,11 +1278,15 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/Mac/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/RxBlocking.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/RxTest.framework",
 			);
 			name = Carthage;
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxTest.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

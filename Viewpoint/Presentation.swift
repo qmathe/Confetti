@@ -6,22 +6,12 @@
  */
 
 import Foundation
+import RxSwift
 
 public protocol Presentation: class {
 	var presentations: [Presentation] { get }
-	var changed: Bool { get set }
-	var item: Item { get }
-	func update() -> [Presentation]
-}
+	var changed: Observable<Void> { get }
+	var item: Observable<Item> { get }
 
-// MARK: - Handling Changes
-
-public extension Presentation {
-
-	public func update() -> [Presentation] {
-		let descendantPresentations = presentations.flatMap { $0.update() }
-		let presentation = changed ? [self] : []
-		changed = false
-		return presentation + descendantPresentations
-	}
+    func clear()
 }

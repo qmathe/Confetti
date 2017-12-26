@@ -6,6 +6,8 @@
  */
 
 import XCTest
+import RxSwift
+import RxBlocking
 import Tapestry
 @testable import Confetti
 
@@ -16,10 +18,10 @@ class TestCollectionViewpoint: XCTestCase {
 	// MARK: - Generation
 
 	func testGenerate() {
-		XCTAssertEqual(3, viewpoint.item.items?.count)
+		XCTAssertEqual(3, viewpoint.item^.items?.count)
         XCTAssertTrue(viewpoint.selectionIndexes^.isEmpty)
-		XCTAssertTrue(viewpoint.changed)
-		XCTAssertEqual(IndexSet(0...2), viewpoint.changedIndexes)
+		XCTAssertTrue(viewpoint.changed^)
+		XCTAssertEqual(IndexSet(0...2), viewpoint.changedIndexes^)
 	}
 
 	// MARK: - Insertion
@@ -27,10 +29,10 @@ class TestCollectionViewpoint: XCTestCase {
 	func testAdd() {
 		viewpoint.add()
 		
-		XCTAssertEqual(4, viewpoint.item.items?.count)
+		XCTAssertEqual(4, viewpoint.item^.items?.count)
 		XCTAssertEqual(IndexSet(integer: 3), viewpoint.selectionIndexes^)
-		XCTAssertTrue(viewpoint.changed)
-		XCTAssertEqual(IndexSet(0...3), viewpoint.changedIndexes)
+		XCTAssertTrue(viewpoint.changed^)
+		XCTAssertEqual(IndexSet(0...3), viewpoint.changedIndexes^)
 	}
 
 	// MARK: - Removal
@@ -39,30 +41,30 @@ class TestCollectionViewpoint: XCTestCase {
 		assert(viewpoint.selectionIndexes^.isEmpty)
 		viewpoint.remove()
 	
-		XCTAssertEqual(3, viewpoint.item.items?.count)
+		XCTAssertEqual(3, viewpoint.item^.items?.count)
         XCTAssertTrue(viewpoint.selectionIndexes^.isEmpty)
-		XCTAssertTrue(viewpoint.changed)
-		XCTAssertEqual(IndexSet(0...2), viewpoint.changedIndexes)
+		XCTAssertTrue(viewpoint.changed^)
+		XCTAssertEqual(IndexSet(0...2), viewpoint.changedIndexes^)
 	}
 
 	func testRemoveForMultipleSelection() {
 		viewpoint.selectionIndexes =^ IndexSet(1...2)
 		viewpoint.remove()
 
-		XCTAssertEqual(1, viewpoint.item.items?.count)
+		XCTAssertEqual(1, viewpoint.item^.items?.count)
 		XCTAssertEqual(IndexSet(integer: 0), viewpoint.selectionIndexes^)
-		XCTAssertTrue(viewpoint.changed)
-		XCTAssertEqual(IndexSet(integer: 0), viewpoint.changedIndexes)
+		XCTAssertTrue(viewpoint.changed^)
+		XCTAssertEqual(IndexSet(integer: 0), viewpoint.changedIndexes^)
 	}
 	
 	func testRemoveForSingleSelection() {
         viewpoint.selectionIndexes =^ IndexSet(integer: 1)
 		viewpoint.remove()
 	
-		XCTAssertEqual(2, viewpoint.item.items?.count)
+		XCTAssertEqual(2, viewpoint.item^.items?.count)
 		XCTAssertEqual(IndexSet(integer: 0), viewpoint.selectionIndexes^)
-		XCTAssertTrue(viewpoint.changed)
-		XCTAssertEqual(IndexSet([0, 1]), viewpoint.changedIndexes)
+		XCTAssertTrue(viewpoint.changed^)
+		XCTAssertEqual(IndexSet([0, 1]), viewpoint.changedIndexes^)
 	}
 
 	func testRemoveFirstForSingleSelection() {
@@ -70,8 +72,8 @@ class TestCollectionViewpoint: XCTestCase {
 		viewpoint.remove()
 
 		XCTAssertEqual(IndexSet(integer: 0), viewpoint.selectionIndexes^)
-		XCTAssertTrue(viewpoint.changed)
-		XCTAssertEqual(IndexSet(0...1), viewpoint.changedIndexes)
+		XCTAssertTrue(viewpoint.changed^)
+		XCTAssertEqual(IndexSet(0...1), viewpoint.changedIndexes^)
 	}
 
 	func testRemoveLastForSingleSelection() {
@@ -79,8 +81,8 @@ class TestCollectionViewpoint: XCTestCase {
 		viewpoint.remove()
 
 		XCTAssertEqual(IndexSet(integer: 1), viewpoint.selectionIndexes^)
-		XCTAssertTrue(viewpoint.changed)
-		XCTAssertEqual(IndexSet(0...1), viewpoint.changedIndexes)
+		XCTAssertTrue(viewpoint.changed^)
+		XCTAssertEqual(IndexSet(0...1), viewpoint.changedIndexes^)
 	}
 
 	func testRemoveAtForSingleSelection() {
@@ -88,8 +90,8 @@ class TestCollectionViewpoint: XCTestCase {
 		viewpoint.remove(at: 0)
 
 		XCTAssertEqual(IndexSet(0...1), viewpoint.selectionIndexes^)
-		XCTAssertTrue(viewpoint.changed)
-        XCTAssertEqual(IndexSet(0...1), viewpoint.changedIndexes)
+		XCTAssertTrue(viewpoint.changed^)
+        XCTAssertEqual(IndexSet(0...1), viewpoint.changedIndexes^)
 	}
     
     func testRemoveAllForSingleSelection() {
@@ -99,8 +101,8 @@ class TestCollectionViewpoint: XCTestCase {
         viewpoint.remove()
 
         XCTAssertTrue(viewpoint.selectionIndexes^.isEmpty)
-        XCTAssertTrue(viewpoint.changed)
-        XCTAssertTrue(viewpoint.changedIndexes.isEmpty)
+        XCTAssertTrue(viewpoint.changed^)
+        XCTAssertTrue(viewpoint.changedIndexes^.isEmpty)
     }
 
 	// MARK: - Removal and Insertion Combined
@@ -109,18 +111,18 @@ class TestCollectionViewpoint: XCTestCase {
 		viewpoint.add()
 		viewpoint.add()
 
-		XCTAssertEqual(5, viewpoint.item.items?.count)
+		XCTAssertEqual(5, viewpoint.item^.items?.count)
 		XCTAssertEqual(IndexSet(integer: 4), viewpoint.selectionIndexes^)
-		XCTAssertTrue(viewpoint.changed)
-		XCTAssertEqual(IndexSet(0...4), viewpoint.changedIndexes)
+		XCTAssertTrue(viewpoint.changed^)
+		XCTAssertEqual(IndexSet(0...4), viewpoint.changedIndexes^)
 
 		viewpoint.remove()
 		viewpoint.remove()
 
-		XCTAssertEqual(3, viewpoint.item.items?.count)
+		XCTAssertEqual(3, viewpoint.item^.items?.count)
 		XCTAssertEqual(IndexSet(integer: 2), viewpoint.selectionIndexes^)
-		XCTAssertTrue(viewpoint.changed)
-		XCTAssertEqual(IndexSet(0...2), viewpoint.changedIndexes)
+		XCTAssertTrue(viewpoint.changed^)
+		XCTAssertEqual(IndexSet(0...2), viewpoint.changedIndexes^)
 	}
 }
 
@@ -136,4 +138,18 @@ extension String: CreatableElement {
 	public init() {
 		self.init("x")
 	}
+}
+
+postfix operator ^
+
+public postfix func ^ <T>(observable: Observable<T>) -> T {
+    return try! observable.toBlocking().first()!
+}
+
+public postfix func ^ <T>(observable: Observable<T>) -> Bool {
+    return try! observable.toBlocking().first() != nil
+}
+
+public postfix func ^ <T>(observable: BehaviorSubject<T>) -> T {
+    return try! observable.toBlocking().first()!
 }

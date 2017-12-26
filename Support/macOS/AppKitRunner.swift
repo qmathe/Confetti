@@ -8,6 +8,7 @@
 
 import Foundation
 import AppKit
+import RxSwift
 
 private var app: App!
 
@@ -24,6 +25,6 @@ public func run(_ presentation: Presentation, with renderer: Renderer = AppKitRe
 
 	override public func sendEvent(_ event: NSEvent) {
 		super.sendEvent(event)
-		app.update()
+		app.update.onNext(Void())
 	}
 }

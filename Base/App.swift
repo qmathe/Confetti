@@ -6,20 +6,20 @@
  */
 
 import Foundation
+import RxSwift
 
 class App {
 	let presentation: Presentation
 	let renderer: Renderer
-	var node: RenderedNode?
+    var node: Observable<RenderedNode> {
+        return update.withLatestFrom(presentation.item).map { [unowned self] item in
+            return self.renderer.renderItem(item)
+        }
+    }
+    let update = PublishSubject<Void>()
 	
 	init(presentation: Presentation, renderer: Renderer) {
 		self.presentation = presentation
 		self.renderer = renderer
-	}
-
-	func update() {
-		if presentation.update().count > 0 {
-			node = renderer.renderItem(presentation.item)
-		}
 	}
 }
