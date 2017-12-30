@@ -20,7 +20,7 @@ class App {
 
 		self.presentation = presentation
 		self.renderer = renderer
-        self.node = update.withLatestFrom(item).distinctUntilChanged {  $0.1 == $1.1 }.map {
+        self.node = update.withLatestFrom(item).distinctUntilChanged { $0.1 == $1.1 }.map {
             print("Render")
             return renderer.renderItem($0.0)
         }
