@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-open class Viewpoint<T: Placeholder & Equatable>: Presentation {
+open class Viewpoint<T: Placeholder>: Presentation {
 
     // MARK: - Types
 
@@ -55,7 +55,7 @@ open class Viewpoint<T: Placeholder & Equatable>: Presentation {
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
     public init(_ value: Observable<T>, objectGraph: ObjectGraph? = nil) {
 		self.objectGraph = objectGraph ?? ObjectGraph()
-        self.value = Observable.merge(operation, value.mapToOperation()).scan(T.placeholder) { $1($0) }
+        self.value = value.update(using: operation)
 	}
 
 	// MARK: - Generating Item Representation
@@ -76,11 +76,15 @@ open class Viewpoint<T: Placeholder & Equatable>: Presentation {
 	}
 }
 
-public extension Observable where Element: Placeholder & Equatable {
+public extension Observable where Element: Placeholder {
 
     public func mapToOperation() -> Observable<Viewpoint<Element>.Operation> {
         return map { (value: Element) -> Viewpoint<Element>.Operation  in
             return { _ in value }
         }
+    }
+
+    public func update(using operation: Observable<Viewpoint<Element>.Operation>) -> Observable<Element> {
+        return Observable<Viewpoint<Element>.Operation>.merge(operation, mapToOperation()).scan(Element.placeholder) { $1($0) }
     }
 }
