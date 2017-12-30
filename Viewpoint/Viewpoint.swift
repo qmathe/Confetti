@@ -54,12 +54,8 @@ open class Viewpoint<T: Placeholder & Equatable>: Presentation {
 	///
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
     public init(_ value: Observable<T>, objectGraph: ObjectGraph? = nil) {
-        let sourceUpdate = value.map { (value: T) -> Operation  in
-            return { _ in value }
-        }
-
 		self.objectGraph = objectGraph ?? ObjectGraph()
-        self.value = Observable.merge(operation, sourceUpdate).scan(T.placeholder) { $1($0) }
+        self.value = Observable.merge(operation, value.mapToOperation()).scan(T.placeholder) { $1($0) }
 	}
 
 	// MARK: - Generating Item Representation
@@ -78,4 +74,13 @@ open class Viewpoint<T: Placeholder & Equatable>: Presentation {
     open func generate(with value: T) -> Item {
 		fatalError("Must be overriden")
 	}
+}
+
+public extension Observable where Element: Placeholder & Equatable {
+
+    public func mapToOperation() -> Observable<Viewpoint<Element>.Operation> {
+        return map { (value: Element) -> Viewpoint<Element>.Operation  in
+            return { _ in value }
+        }
+    }
 }
