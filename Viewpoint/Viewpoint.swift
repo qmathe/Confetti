@@ -9,7 +9,12 @@
 import Foundation
 import RxSwift
 
-open class Viewpoint<T: Placeholder>: Presentation {
+open class Viewpoint<T: Placeholder & Equatable>: Presentation {
+
+    // MARK: - Types
+
+    public typealias State = T
+    public typealias Operation = (State) -> (State)
 
     // MARK: - Rx
 
@@ -17,10 +22,9 @@ open class Viewpoint<T: Placeholder>: Presentation {
     
     // MARK: - Content
 
-    // NOTE: Made public to support updates in Counter app
-    public let value = BehaviorSubject(value: T.placeholder)
     // The presented value.
-    public var content: Observable<T> { return value.asObservable() }
+    public let value: Observable<T>
+    public let operation = PublishSubject<Operation>()
 
     // MARK: - Presentation
 
@@ -34,8 +38,8 @@ open class Viewpoint<T: Placeholder>: Presentation {
 	///
 	/// The returned item tree is annotated with optimizations for `Renderer.render()`.
 	public var item: Observable<Item> {
-        return changed.map { [unowned self] in
-            let item = self.generate()
+        return changed.withLatestFrom(value).map { [unowned self] value in
+            let item = self.generate(with: value)
             item.identifier = String(describing: self)
             item.changed = true
             return item
@@ -50,8 +54,12 @@ open class Viewpoint<T: Placeholder>: Presentation {
 	///
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
     public init(_ value: Observable<T>, objectGraph: ObjectGraph? = nil) {
+        let sourceUpdate = value.map { (value: T) -> Operation  in
+            return { _ in value }
+        }
+
 		self.objectGraph = objectGraph ?? ObjectGraph()
-        value.bind(to: self.value).disposed(by: bag)
+        self.value = Observable.merge(operation, sourceUpdate).scan(T.placeholder) { $1($0) }
 	}
 
 	// MARK: - Generating Item Representation
@@ -61,12 +69,6 @@ open class Viewpoint<T: Placeholder>: Presentation {
     /// Can be ignored when you don't intent to persist or copy the generated item tree.
     public var objectGraph: ObjectGraph
 
-    /// Returns a custom tree.
-    ///
-    /// You must never call this method directly.
-    public func generate() -> Item {
-        return generate(with: value^)
-    }
 
 	/// Must be overriden to return a custom item tree.
 	///

@@ -19,10 +19,10 @@ class Counter: Viewpoint<Int>, UI {
 				label(extent: Extent(width: 200, height: 20), text: String(describing: value)),
 				row(items:
                     button(extent: Extent(width: 100, height: 20), text: "+", tap: { _ in
-                        self.value.update { $0 + 1 }
+                        self.operation.onNext { $0 + 1 }
                     }),
                     button(extent: Extent(width: 100, height: 20), text: "-", tap: { _ in
-                        self.value.update { $0 - 1 }
+                        self.operation.onNext { $0 - 1 }
                     })
 				)
 			)
