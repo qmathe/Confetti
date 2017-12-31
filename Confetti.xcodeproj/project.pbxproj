@@ -111,6 +111,8 @@
 		60991D341FF3079200CACE4B /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60991D331FF3079200CACE4B /* RxTest.framework */; };
 		60A5D4DB1D1C1488007B7A7B /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DA1D1C1488007B7A7B /* Style.swift */; };
 		60A5D4DE1D1C14F8007B7A7B /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A5D4DD1D1C14F8007B7A7B /* Material.swift */; };
+		60ADEE561FF83A80008E9CF4 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ADEE511FF83A80008E9CF4 /* Operation.swift */; };
+		60ADEE571FF83A80008E9CF4 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ADEE511FF83A80008E9CF4 /* Operation.swift */; };
 		60B8EE611ED6EA1C0060B5F2 /* Tapestry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CD065E1E227016006FC8C2 /* Tapestry.framework */; };
 		60B8EE661EDE1E240060B5F2 /* Viewpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B8EE651EDE1E240060B5F2 /* Viewpoint.swift */; };
 		60BD0DAB1F0E5EF0006836D0 /* CollectionViewpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD0DAA1F0E5EF0006836D0 /* CollectionViewpoint.swift */; };
@@ -316,6 +318,7 @@
 		60991D331FF3079200CACE4B /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/Mac/RxTest.framework; sourceTree = "<group>"; };
 		60A5D4DA1D1C1488007B7A7B /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = Style/Style.swift; sourceTree = "<group>"; };
 		60A5D4DD1D1C14F8007B7A7B /* Material.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Material.swift; path = Material/Material.swift; sourceTree = "<group>"; };
+		60ADEE511FF83A80008E9CF4 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operation.swift; path = Viewpoint/Operation.swift; sourceTree = "<group>"; };
 		60B8EE621ED717AB0060B5F2 /* DESIGN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = DESIGN.md; path = Documentation/DESIGN.md; sourceTree = "<group>"; };
 		60B8EE631ED717B90060B5F2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		60B8EE651EDE1E240060B5F2 /* Viewpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Viewpoint.swift; path = Viewpoint/Viewpoint.swift; sourceTree = "<group>"; };
@@ -746,6 +749,7 @@
 			children = (
 				60BD0DAD1F0E82DC006836D0 /* Presentation.swift */,
 				60C1085D1FDCAD2C00A27849 /* Placeholder.swift */,
+				60ADEE511FF83A80008E9CF4 /* Operation.swift */,
 				60B8EE651EDE1E240060B5F2 /* Viewpoint.swift */,
 				60BD0DAA1F0E5EF0006836D0 /* CollectionViewpoint.swift */,
 			);
@@ -1384,6 +1388,7 @@
 				6059F8981FC710B5001CE66D /* Touch.swift in Sources */,
 				6059F8951FC7108F001CE66D /* Select.swift in Sources */,
 				602B076C1D63545F0035CD86 /* NSButtonIntegration.swift in Sources */,
+				60ADEE561FF83A80008E9CF4 /* Operation.swift in Sources */,
 				60811A8A1D709E2300D4DEEA /* ButtonStyle.swift in Sources */,
 				60811A9C1D70A09A00D4DEEA /* ButtonState.swift in Sources */,
 				60811A9E1D70A09A00D4DEEA /* LabelState.swift in Sources */,
@@ -1459,6 +1464,7 @@
 				6059F8991FC710B5001CE66D /* Touch.swift in Sources */,
 				60BEF4251FCCE1600039E32E /* Modifiers.swift in Sources */,
 				604B74C61FB469F2002462CD /* Style.swift in Sources */,
+				60ADEE571FF83A80008E9CF4 /* Operation.swift in Sources */,
 				6059F8941FC7108F001CE66D /* Tap.swift in Sources */,
 				60C108631FDCAD2C00A27849 /* Placeholder.swift in Sources */,
 				604B74C71FB469F2002462CD /* ButtonStyle.swift in Sources */,

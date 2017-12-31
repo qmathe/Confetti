@@ -14,12 +14,18 @@ public protocol CreatableElement {
 }
 
 public protocol SelectionState: class {
-    var selectionIndexes: BehaviorSubject<IndexSet> { get }
+    var selectionIndexes: Observable<IndexSet> { get }
 }
 
 open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionState {
 
     // MARK: - Types
+
+    public struct State {
+        public let collection: [T]
+        public let changedIndexes: IndexSet
+        public let selectionIndexes: IndexSet
+    }
 
 	public enum SelectionAdjustment {
 		case none
@@ -32,10 +38,10 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     
     // MARK: - Content
 
-    /// When a new collection is assigned, selection and changed indexes must be manually updated.
-    private let collection = BehaviorSubject(value: [T]())
     /// The presented collection.
-    public var content: Observable<[T]> { return collection.asObservable() }
+    public var collection: Observable<[T]> { return state.map { $0.collection } }
+    public let operation = PublishSubject<Operation<State>>()
+    private let state: Observable<State>
     
     // MARK: - Presentation
 
@@ -51,13 +57,15 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     /// towards the first index.
 	///
 	/// These indexes are relative to `itemPresentingCollection(from:)`.
-    let changedIndexes = BehaviorSubject(value: IndexSet())
+    var changedIndexes: Observable<IndexSet> { return state.map { $0.changedIndexes } }
     /// The item representation.
     ///
     /// The returned item tree is annotated with optimizations for `Renderer.render()`.
     public var item: Observable<Item> {
-        return changedIndexes.map { [unowned self] changedIndexes in
-            let item = self.generate()
+        return changedIndexes.withLatestFrom(collection) { ($0, $1) }.map { [unowned self] in
+            let changedIndexes = $0.0
+            let collection = $0.1
+            let item = self.generate(with: collection)
             let collectionItem = self.itemPresentingCollection(from: item)
 
             item.identifier = String(describing: self)
@@ -70,7 +78,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     }
 
     public func clear() {
-        changedIndexes.onNext(IndexSet())
+        // FIXME: changedIndexes.onNext(IndexSet())
     }
     
     // MARK: - Visibility
@@ -83,7 +91,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     // MARK: - Selection
 
     /// The selection as indexes relative to `content`.
-    public let selectionIndexes = BehaviorSubject(value: IndexSet())
+    public var selectionIndexes: Observable<IndexSet> { return state.map { $0.selectionIndexes } }
 	open var selectionAdjustmentOnRemoval: SelectionAdjustment = .previous
 	
 	// MARK: - Initialization
@@ -92,14 +100,30 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 	///
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
 	public init(_ collection: Observable<[T]>, objectGraph: ObjectGraph? = nil) {
+        let initialState = State(collection: [], changedIndexes: IndexSet(), selectionIndexes: IndexSet())
+        let state = collection.map {
+            State(collection: $0, changedIndexes: IndexSet($0.indices), selectionIndexes: IndexSet())
+        }
+        let sourceUpdate = state.map { newState -> Operation<State>  in
+            return { oldState in
+                // TODO: Constraint selection indexes to collection size
+                return State(collection: newState.collection,
+                             changedIndexes: newState.changedIndexes,
+                             selectionIndexes: oldState.selectionIndexes)
+            }
+        }
+
 		self.objectGraph = objectGraph ?? ObjectGraph()
+        self.state = Observable<Operation<State>>.merge(operation, sourceUpdate).scan(initialState) { oldState, operation in
+            let newState = operation(oldState)
+            let adjustedChangedIndexes =
+                newState.changedIndexes.updatedSubset(from: oldState.selectionIndexes,
+                                                      to: newState.selectionIndexes)
 
-        collection.bind(to: self.collection).disposed(by: bag)
-        collection.map { IndexSet($0.indices) }.bind(to: changedIndexes).disposed(by: bag)
-
-        selectionIndexes.change(startingWith: IndexSet()).subscribe(onNext: { [unowned self] (oldIndexes, newIndexes) in
-            self.changedIndexes.update { $0.updatedSubset(from: oldIndexes, to: newIndexes) }
-        }).disposed(by: bag)
+            return State(collection: newState.collection,
+                         changedIndexes: adjustedChangedIndexes,
+                         selectionIndexes: newState.selectionIndexes)
+        }
 	}
 	
 	// MARK: - Mutating Collection
@@ -109,26 +133,43 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 	}
 
     open func add() {
-        collection.update { $0.appending(createElement()) }
-		let index = Int(collection^.count) - 1
-        changedIndexes.update { $0.inserting(index) }
-        selectionIndexes.update { _ in IndexSet(integer: index) }
+        operation.onNext { [unowned self] in
+            let index = Int($0.collection.count) - 1
+
+            return State(collection: $0.collection.appending(self.createElement()),
+                         changedIndexes: $0.changedIndexes.inserting(index),
+                         selectionIndexes: IndexSet(integer: index))
+        }
     }
 
     open func remove(at index: Int) {
-        collection.update { $0.removing(at: index) }
-        changedIndexes.update { $0.shifted(startingAt: index, by: -1) }
-        selectionIndexes.update { $0.shifted(startingAt: index, by: -1, isEmpty: collection^.isEmpty) }
+        operation.onNext { [unowned self] in
+            return self.remove(at: index, in: $0)
+        }
+    }
+
+    private func remove(at index: Int, in state: State) -> State {
+        let index = Int(state.collection.count) - 1
+        let empty = state.collection.isEmpty
+
+        return State(collection: state.collection.removing(at: index),
+                     changedIndexes: state.changedIndexes.shifted(startingAt: index, by: -1),
+                     selectionIndexes: state.selectionIndexes.shifted(startingAt: index, by: -1, isEmpty: empty))
     }
 	
 	open func remove() {
-		if selectionIndexes^.isEmpty {
-			print("Missing selection for remove action in /(self)")
-		}
-		// FIXME: IndexSet(selectionIndexes).reversed() crashes, see testEnumerateReverseEmptiedSelection()
-		for index in Array(selectionIndexes^).reversed() {
-			remove(at: index)
-		}
+        operation.onNext { [unowned self] in
+            if $0.selectionIndexes.isEmpty {
+                print("Missing selection for remove action in /(self)")
+            }
+
+            var state = $0
+            // FIXME: IndexSet(selectionIndexes).reversed() crashes, see testEnumerateReverseEmptiedSelection()
+            for index in Array($0.selectionIndexes).reversed() {
+                state = self.remove(at: index, in: state)
+            }
+            return state
+        }
 	}
 	
 	// MARK: - Handling Changes and Visibility
@@ -151,13 +192,6 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     ///
     /// Can be ignored when you don't intent to persist or copy the generated item tree.
     public var objectGraph: ObjectGraph
-
-    /// Returns a custom tree.
-    ///
-    /// You must never call this method directly.
-    public func generate() -> Item {
-        return generate(with: collection^)
-    }
 	
 	/// Must be overriden to return a custom item tree.
 	///

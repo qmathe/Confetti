@@ -14,7 +14,6 @@ open class Viewpoint<T: Placeholder>: Presentation {
     // MARK: - Types
 
     public typealias State = T
-    public typealias Operation = (State) -> (State)
 
     // MARK: - Rx
 
@@ -24,7 +23,7 @@ open class Viewpoint<T: Placeholder>: Presentation {
 
     // The presented value.
     public let value: Observable<T>
-    public let operation = PublishSubject<Operation>()
+    public let operation = PublishSubject<Operation<T>>()
 
     // MARK: - Presentation
 
@@ -74,17 +73,4 @@ open class Viewpoint<T: Placeholder>: Presentation {
     open func generate(with value: T) -> Item {
 		fatalError("Must be overriden")
 	}
-}
-
-public extension Observable where Element: Placeholder {
-
-    public func mapToOperation() -> Observable<Viewpoint<Element>.Operation> {
-        return map { (value: Element) -> Viewpoint<Element>.Operation  in
-            return { _ in value }
-        }
-    }
-
-    public func update(using operation: Observable<Viewpoint<Element>.Operation>) -> Observable<Element> {
-        return Observable<Viewpoint<Element>.Operation>.merge(operation, mapToOperation()).scan(Element.placeholder) { $1($0) }
-    }
 }

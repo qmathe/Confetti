@@ -11,7 +11,7 @@ public extension Observable where Element == IndexSet {
     
     /// Returns elements matching selection indexes in collection presented by the given viewpoint.
     public func mapToElements<T>(in viewpoint: CollectionViewpoint<T>) -> Observable<[T]> {
-        return Observable<[T]>.combineLatest(self, viewpoint.content) { indexes, collection in
+        return Observable<[T]>.combineLatest(self, viewpoint.collection) { indexes, collection in
             return collection[indexes]
         }
     }
