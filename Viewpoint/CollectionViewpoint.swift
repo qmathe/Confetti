@@ -25,6 +25,38 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
         public let collection: [T]
         public let changedIndexes: IndexSet
         public let selectionIndexes: IndexSet
+
+        // MARK: - Mutating State
+
+        fileprivate func adding(_ element: T) -> State {
+            let index = Int(collection.count) - 1
+
+            return State(collection: collection.appending(element),
+                         changedIndexes: changedIndexes.inserting(index),
+                         selectionIndexes: IndexSet(integer: index))
+        }
+
+        fileprivate func removing(at index: Int) -> State {
+            let index = Int(collection.count) - 1
+            let empty = collection.isEmpty
+
+            return State(collection: collection.removing(at: index),
+                         changedIndexes: changedIndexes.shifted(startingAt: index, by: -1),
+                         selectionIndexes: selectionIndexes.shifted(startingAt: index, by: -1, isEmpty: empty))
+        }
+
+        fileprivate func removing(context: Any) -> State {
+            if selectionIndexes.isEmpty {
+                print("Missing selection for remove action in /(context)")
+            }
+
+            var state = self
+            // FIXME: IndexSet(selectionIndexes).reversed() crashes, see testEnumerateReverseEmptiedSelection()
+            for index in Array(selectionIndexes).reversed() {
+                state = state.removing(at: index)
+            }
+            return state
+        }
     }
 
 	public enum SelectionAdjustment {
@@ -134,41 +166,17 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 
     open func add() {
         operation.onNext { [unowned self] in
-            let index = Int($0.collection.count) - 1
-
-            return State(collection: $0.collection.appending(self.createElement()),
-                         changedIndexes: $0.changedIndexes.inserting(index),
-                         selectionIndexes: IndexSet(integer: index))
+            $0.adding(self.createElement())
         }
     }
 
     open func remove(at index: Int) {
-        operation.onNext { [unowned self] in
-            return self.remove(at: index, in: $0)
-        }
-    }
-
-    private func remove(at index: Int, in state: State) -> State {
-        let index = Int(state.collection.count) - 1
-        let empty = state.collection.isEmpty
-
-        return State(collection: state.collection.removing(at: index),
-                     changedIndexes: state.changedIndexes.shifted(startingAt: index, by: -1),
-                     selectionIndexes: state.selectionIndexes.shifted(startingAt: index, by: -1, isEmpty: empty))
+        operation.onNext { $0.removing(at: index) }
     }
 	
 	open func remove() {
         operation.onNext { [unowned self] in
-            if $0.selectionIndexes.isEmpty {
-                print("Missing selection for remove action in /(self)")
-            }
-
-            var state = $0
-            // FIXME: IndexSet(selectionIndexes).reversed() crashes, see testEnumerateReverseEmptiedSelection()
-            for index in Array($0.selectionIndexes).reversed() {
-                state = self.remove(at: index, in: state)
-            }
-            return state
+            $0.removing(context: self)
         }
 	}
 	
