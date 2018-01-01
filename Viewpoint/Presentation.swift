@@ -11,7 +11,8 @@ import RxSwift
 public protocol Presentation: class {
 	var presentations: [Presentation] { get }
 	var changed: Observable<Void> { get }
-	var item: Observable<Item> { get }
+	var observableItem: Observable<Item> { get }
+    var item: Item { get }
 
     func clear()
 }

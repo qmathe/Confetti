@@ -9,7 +9,7 @@ import Foundation
 import Confetti
 import Tapestry
 
-class TodoEditor: Viewpoint<Todo?>, UI {
+class TodoEditor: Viewpoint<State<Todo?>>, UI {
 
     override func generate(with value: Todo?) -> Item {
         return label(extent: Extent(width: 600, height: 800), text: value?.text ?? "")

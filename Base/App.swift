@@ -16,7 +16,7 @@ class App {
     let update = PublishSubject<Void>()
 	
 	init(presentation: Presentation, renderer: Renderer) {
-        let item = presentation.item.map { ($0, Date()) }
+        let item = presentation.observableItem.map { ($0, Date()) }
 
 		self.presentation = presentation
 		self.renderer = renderer

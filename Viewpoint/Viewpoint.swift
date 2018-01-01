@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import Tapestry
 
 public protocol CreatableState {
     associatedtype T
@@ -59,12 +60,15 @@ open class Viewpoint<State: CreatableState>: Presentation {
 	open var presentations: [Presentation] { return [] }
 	/// Whether the item representation or presented value have changed since the last UI update.
     public var changed: Observable<Void> {
-        return self.state.map { _ in Void() }
+        let presentationsChanged = presentations.map { $0.changed }
+        let stateChanged = self.state.map { _ in Void() }
+
+        return .combineLatest([stateChanged] + presentationsChanged) { _ in Void() }
     }
 	/// The item representation.
 	///
 	/// The returned item tree is annotated with optimizations for `Renderer.render()`.
-	public var item: Observable<Item> {
+	public var observableItem: Observable<Item> {
         return changed.withLatestFrom(value).map { [unowned self] value in
             let item = self.generate(with: value)
             item.identifier = String(describing: self)
@@ -72,6 +76,8 @@ open class Viewpoint<State: CreatableState>: Presentation {
             return item
         }
 	}
+    /// The latest item representation.
+    public private(set) var item: Item = Item(frame: Rect.zero, objectGraph: ObjectGraph())
 
     public func clear() { }
 
@@ -85,6 +91,10 @@ open class Viewpoint<State: CreatableState>: Presentation {
         self.state = value.update(using: operation)
         // Dummy subscription to cache the latest state, when emitting operations without any subscribers
         self.state.subscribe().disposed(by: bag)
+        // Cache latest emitted item to access it imperatively in generate(with:)
+        self.observableItem.subscribe(onNext: { [unowned self] item in
+            self.item = item
+        }).disposed(by: bag)
 	}
 
 	// MARK: - Generating Item Representation

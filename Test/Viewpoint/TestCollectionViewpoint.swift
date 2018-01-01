@@ -18,7 +18,7 @@ class TestCollectionViewpoint: XCTestCase {
 	// MARK: - Generation
 
 	func testGenerate() {
-		XCTAssertEqual(3, viewpoint.item^.items?.count)
+		XCTAssertEqual(3, viewpoint.item.items?.count)
         XCTAssertTrue(viewpoint.selectionIndexes^.isEmpty)
 		XCTAssertTrue(viewpoint.changed^)
 		XCTAssertEqual(IndexSet(0...2), viewpoint.changedIndexes^)
@@ -29,7 +29,7 @@ class TestCollectionViewpoint: XCTestCase {
 	func testAdd() {
 		viewpoint.add()
 		
-		XCTAssertEqual(4, viewpoint.item^.items?.count)
+		XCTAssertEqual(4, viewpoint.item.items?.count)
 		XCTAssertEqual(IndexSet(integer: 3), viewpoint.selectionIndexes^)
 		XCTAssertTrue(viewpoint.changed^)
 		XCTAssertEqual(IndexSet(0...3), viewpoint.changedIndexes^)
@@ -41,7 +41,7 @@ class TestCollectionViewpoint: XCTestCase {
 		assert(viewpoint.selectionIndexes^.isEmpty)
 		viewpoint.remove()
 	
-		XCTAssertEqual(3, viewpoint.item^.items?.count)
+		XCTAssertEqual(3, viewpoint.item.items?.count)
         XCTAssertTrue(viewpoint.selectionIndexes^.isEmpty)
 		XCTAssertTrue(viewpoint.changed^)
 		XCTAssertEqual(IndexSet(0...2), viewpoint.changedIndexes^)
@@ -51,7 +51,7 @@ class TestCollectionViewpoint: XCTestCase {
 		viewpoint.select(IndexSet(1...2))
 		viewpoint.remove()
 
-		XCTAssertEqual(1, viewpoint.item^.items?.count)
+		XCTAssertEqual(1, viewpoint.item.items?.count)
 		XCTAssertEqual(IndexSet(integer: 0), viewpoint.selectionIndexes^)
 		XCTAssertTrue(viewpoint.changed^)
 		XCTAssertEqual(IndexSet(integer: 0), viewpoint.changedIndexes^)
@@ -61,7 +61,7 @@ class TestCollectionViewpoint: XCTestCase {
         viewpoint.select(IndexSet(integer: 1))
 		viewpoint.remove()
 	
-		XCTAssertEqual(2, viewpoint.item^.items?.count)
+		XCTAssertEqual(2, viewpoint.item.items?.count)
 		XCTAssertEqual(IndexSet(integer: 0), viewpoint.selectionIndexes^)
 		XCTAssertTrue(viewpoint.changed^)
 		XCTAssertEqual(IndexSet([0, 1]), viewpoint.changedIndexes^)
@@ -111,7 +111,7 @@ class TestCollectionViewpoint: XCTestCase {
 		viewpoint.add()
 		viewpoint.add()
 
-		XCTAssertEqual(5, viewpoint.item^.items?.count)
+		XCTAssertEqual(5, viewpoint.item.items?.count)
 		XCTAssertEqual(IndexSet(integer: 4), viewpoint.selectionIndexes^)
 		XCTAssertTrue(viewpoint.changed^)
 		XCTAssertEqual(IndexSet(0...4), viewpoint.changedIndexes^)
@@ -119,7 +119,7 @@ class TestCollectionViewpoint: XCTestCase {
 		viewpoint.remove()
 		viewpoint.remove()
 
-		XCTAssertEqual(3, viewpoint.item^.items?.count)
+		XCTAssertEqual(3, viewpoint.item.items?.count)
 		XCTAssertEqual(IndexSet(integer: 2), viewpoint.selectionIndexes^)
 		XCTAssertTrue(viewpoint.changed^)
 		XCTAssertEqual(IndexSet(0...2), viewpoint.changedIndexes^)

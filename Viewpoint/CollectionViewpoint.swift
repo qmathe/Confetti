@@ -94,7 +94,7 @@ open class CollectionViewpoint<State: CreatableCollectionState>: Viewpoint<State
     /// The item representation.
     ///
     /// The returned item tree is annotated with optimizations for `Renderer.render()`.
-    public override var item: Observable<Item> {
+    public override var observableItem: Observable<Item> {
         return changedIndexes.withLatestFrom(collection) { ($0, $1) }.map { [unowned self] in
             let changedIndexes = $0.0
             let collection = $0.1
@@ -125,6 +125,11 @@ open class CollectionViewpoint<State: CreatableCollectionState>: Viewpoint<State
     // MARK: - Selection
 
     /// The selection as indexes relative to `content`.
+    ///
+    /// Can emit the same indexes twice in case the presented collection is reloaded. This makes
+    /// possible to refresh other presentations depending on the current selection with
+    /// `Observable<IndexSet>.mapToElements(in:)`, when the underlying collection is updated
+    /// externally while the selection remains unchanged.
     public var selectionIndexes: Observable<IndexSet> { return state.map { $0.selectionIndexes } }
 	open var selectionAdjustmentOnRemoval: SelectionAdjustment = .previous
 	

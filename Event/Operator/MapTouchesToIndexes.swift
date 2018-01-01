@@ -18,8 +18,12 @@ public extension Observable where Element == [Touch] {
     /// menu.
     ///
     /// By default, touches other than the first one are ignored.
-    public func mapToIndexes(in item: Item, combinedWith oldIndexes: IndexSet) -> Observable<IndexSet> {
-        return self.flatMap { (touches: [Touch]) -> Observable<IndexSet> in
+    public func mapToIndexes(in item: Item, combinedWith oldIndexes: Observable<IndexSet>) -> Observable<IndexSet> {
+
+        return withLatestFrom(oldIndexes) { ($0, $1) }.flatMap { (pair: ([Touch], IndexSet)) -> Observable<IndexSet> in
+            let touches = pair.0
+            let oldIndexes = pair.1
+
             guard let (newIndexes, modifiers) = self.select(with: touches, in: item) else {
                 return .empty()
             }
@@ -30,6 +34,10 @@ public extension Observable where Element == [Touch] {
                 return .just(newIndexes)
             }
         }
+    }
+
+    public func mapToIndexes(in item: Item, combinedWithSelectionFrom state: SelectionState) -> Observable<IndexSet> {
+        return mapToIndexes(in: item, combinedWith: state.selectionIndexes)
     }
 
     private func select(with touches: [Touch], in item: Item) -> (IndexSet, Modifiers)? {

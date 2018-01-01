@@ -10,7 +10,7 @@ import RxSwift
 import Confetti
 import Tapestry
 
-class TodoList: CollectionViewpoint<Todo>, UI {
+class TodoList: CollectionViewpoint<CollectionState<Todo>>, UI {
 	
 	override func itemPresentingCollection(from item: Item) -> Item {
 		return (item.items ?? [])[0]
@@ -21,8 +21,7 @@ class TodoList: CollectionViewpoint<Todo>, UI {
 			column(items:
                 collection.map { self.label(extent: Extent(width: 400, height: 50), text: $0.text) },
                    touches: { touches, column in
-                    // NOTE: touches.mapToIndexes(in: column, combinedWithSelectionFrom: self).bind(to: self.selectionIndexes)
-                    touches.mapToIndexes(in: column, combinedWith: self.selectionIndexes^).bind(to: self.selectionIndexes).disposed(by: bag)
+                    touches.mapToIndexes(in: column, combinedWithSelectionFrom: self).bind(to: select).disposed(by: bag)
                 }
 			),
 			row(items:

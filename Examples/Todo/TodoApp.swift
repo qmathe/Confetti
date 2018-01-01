@@ -10,7 +10,7 @@ import RxSwift
 import Confetti
 import Tapestry
 
-class TodoApp: Viewpoint<[Todo]>, UI {
+class TodoApp: Viewpoint<State<[Todo]>>, UI {
 
 	let todoList: TodoList
 	let todoEditor: TodoEditor
