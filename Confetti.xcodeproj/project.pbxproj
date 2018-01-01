@@ -81,6 +81,8 @@
 		6059F8BA1FCB8854001CE66D /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6059F8B91FCB8854001CE66D /* RxSwift.framework */; };
 		6065F4AA1D56A9A60063187A /* AppKitRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6065F4A91D56A9A60063187A /* AppKitRenderer.swift */; };
 		6065F4AC1D56B4260063187A /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6065F4AB1D56B4260063187A /* Renderer.swift */; };
+		6080E1201FFAADC8006343EB /* CollectionViewpointOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6080E11B1FFAADC7006343EB /* CollectionViewpointOperations.swift */; };
+		6080E1211FFAADC8006343EB /* CollectionViewpointOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6080E11B1FFAADC7006343EB /* CollectionViewpointOperations.swift */; };
 		60811A8A1D709E2300D4DEEA /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60811A861D709E2300D4DEEA /* ButtonStyle.swift */; };
 		60811A8B1D709E2300D4DEEA /* LabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60811A871D709E2300D4DEEA /* LabelStyle.swift */; };
 		60811A8C1D709E2300D4DEEA /* SliderStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60811A881D709E2300D4DEEA /* SliderStyle.swift */; };
@@ -289,6 +291,7 @@
 		6059F8B91FCB8854001CE66D /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		6065F4A91D56A9A60063187A /* AppKitRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppKitRenderer.swift; path = Renderer/AppKitRenderer.swift; sourceTree = SOURCE_ROOT; };
 		6065F4AB1D56B4260063187A /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Renderer.swift; path = Renderer/Renderer.swift; sourceTree = SOURCE_ROOT; };
+		6080E11B1FFAADC7006343EB /* CollectionViewpointOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewpointOperations.swift; path = Viewpoint/CollectionViewpointOperations.swift; sourceTree = "<group>"; };
 		60811A861D709E2300D4DEEA /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonStyle.swift; path = Style/ButtonStyle.swift; sourceTree = "<group>"; };
 		60811A871D709E2300D4DEEA /* LabelStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LabelStyle.swift; path = Style/LabelStyle.swift; sourceTree = "<group>"; };
 		60811A881D709E2300D4DEEA /* SliderStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SliderStyle.swift; path = Style/SliderStyle.swift; sourceTree = "<group>"; };
@@ -756,6 +759,7 @@
 				60ADEE511FF83A80008E9CF4 /* Operation.swift */,
 				60B8EE651EDE1E240060B5F2 /* Viewpoint.swift */,
 				60BD0DAA1F0E5EF0006836D0 /* CollectionViewpoint.swift */,
+				6080E11B1FFAADC7006343EB /* CollectionViewpointOperations.swift */,
 			);
 			name = Viewpoint;
 			sourceTree = "<group>";
@@ -1397,6 +1401,7 @@
 				60811A8A1D709E2300D4DEEA /* ButtonStyle.swift in Sources */,
 				60811A9C1D70A09A00D4DEEA /* ButtonState.swift in Sources */,
 				60811A9E1D70A09A00D4DEEA /* LabelState.swift in Sources */,
+				6080E1201FFAADC8006343EB /* CollectionViewpointOperations.swift in Sources */,
 				60811A8D1D709E2300D4DEEA /* SwitchStyle.swift in Sources */,
 				60BD0DAB1F0E5EF0006836D0 /* CollectionViewpoint.swift in Sources */,
 				6065F4AC1D56B4260063187A /* Renderer.swift in Sources */,
@@ -1480,6 +1485,7 @@
 				604B74CB1FB469FD002462CD /* Material.swift in Sources */,
 				604B74CC1FB46A06002462CD /* Renderer.swift in Sources */,
 				604B74CD1FB46A1E002462CD /* Dictionary.swift in Sources */,
+				6080E1211FFAADC8006343EB /* CollectionViewpointOperations.swift in Sources */,
 				6059F8961FC7108F001CE66D /* Select.swift in Sources */,
 				609364561FE4192A009A946E /* Update.swift in Sources */,
 			);
