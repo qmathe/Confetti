@@ -25,6 +25,14 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
         public let collection: [T]
         public let changedIndexes: IndexSet
         public let selectionIndexes: IndexSet
+
+        static var initial: State {
+            return State(collection: [], changedIndexes: IndexSet(), selectionIndexes: IndexSet())
+        }
+
+        static func from(_ collection: [T]) -> State {
+            return State(collection: collection, changedIndexes: IndexSet(collection.indices), selectionIndexes: IndexSet())
+        }
     }
 
 	public enum SelectionAdjustment {
@@ -100,10 +108,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 	///
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
 	public init(_ collection: Observable<[T]>, objectGraph: ObjectGraph? = nil) {
-        let initialState = State(collection: [], changedIndexes: IndexSet(), selectionIndexes: IndexSet())
-        let state = collection.map {
-            State(collection: $0, changedIndexes: IndexSet($0.indices), selectionIndexes: IndexSet())
-        }
+        let state = collection.map { State.from($0) }
         let sourceUpdate = state.map { newState -> Operation<State>  in
             return { oldState in
                 // TODO: Constraint selection indexes to collection size
@@ -114,7 +119,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
         }
 
 		self.objectGraph = objectGraph ?? ObjectGraph()
-        self.state = Observable<Operation<State>>.merge(operation, sourceUpdate).scan(initialState) { oldState, operation in
+        self.state = Observable<Operation<State>>.merge(operation, sourceUpdate).scan(State.initial) { oldState, operation in
                 let newState = operation(oldState)
                 print("New state \(newState)")
                 return newState
