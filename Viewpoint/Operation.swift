@@ -15,22 +15,24 @@ public typealias Operation<State> = (State) -> (State)
 
 // MARK: - Rx Operators
 
-public extension ObservableType {
+public extension ObservableType  {
 
-    public func mapToOperation() -> Observable<Operation<E>> {
-        return map { (value: E) -> Operation<E>  in
-            return { _ in value }
+    public func mapToOperation<S: CreatableState>() -> Observable<Operation<S>> where E == S.T  {
+        return map { (value: E) -> Operation<S>  in
+            return { _ in S(value) }
         }
     }
 
-    public func update(startingWith initialValue: E, using operation: Observable<Operation<E>>) -> Observable<E> {
-        return Observable<Operation<E>>.merge(operation, mapToOperation()).scan(initialValue) { $1($0) }
+    public func update<S: CreatableState>(startingWith initialValue: S, using operation: Observable<Operation<S>>) -> Observable<S> where E == S.T {
+        return Observable
+            .merge(operation, mapToOperation())
+            .scan(initialValue) { (oldState: S, operation: Operation<S>) -> S in
+                return operation(oldState)
+            }
+    }
+
+    public func update<S: CreatableState>(using operation: Observable<Operation<S>>) -> Observable<S> where E == S.T {
+        return update(startingWith: S(), using: operation)
     }
 }
 
-public extension Observable where Element: Placeholder {
-
-    public func update(using operation: Observable<Operation<Element>>) -> Observable<Element> {
-        return update(startingWith: Element.placeholder, using: operation)
-    }
-}

@@ -9,11 +9,33 @@
 import Foundation
 import RxSwift
 
-open class Viewpoint<T: Placeholder>: Presentation {
+public protocol CreatableState {
+    associatedtype T
+    init()
+    init(_ value: T)
+    var value: T { get }
+}
+
+public struct State<T: Placeholder>: CreatableState {
+
+    public let value: T
+
+    // MARK: - Initialization
+
+    public init() {
+        self.value = T.placeholder
+    }
+
+    public init(_ value: T) {
+        self.value = value
+    }
+}
+
+open class Viewpoint<State: CreatableState>: Presentation {
 
     // MARK: - Types
 
-    public typealias State = T
+    public typealias T = State.T
 
     // MARK: - Rx
 
@@ -22,8 +44,9 @@ open class Viewpoint<T: Placeholder>: Presentation {
     // MARK: - Content
 
     // The presented value.
-    public let value: Observable<T>
-    public let operation = PublishSubject<Operation<T>>()
+    public var value: Observable<T> { return state.map { $0.value } }
+    public let operation = PublishSubject<Operation<State>>()
+    private let state: Observable<State>
 
     // MARK: - Presentation
 
@@ -31,7 +54,7 @@ open class Viewpoint<T: Placeholder>: Presentation {
 	open var presentations: [Presentation] { return [] }
 	/// Whether the item representation or presented value have changed since the last UI update.
     public var changed: Observable<Void> {
-        return self.value.map { _ in Void() }
+        return self.state.map { _ in Void() }
     }
 	/// The item representation.
 	///
@@ -54,7 +77,9 @@ open class Viewpoint<T: Placeholder>: Presentation {
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
     public init(_ value: Observable<T>, objectGraph: ObjectGraph? = nil) {
 		self.objectGraph = objectGraph ?? ObjectGraph()
-        self.value = value.update(using: operation)
+        self.state = value.update(using: operation)
+        // Dummy subscription to cache the latest state, when emitting operations without any subscribers
+        self.state.subscribe().disposed(by: bag)
 	}
 
 	// MARK: - Generating Item Representation
