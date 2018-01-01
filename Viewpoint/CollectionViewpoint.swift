@@ -60,7 +60,7 @@ public struct CollectionState<E: CreatableElement>: CreatableCollectionState {
     }
 }
 
-open class CollectionViewpoint<State: CreatableCollectionState>: Presentation, SelectionState {
+open class CollectionViewpoint<State: CreatableCollectionState>: Viewpoint<State>, SelectionState {
 
     // MARK: - Types
 
@@ -72,23 +72,16 @@ open class CollectionViewpoint<State: CreatableCollectionState>: Presentation, S
 		case previous
 	}
     
-    // MARK: - Rx
-
-    public let bag = DisposeBag()
-    
     // MARK: - Content
 
     /// The presented collection.
-    public var collection: Observable<T> { return state.map { $0.value } }
-    public let operation = PublishSubject<Operation<State>>()
-    private let state: Observable<State>
+    public var collection: Observable<T> { return value }
     
     // MARK: - Presentation
 
     /// The presentation tree.
-	open var presentations: [Presentation] { return [] }
     /// Whether the item representation or presented collection have changed since the last UI update.
-    public var changed: Observable<Void> {
+    public override var changed: Observable<Void> {
         return changedIndexes.map { _ in Void () }
     }
 	/// The indexes corresponding to inserted and updated items since the last UI update.
@@ -101,7 +94,7 @@ open class CollectionViewpoint<State: CreatableCollectionState>: Presentation, S
     /// The item representation.
     ///
     /// The returned item tree is annotated with optimizations for `Renderer.render()`.
-    public var item: Observable<Item> {
+    public override var item: Observable<Item> {
         return changedIndexes.withLatestFrom(collection) { ($0, $1) }.map { [unowned self] in
             let changedIndexes = $0.0
             let collection = $0.1
@@ -117,7 +110,8 @@ open class CollectionViewpoint<State: CreatableCollectionState>: Presentation, S
         }
     }
 
-    public func clear() {
+    public override func clear() {
+        super.clear()
         // FIXME: changedIndexes.onNext(IndexSet())
     }
     
@@ -134,18 +128,6 @@ open class CollectionViewpoint<State: CreatableCollectionState>: Presentation, S
     public var selectionIndexes: Observable<IndexSet> { return state.map { $0.selectionIndexes } }
 	open var selectionAdjustmentOnRemoval: SelectionAdjustment = .previous
 	
-	// MARK: - Initialization
-
-	/// Initializes a new viewpoint to present the given collection.
-	///
-	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
-	public init(_ collection: Observable<T>, objectGraph: ObjectGraph? = nil) {
-		self.objectGraph = objectGraph ?? ObjectGraph()
-        self.state = collection.update(using: operation)
-        // Dummy subscription to cache the latest state, when emitting operations without any subscribers
-        self.state.subscribe().disposed(by: bag)
-	}
-	
 	// MARK: - Handling Changes and Visibility
 	
 	/// Returns the item presenting the viewpoint model.
@@ -158,21 +140,5 @@ open class CollectionViewpoint<State: CreatableCollectionState>: Presentation, S
 	/// Can be overriden but it is rarely needed.
 	open func itemPresentingCollection(from item: Item) -> Item {
 		return item
-	}
-	
-	// MARK: - Generating Item Representation
-    
-    /// The object graph used to generate the item representation.
-    ///
-    /// Can be ignored when you don't intent to persist or copy the generated item tree.
-    public var objectGraph: ObjectGraph
-	
-	/// Must be overriden to return a custom item tree.
-	///
-	/// By default, causes a fatal error.
-	///
-	/// You must never call this method directly.
-    open func generate(with collection: T) -> Item {
-		fatalError("Must be overriden")
 	}
 }

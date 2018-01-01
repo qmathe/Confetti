@@ -51,7 +51,7 @@ open class Viewpoint<State: CreatableState>: Presentation {
     // The presented value.
     public var value: Observable<T> { return state.map { $0.value } }
     public let operation = PublishSubject<Operation<State>>()
-    private let state: Observable<State>
+    let state: Observable<State>
 
     // MARK: - Presentation
 
