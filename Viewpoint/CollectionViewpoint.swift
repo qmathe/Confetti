@@ -29,7 +29,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
         // MARK: - Mutating State
 
         fileprivate func adding(_ element: T) -> State {
-            let index = Int(collection.count) - 1
+            let index = Int(collection.count)
 
             return State(collection: collection.appending(element),
                          changedIndexes: changedIndexes.inserting(index),
@@ -37,10 +37,10 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
         }
 
         fileprivate func removing(at index: Int) -> State {
-            let index = Int(collection.count) - 1
-            let empty = collection.isEmpty
+            let newCollection = collection.removing(at: index)
+            let empty = newCollection.isEmpty
 
-            return State(collection: collection.removing(at: index),
+            return State(collection: newCollection,
                          changedIndexes: changedIndexes.shifted(startingAt: index, by: -1),
                          selectionIndexes: selectionIndexes.shifted(startingAt: index, by: -1, isEmpty: empty))
         }
@@ -56,6 +56,14 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
                 state = state.removing(at: index)
             }
             return state
+        }
+
+        fileprivate func selecting(_ indexes: IndexSet) -> State {
+            let adjustedChangedIndexes = changedIndexes.updatedSubset(from: selectionIndexes,
+                                                                      to: indexes)
+            return State(collection: collection,
+                         changedIndexes: adjustedChangedIndexes,
+                         selectionIndexes: indexes)
         }
     }
 
@@ -147,15 +155,13 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 
 		self.objectGraph = objectGraph ?? ObjectGraph()
         self.state = Observable<Operation<State>>.merge(operation, sourceUpdate).scan(initialState) { oldState, operation in
-            let newState = operation(oldState)
-            let adjustedChangedIndexes =
-                newState.changedIndexes.updatedSubset(from: oldState.selectionIndexes,
-                                                      to: newState.selectionIndexes)
-
-            return State(collection: newState.collection,
-                         changedIndexes: adjustedChangedIndexes,
-                         selectionIndexes: newState.selectionIndexes)
-        }
+                let newState = operation(oldState)
+                print("New state \(newState)")
+                return newState
+            }
+            .share(replay: 1, scope: .forever)
+        // Dummy subscription to cache the latest state, when emitting operations without any subscribers
+        self.state.subscribe().disposed(by: bag)
 	}
 	
 	// MARK: - Mutating Collection
@@ -179,6 +185,10 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
             $0.removing(context: self)
         }
 	}
+
+    open func select(_ indexes: IndexSet) {
+        operation.onNext { $0.selecting(indexes) }
+    }
 	
 	// MARK: - Handling Changes and Visibility
 	

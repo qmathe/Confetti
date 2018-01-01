@@ -48,7 +48,7 @@ class TestCollectionViewpoint: XCTestCase {
 	}
 
 	func testRemoveForMultipleSelection() {
-		viewpoint.selectionIndexes =^ IndexSet(1...2)
+		viewpoint.select(IndexSet(1...2))
 		viewpoint.remove()
 
 		XCTAssertEqual(1, viewpoint.item^.items?.count)
@@ -58,7 +58,7 @@ class TestCollectionViewpoint: XCTestCase {
 	}
 	
 	func testRemoveForSingleSelection() {
-        viewpoint.selectionIndexes =^ IndexSet(integer: 1)
+        viewpoint.select(IndexSet(integer: 1))
 		viewpoint.remove()
 	
 		XCTAssertEqual(2, viewpoint.item^.items?.count)
@@ -68,7 +68,7 @@ class TestCollectionViewpoint: XCTestCase {
 	}
 
 	func testRemoveFirstForSingleSelection() {
-		viewpoint.selectionIndexes =^ IndexSet(integer: 0)
+		viewpoint.select(IndexSet(integer: 0))
 		viewpoint.remove()
 
 		XCTAssertEqual(IndexSet(integer: 0), viewpoint.selectionIndexes^)
@@ -77,7 +77,7 @@ class TestCollectionViewpoint: XCTestCase {
 	}
 
 	func testRemoveLastForSingleSelection() {
-		viewpoint.selectionIndexes =^ IndexSet(integer: 2)
+		viewpoint.select(IndexSet(integer: 2))
 		viewpoint.remove()
 
 		XCTAssertEqual(IndexSet(integer: 1), viewpoint.selectionIndexes^)
@@ -86,7 +86,7 @@ class TestCollectionViewpoint: XCTestCase {
 	}
 
 	func testRemoveAtForSingleSelection() {
-		viewpoint.selectionIndexes =^ IndexSet(1...2)
+		viewpoint.select(IndexSet(1...2))
 		viewpoint.remove(at: 0)
 
 		XCTAssertEqual(IndexSet(0...1), viewpoint.selectionIndexes^)
@@ -95,7 +95,7 @@ class TestCollectionViewpoint: XCTestCase {
 	}
     
     func testRemoveAllForSingleSelection() {
-        viewpoint.selectionIndexes =^ IndexSet(integer: 2)
+        viewpoint.select(IndexSet(integer: 2))
         viewpoint.remove()
         viewpoint.remove()
         viewpoint.remove()
