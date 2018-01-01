@@ -19,7 +19,9 @@ public extension ObservableType  {
 
     public func mapToOperation<S: CreatableState>() -> Observable<Operation<S>> where E == S.T  {
         return map { (value: E) -> Operation<S>  in
-            return { _ in S(value) }
+            return { oldState in
+                return oldState.replacing(with: value)
+            }
         }
     }
 
@@ -29,6 +31,7 @@ public extension ObservableType  {
             .scan(initialValue) { (oldState: S, operation: Operation<S>) -> S in
                 return operation(oldState)
             }
+            .share(replay: 1, scope: .forever)
     }
 
     public func update<S: CreatableState>(using operation: Observable<Operation<S>>) -> Observable<S> where E == S.T {

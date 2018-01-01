@@ -140,19 +140,8 @@ open class CollectionViewpoint<State: CreatableCollectionState>: Presentation, S
 	///
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
 	public init(_ collection: Observable<T>, objectGraph: ObjectGraph? = nil) {
-        let sourceUpdate = collection.map { collection -> Operation<State>  in
-            return { oldState in
-                return oldState.replacing(with: collection)
-            }
-        }
-
 		self.objectGraph = objectGraph ?? ObjectGraph()
-        self.state = Observable<Operation<State>>.merge(operation, sourceUpdate).scan(State()) { oldState, operation in
-                let newState = operation(oldState)
-                print("New state \(newState)")
-                return newState
-            }
-            .share(replay: 1, scope: .forever)
+        self.state = collection.update(using: operation)
         // Dummy subscription to cache the latest state, when emitting operations without any subscribers
         self.state.subscribe().disposed(by: bag)
 	}
