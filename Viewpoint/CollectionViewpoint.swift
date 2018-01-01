@@ -29,10 +29,6 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
         static var initial: State {
             return State(collection: [], changedIndexes: IndexSet(), selectionIndexes: IndexSet())
         }
-
-        static func from(_ collection: [T]) -> State {
-            return State(collection: collection, changedIndexes: IndexSet(collection.indices), selectionIndexes: IndexSet())
-        }
     }
 
 	public enum SelectionAdjustment {
@@ -108,13 +104,9 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 	///
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
 	public init(_ collection: Observable<[T]>, objectGraph: ObjectGraph? = nil) {
-        let state = collection.map { State.from($0) }
-        let sourceUpdate = state.map { newState -> Operation<State>  in
+        let sourceUpdate = collection.map { collection -> Operation<State>  in
             return { oldState in
-                // TODO: Constraint selection indexes to collection size
-                return State(collection: newState.collection,
-                             changedIndexes: newState.changedIndexes,
-                             selectionIndexes: oldState.selectionIndexes)
+                return oldState.replacing(with: collection)
             }
         }
 

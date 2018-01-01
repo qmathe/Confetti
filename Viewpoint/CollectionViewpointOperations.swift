@@ -9,11 +9,18 @@ import Foundation
 import RxSwift
 import Tapestry
 
-fileprivate extension CollectionViewpoint.State {
+extension CollectionViewpoint.State {
 
     fileprivate typealias State = CollectionViewpoint.State
 
     // MARK: - Mutating State
+
+    func replacing(with collection: [T]) -> CollectionViewpoint.State {
+        // TODO: Constraint selection indexes to collection size
+        return State(collection: collection,
+                     changedIndexes: IndexSet(collection.indices),
+                     selectionIndexes: selectionIndexes)
+    }
 
     fileprivate func adding(_ element: T) -> State {
         let index = Int(collection.count)
