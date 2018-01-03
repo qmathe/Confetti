@@ -17,19 +17,55 @@ public protocol SelectionState: class {
     var selectionIndexes: Observable<IndexSet> { get }
 }
 
-open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionState {
+public protocol CreatableCollectionState: CreatableState where T == [E] {
+    associatedtype E: CreatableElement
+
+    var collection: [E] { get }
+    var changedIndexes: IndexSet { get }
+    var selectionIndexes: IndexSet { get }
+
+    init(collection: [E], changedIndexes: IndexSet, selectionIndexes: IndexSet)
+}
+
+public struct CollectionState<E: CreatableElement>: CreatableCollectionState {
+
+    public typealias T = [E]
+
+    public var value: [E] { return collection }
+    public let collection: [E]
+    public let changedIndexes: IndexSet
+    public let selectionIndexes: IndexSet
+
+    public init(collection: [E], changedIndexes: IndexSet, selectionIndexes: IndexSet) {
+        self.collection = collection
+        self.changedIndexes = changedIndexes
+        self.selectionIndexes = selectionIndexes
+    }
+
+    public init() {
+        self.init(collection: [], changedIndexes: IndexSet(), selectionIndexes: IndexSet())
+    }
+
+    public init(_ value: [E]) {
+        self.init(collection: value,
+                  changedIndexes: IndexSet(value.indices),
+                  selectionIndexes: IndexSet())
+    }
+
+    public func replacing(with value: [E]) -> CollectionState<E> {
+        // TODO: Constraint selection indexes to collection size
+        return CollectionState(collection: value,
+                               changedIndexes: IndexSet(value.indices),
+                               selectionIndexes: selectionIndexes)
+    }
+}
+
+open class CollectionViewpoint<State: CreatableCollectionState>: Presentation, SelectionState {
 
     // MARK: - Types
 
-    public struct State {
-        public let collection: [T]
-        public let changedIndexes: IndexSet
-        public let selectionIndexes: IndexSet
-
-        static var initial: State {
-            return State(collection: [], changedIndexes: IndexSet(), selectionIndexes: IndexSet())
-        }
-    }
+    public typealias E = State.E
+    public typealias T = State.T
 
 	public enum SelectionAdjustment {
 		case none
@@ -43,7 +79,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
     // MARK: - Content
 
     /// The presented collection.
-    public var collection: Observable<[T]> { return state.map { $0.collection } }
+    public var collection: Observable<T> { return state.map { $0.value } }
     public let operation = PublishSubject<Operation<State>>()
     private let state: Observable<State>
     
@@ -103,7 +139,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 	/// Initializes a new viewpoint to present the given collection.
 	///
 	/// The object graph argument can be omitted only when the viewpoint is passed to `run(...)`.
-	public init(_ collection: Observable<[T]>, objectGraph: ObjectGraph? = nil) {
+	public init(_ collection: Observable<T>, objectGraph: ObjectGraph? = nil) {
         let sourceUpdate = collection.map { collection -> Operation<State>  in
             return { oldState in
                 return oldState.replacing(with: collection)
@@ -111,7 +147,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
         }
 
 		self.objectGraph = objectGraph ?? ObjectGraph()
-        self.state = Observable<Operation<State>>.merge(operation, sourceUpdate).scan(State.initial) { oldState, operation in
+        self.state = Observable<Operation<State>>.merge(operation, sourceUpdate).scan(State()) { oldState, operation in
                 let newState = operation(oldState)
                 print("New state \(newState)")
                 return newState
@@ -147,7 +183,7 @@ open class CollectionViewpoint<T: CreatableElement>: Presentation, SelectionStat
 	/// By default, causes a fatal error.
 	///
 	/// You must never call this method directly.
-    open func generate(with collection: [T]) -> Item {
+    open func generate(with collection: T) -> Item {
 		fatalError("Must be overriden")
 	}
 }

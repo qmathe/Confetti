@@ -11,9 +11,10 @@ import RxSwift
 
 public protocol CreatableState {
     associatedtype T
+    var value: T { get }
     init()
     init(_ value: T)
-    var value: T { get }
+    func replacing(with value: T) -> Self
 }
 
 public struct State<T: Placeholder>: CreatableState {
@@ -28,6 +29,10 @@ public struct State<T: Placeholder>: CreatableState {
 
     public init(_ value: T) {
         self.value = value
+    }
+
+    public func replacing(with value: T) -> State<T> {
+        return State(value)
     }
 }
 

@@ -13,7 +13,7 @@ import Tapestry
 
 class TestCollectionViewpoint: XCTestCase {
 
-	var viewpoint = TestableCollectionViewpoint<String>(.just(["a", "b", "c"]))
+	var viewpoint = TestableCollectionViewpoint<CollectionState<String>>(.just(["a", "b", "c"]))
 
 	// MARK: - Generation
 
@@ -126,9 +126,9 @@ class TestCollectionViewpoint: XCTestCase {
 	}
 }
 
-class TestableCollectionViewpoint<T: CreatableElement>: CollectionViewpoint<T>, UI {
+class TestableCollectionViewpoint<State: CreatableCollectionState>: CollectionViewpoint<State>, UI {
 
-    override func generate(with collection: [T]) -> Item {
+    override func generate(with collection: T) -> Item {
 		return column(items: collection.map { self.label(extent: Extent(width: 100, height: 50), text: String(describing: $0)) })
 	}
 }

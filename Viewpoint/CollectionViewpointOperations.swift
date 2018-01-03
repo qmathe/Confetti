@@ -9,20 +9,13 @@ import Foundation
 import RxSwift
 import Tapestry
 
-extension CollectionViewpoint.State {
+extension CreatableCollectionState {
 
-    fileprivate typealias State = CollectionViewpoint.State
+    fileprivate typealias State = Self
 
     // MARK: - Mutating State
 
-    func replacing(with collection: [T]) -> CollectionViewpoint.State {
-        // TODO: Constraint selection indexes to collection size
-        return State(collection: collection,
-                     changedIndexes: IndexSet(collection.indices),
-                     selectionIndexes: selectionIndexes)
-    }
-
-    fileprivate func adding(_ element: T) -> State {
+    fileprivate func adding(_ element: E) -> State {
         let index = Int(collection.count)
 
         return State(collection: collection.appending(element),
@@ -66,8 +59,8 @@ public extension CollectionViewpoint {
 	
 	// MARK: - Mutating Collection
 	
-	public func createElement() -> T {
-		return T()
+	public func createElement() -> E {
+		return E()
 	}
 
     public func add() {
