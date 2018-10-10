@@ -901,6 +901,7 @@
 				6003FD101D4F6CB200EEF814 /* Sources */,
 				6003FD111D4F6CB200EEF814 /* Frameworks */,
 				6003FD121D4F6CB200EEF814 /* Resources */,
+				606D5D71216F4F84002EFC74 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -1268,7 +1269,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 		601F64201FE0922B0012EFA8 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1345,6 +1346,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		606D5D71216F4F84002EFC74 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/RxCocoa.framework",
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

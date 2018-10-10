@@ -6,6 +6,7 @@
 //  Copyright © 2016 Quentin Mathé. All rights reserved.
 //
 
+import RxSwift
 import Cocoa
 import Tapestry
 import Confetti
@@ -16,11 +17,11 @@ class ViewController: NSViewController {
     let ui = CustomUI()
 
 	override func viewDidLoad() {
-		let button = ui.button(frame: Rect(x: 0, y: 0, width: 100, height: 20), text: "OK")
+        let button = ui.button(extent: Extent(width: 100, height: 20), text: "OK", tap: { })
 		let item = ui.item(frame: Rect(x: 0, y: 0, width: 1000, height: 200))
 
-		button.render(renderer)
-		item.render(renderer)
+		_ = button.render(renderer)
+		_ = item.render(renderer)
 	}
 }
 
@@ -28,14 +29,16 @@ class ViewController: NSViewController {
 class CustomUI: UI {
 
 	var objectGraph: ObjectGraph = ObjectGraph()
+    let bag = DisposeBag()
 
 	func customUI() -> Item {
 		return item(
 			frame: Rect(x: 0, y: 0, width: 100, height: 20),
 			items: [
 				button(
-					frame: Rect(x: 0, y: 0, width: 100, height: 20),
-					 text: "OK"
+                    extent: Extent(width: 100, height: 20),
+                    text: "OK",
+                    tap: { }
 				)
 			])
 	}
