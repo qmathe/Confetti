@@ -15,7 +15,7 @@ open class ObjectGraph {
 
 open class UIObject {
 
-	open let objectGraph: ObjectGraph
+	public let objectGraph: ObjectGraph
 	
 	public init(objectGraph: ObjectGraph) {
 		self.objectGraph = objectGraph

@@ -24,7 +24,7 @@ extension Sequence where Iterator.Element : Equatable {
  */
 open class AppKitRenderer: Renderer {
 
-	open let destination: NSView?
+	public let destination: NSView?
 	internal var windows = [Item: NSWindow]()
 	internal var views = [Item: NSView]()
 	internal var startItem: Item?
@@ -240,11 +240,11 @@ internal func CGRectFromRect(_ rect: Rect) -> CGRect {
 }
 
 extension Point {
-	init(_ point: CGPoint) { x = point.x; y = point.y }
+    init(_ point: CGPoint) { self.init(x: point.x, y: point.y) }
 }
 
 extension CGPoint {
-	init(_ point: Point) { x = point.x; y = point.y }
+    init(_ point: Point) { self.init(x: point.x, y: point.y) }
 }
 
 // MARK: - Rendered Nodes

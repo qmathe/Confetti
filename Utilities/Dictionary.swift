@@ -31,10 +31,6 @@ extension Dictionary {
         return Dictionary(filter(includeElement))
     }
     
-    func reduce<U>(_ initial: U, combine: (U, Element) -> U) -> U {
-        return reduce(initial, combine: combine)
-    }
-    
 	subscript(keys: [Key]) -> [Value?] {
 		return keys.map { self[$0] }
 	}
