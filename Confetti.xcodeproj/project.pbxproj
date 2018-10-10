@@ -122,8 +122,6 @@
 		60BD0DAB1F0E5EF0006836D0 /* CollectionViewpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD0DAA1F0E5EF0006836D0 /* CollectionViewpoint.swift */; };
 		60BD0DAE1F0E82DC006836D0 /* Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD0DAD1F0E82DC006836D0 /* Presentation.swift */; };
 		60BD0DC51F0E9EFC006836D0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B8EE691EDE25BB0060B5F2 /* main.swift */; };
-		60BD0DD71F0FAC2B006836D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60BD0DD61F0FAC2B006836D0 /* Assets.xcassets */; };
-		60BD0DD81F0FAC2B006836D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60BD0DD61F0FAC2B006836D0 /* Assets.xcassets */; };
 		60BD0DDE1F0FACA2006836D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60BD0DD61F0FAC2B006836D0 /* Assets.xcassets */; };
 		60BEF41E1FCCD6650039E32E /* MapTouchesToIndexes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BEF4191FCCD6650039E32E /* MapTouchesToIndexes.swift */; };
 		60BEF41F1FCCD6650039E32E /* MapTouchesToIndexes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BEF4191FCCD6650039E32E /* MapTouchesToIndexes.swift */; };
@@ -144,10 +142,6 @@
 		60E773601F0FCBF900196D82 /* Confetti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60484F961D003DEB003972DA /* Confetti.framework */; };
 		60E773621F0FD03700196D82 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E773611F0FD03700196D82 /* App.swift */; };
 		60E773641F0FE07C00196D82 /* AppKitRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD0DB01F0E99FA006836D0 /* AppKitRunner.swift */; };
-		60E773811F128D9D00196D82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60E7737E1F128D9D00196D82 /* Assets.xcassets */; };
-		60E773821F128D9D00196D82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60E7737E1F128D9D00196D82 /* Assets.xcassets */; };
-		60E773831F128D9D00196D82 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60E7737F1F128D9D00196D82 /* Info.plist */; };
-		60E773841F128D9D00196D82 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60E7737F1F128D9D00196D82 /* Info.plist */; };
 		60E773901F128E0700196D82 /* Confetti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60484F961D003DEB003972DA /* Confetti.framework */; };
 		60E773911F128E2500196D82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60E7737E1F128D9D00196D82 /* Assets.xcassets */; };
 		60E773921F128E2500196D82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60E773871F128DA400196D82 /* Main.storyboard */; };
@@ -1206,9 +1200,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60E773811F128D9D00196D82 /* Assets.xcassets in Resources */,
-				60BD0DD71F0FAC2B006836D0 /* Assets.xcassets in Resources */,
-				60E773831F128D9D00196D82 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1223,9 +1214,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60E773821F128D9D00196D82 /* Assets.xcassets in Resources */,
-				60BD0DD81F0FAC2B006836D0 /* Assets.xcassets in Resources */,
-				60E773841F128D9D00196D82 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
